@@ -1,0 +1,19 @@
+view DateInput {
+  flexDirection: row
+}
+
+view DateInputGroup {
+  paddingRight: 10
+  flexGrow: 1
+  flexShrink: 1
+  flexBasis: 200
+  [@firstChild] {
+    flexShrink: 10
+    flexBasis: auto
+  }
+  [@lastChild] {
+    paddingRight: 0
+    flexShrink: 10
+        flexBasis: auto
+  }
+}

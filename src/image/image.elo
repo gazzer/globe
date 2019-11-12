@@ -1,0 +1,8 @@
+view Image {
+  __objectFit: contain
+  maxWidth: percentage(100)
+  width: $width
+  height: $height
+  maxHeight: $maxHeight
+  alignSelf: flexStart
+}

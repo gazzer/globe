@@ -1,0 +1,72 @@
+.SingleDatePickerInput {
+  border-radius: 7px;
+  border-color: rgb(220, 220, 220);
+  border-width: 2px;
+  border-style: solid;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.SingleDatePickerInput .DateInput,
+.SingleDatePickerInput input {
+  border-radius: 7px;
+  line-height: 1.2;
+  font-size: 18px;
+  font-weight: 400;
+  border: 0;
+  max-width: 100%;
+  align-self: stretch;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.SingleDatePicker_picker {
+  min-width: 335px;
+}
+.SingleDatePicker_picker > div {
+  min-width: 335px;
+}
+
+.SingleDatePickerInput input:disabled {
+  background-color: rgb(245, 245, 245);
+  font-style: normal;
+  cursor: not-allowed;
+}
+
+.SingleDatePickerInput input {
+  padding: 12px 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.SingleDatePickerInput:hover {
+  border-color: rgb(205, 205, 205);
+}
+
+.disabled .SingleDatePickerInput:hover {
+  border-color: rgb(220, 220, 220);
+}
+
+.focused .SingleDatePickerInput {
+  box-shadow: 0 0 6px rgba(0, 207, 192, 0.4);
+  border-color: rgba(0, 176, 164, 0.5);
+}
+
+.invalid .SingleDatePickerInput {
+  box-shadow: 0 0 6px rgba(220, 60, 110, 0.4);
+  border-color: rgba(209, 50, 90, 0.5);
+}
+
+.CalendarDay__selected,
+.CalendarDay__selected:active,
+.CalendarDay__selected:hover {
+  background-color: rgb(0, 176, 164);
+  border: 1px solid rgb(0, 176, 164);
+}
+
+.SingleDatePickerInput_clearDate__default {
+  line-height: 1;
+}

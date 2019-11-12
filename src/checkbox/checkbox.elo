@@ -1,0 +1,67 @@
+variant Validation {
+  Invalid
+  Valid
+}
+
+view Checkbox {
+  __WebkitAppearance: none
+  __MozAppearance: none
+  __appearance: none
+  __display: flex
+  __cursor: pointer
+  backgroundColor: rgb(255 255 255)
+  alignSelf: flexStart
+  position: relative
+    borderColor: rgb(200 200 200)
+  borderWidth: 2
+  borderStyle: solid
+  borderRadius: 7
+  alignItems: center
+  justifyContent: center
+  width: 28
+  height: 28
+  [@focus] {
+    borderColor: rgb(0 176 164)
+  }
+  [@hover] {
+    borderColor: rgb(190 190 190)
+  }
+  [@checked] {
+    [@before] {
+      __transform: raw("translateY(-2px) rotate(45deg)")
+      __display: block
+      __content: raw("''")
+      __filter: raw("drop-shadow(0 0px 6px rgba(0, 207, 192, 0.7))")
+      __borderRight: raw("3px solid rgb(0, 176, 164)")
+      __borderBottom: raw("3px solid rgb(0, 176, 164)")
+      width: 7
+      height: 12
+      position: absolute
+    }
+    [@active] {
+      [@before] {
+        width: 6 
+        height: 11
+      }
+    }
+  }
+  [@disabled] {
+    __cursor: notAllowed
+    backgroundColor: rgb(230 230 230)
+        [@hover] {
+      borderColor: rgb(200 200 200)
+    }
+    [@checked] {
+      [@before] {
+        __borderRight: raw("3px solid rgb(150,150,150)")
+        __borderBottom: raw("3px solid rgb(150,150,150)")
+        __filter: none
+      }
+    }
+  }
+  [Validation=Invalid] {
+    __boxShadow: raw("0 0 6px rgba(220, 60, 110, 0.4)")
+    borderColor: rgba(209 50 90 percentage(50))
+    backgroundColor: rgb(255 250 250)
+  }
+}

@@ -1,0 +1,272 @@
+variant Variant {
+  Primary
+  Destructive
+}
+
+variant Intent {
+  Inline
+  Outline
+  Text
+  Block
+}
+
+variant Size {
+  Small
+  Normal
+  Big
+}
+
+view Button {
+  __display: inlineFlex
+  __WebkitUserSelect: none
+  __MozUserSelect: none
+  __userSelect: none
+  __WebkitAppearance: none
+  __MozAppearance: none
+  __appearance: none
+  __borderWidth: 0
+  __cursor: pointer
+  __transition: raw("200ms background-color ease-in-out")
+  flexDirection: row
+  flexGrow: 1
+  paddingTop: 9
+  paddingBottom: 9
+  paddingLeft: 20
+  paddingRight: 20
+  alignItems: center
+  justifyContent: center
+  borderRadius: 7
+  [@disabled] {
+    __boxShadow: none
+    __cursor: notAllowed
+    [@hover] {
+      __boxShadow: none
+    }
+  }
+  [Variant=Primary] {
+    [@focus] {
+      __boxShadow: raw("0 0 0 2pt rgb(60, 206, 194)")
+    }
+  }
+  [Variant=Destructive] {
+    [@focus] {
+      __boxShadow: raw("0 0 0 2pt rgb(229 80 120)")
+    }
+  }
+  [Intent=Block] {
+    [@disabled] {
+      backgroundColor: rgb(190 190 190)
+      [@hover] {
+        backgroundColor: rgb(190 190 190)
+      }
+      [@active] {
+        backgroundColor: rgb(190 190 190)
+      }
+    }
+    [Variant=Primary] {
+      __boxShadow: raw("0 4px 12px rgba(0, 207, 192, 0.4)")
+      backgroundColor: rgb(0 176 164)
+      [@hover] {
+        __boxShadow: raw("0 6px 20px rgba(0, 207, 192, 0.2)")
+        backgroundColor: rgb(0 166 154)
+      }
+      [@active] {
+        backgroundColor: rgb(0 156 144)
+      }
+    }
+    [Variant=Destructive] {
+      __boxShadow: raw("0 4px 12px rgba(220, 60, 110, 0.4)")
+      backgroundColor: rgb(209 50 90)
+      [@hover] {
+        __boxShadow: raw("0 6px 20px rgba(220, 60, 110, 0.2)")
+        backgroundColor: rgb(200 40 80)
+      }
+      [@active] {
+        backgroundColor: rgb(190 30 70)
+      }
+    }
+  }
+  [Intent=Inline] {
+    __boxShadow: none
+    borderRadius: 0
+    [@hover] {
+      __boxShadow: none
+    }
+    [@disabled] {
+      backgroundColor: rgb(190 190 190)
+      [@hover] {
+        backgroundColor: rgb(190 190 190)
+      }
+      [@active] {
+        backgroundColor: rgb(190 190 190)
+      }
+    }
+    [Variant=Primary] {
+      backgroundColor: rgb(0 176 164)
+      [@hover] {
+        backgroundColor: rgb(0 166 154)
+      }
+      [@active] {
+        backgroundColor: rgb(0 156 144)
+      }
+    }
+    [Variant=Destructive] {
+      backgroundColor: rgb(209 50 90)
+      [@hover] {
+        backgroundColor: rgb(200 40 80)
+      }
+      [@active] {
+        backgroundColor: rgb(190 30 70)
+      }
+    }
+  }
+  [Intent=Outline] {
+    __boxShadow: none
+    backgroundColor: raw("transparent")
+    borderWidth: 2
+    borderStyle: solid
+    paddingTop: 7
+    paddingBottom: 7
+    paddingLeft: 18
+    paddingRight: 18
+    [@disabled] {
+      borderColor: rgb(190 190 190)
+      [@hover] {
+        borderColor: rgb(190 190 190)
+        backgroundColor: raw("transparent")
+      }
+      [@active] {
+        borderColor: rgb(190 190 190)
+        backgroundColor: raw("transparent")
+      }
+    }
+    [@active] {
+      borderColor: rgb(0 156 144)
+    }
+    [Variant=Primary] {
+      borderColor: rgb(0 176 164)
+      [@hover] {
+        borderColor: rgb(0 166 154)
+        backgroundColor: rgb(0 166 154)
+      }
+      [@active] {
+        borderColor: rgb(0 166 154)
+        backgroundColor: rgb(0 156 144)
+      }
+    }
+    [Variant=Destructive] {
+      borderColor: rgb(209 50 90)
+      [@hover] {
+        borderColor: rgb(200 40 80)
+        backgroundColor: rgb(200 40 80)
+      }
+      [@active] {
+        borderColor: rgb(190 30 70)
+        backgroundColor: rgb(200 40 80)
+      }
+    }
+  }
+  [Intent=Text] {
+    __boxShadow: none
+    backgroundColor: raw("transparent")
+    borderWidth: 0
+    [Variant=Primary] {
+      [@hover] {
+        __boxShadow: none
+        backgroundColor: rgba(0 176 164 percentage(5))
+      }
+      [@active] {
+        __boxShadow: none
+        backgroundColor: rgba(0 176 164 percentage(8))
+      }
+    }
+    [Variant=Destructive] {
+      [@hover] {
+        __boxShadow: none
+        backgroundColor: rgba(209 50 90 percentage(5))
+      }
+      [@active] {
+        __boxShadow: none
+        backgroundColor: rgba(209 50 90 percentage(8))
+      }
+    }
+    [@disabled] {
+      [@hover] {
+        backgroundColor: raw("transparent")
+      }
+      [@active] {
+        backgroundColor: raw("transparent")
+      }
+    }
+  }
+}
+
+text ButtonText {
+  fontSize: 18
+  lineHeight: 1.5
+  color: rgb(255 255 255)
+  textAlign: center
+  letterSpacing: -.1
+  textDecorationLine: none
+  [@disabled] {
+    color: rgb(240 240 240)
+  }
+  [Size=Small] {
+    fontSize: 16
+  }
+  [Size=Big] {
+    fontSize: 20
+  }
+  [Intent=Outline] {
+    [@disabled] {
+      color: rgb(190 190 190)
+      [@hover] {
+        color: rgb(190 190 190)
+      }
+      [@active] {
+        color: rgb(190 190 190)
+      }
+    }
+    [@hover] {
+      color: white
+    }
+    [@active] {
+      color: white
+    }
+    [Variant=Primary] {
+      color: rgb(0 176 164)
+    }
+    [Variant=Destructive] {
+      color: rgb(209 50 90)
+    }
+  }
+  [Intent=Text] {
+    [@disabled] {
+      color: rgb(190 190 190)
+      [@hover] {
+        color: rgb(190 190 190)
+      }
+      [@active] {
+        color: rgb(190 190 190)
+      }
+    }
+    [Variant=Primary] {
+      color: rgb(0 176 164)
+      [@hover] {
+        color: rgb(0 166 154)
+      }
+      [@active] {
+        color: rgb(0 156 144)
+      }
+    }
+    [Variant=Destructive] {
+      color: rgb(209 50 90)
+      [@hover] {
+        color: rgb(200 40 80)
+      }
+      [@active] {
+        color: rgb(190 30 70)
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+view Radio {
+  __WebkitAppearance: none
+  __MozAppearance: none
+  __appearance: none
+  __cursor: pointer
+    borderColor: rgb(200 200 200)
+  backgroundColor: rgb(255 255 255)
+  alignSelf: flexStart
+  borderWidth: 2
+  borderStyle: solid
+  borderRadius: 28
+  width: 28
+  height: 28
+  alignItems: center
+  justifyContent: center
+  position: relative
+  [@focus] {
+    borderColor: rgb(0 176 164)
+  }
+  [@hover] {
+    borderColor: rgb(190 190 190)
+  }
+  [@checked] {
+    [@before] {
+      __boxShadow: raw("0 0px 6px rgba(0, 207, 192, 0.7)")
+      __display: block
+      __content: raw("''")
+      width: 16
+      height: 16
+      position: absolute
+      backgroundColor: rgb(0 176 164)
+      borderRadius: 50
+    }
+        [@active] {
+             [@before] {
+        width: 15
+        height: 15
+
+      }
+        }
+  }
+
+  [@disabled] {
+    __cursor: notAllowed
+    backgroundColor: rgb(230 230 230)
+            [@hover] {
+      borderColor: rgb(200 200 200)
+    }
+    [@checked] {
+      [@before] {
+        __boxShadow: none
+        backgroundColor: rgb(150 150 150)
+      }
+    }
+  }
+}

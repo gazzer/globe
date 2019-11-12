@@ -1,0 +1,10 @@
+view Container {
+  flexDirection: row
+  flexShrink: 1
+}
+
+view Input {
+  flexGrow: 1
+  flexShrink: 1
+  flexBasis: percentage(50)
+}

@@ -1,0 +1,35 @@
+variant Mode {
+  Collapsed
+}
+
+view Trigger {
+  __cursor: pointer
+  flexDirection: row
+  justifyContent: spaceBetween
+  alignItems: center
+  padding: 10
+  borderWidth: 0
+  borderBottomWidth: 2
+  borderBottomColor: rgb(200 200 200)
+  borderStyle: solid
+}
+
+text TriggerText {
+  __WebkitUserSelect: none
+  __MozUserSelect: none
+  __userSelect: none
+  color: rgb(100 100 100)
+  fontSize: 16
+}
+
+text Arrow {
+  color: rgb(200 200 200)
+}
+
+view Body {
+  __overflow: hidden
+  __transition: raw("all 100ms linear")
+  [Mode=Collapsed] {
+    height: 0
+  }
+}

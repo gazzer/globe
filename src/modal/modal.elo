@@ -1,0 +1,19 @@
+view Modal {
+  __position: fixed
+  __zIndex: 1000
+  justifyContent: center
+  alignItems: center
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  backgroundColor: rgba(0 0 0 percentage(30))
+}
+
+view ModalInner {
+  alignSelf: center
+  justifyContent: center
+  alignItems: center
+  flexShrink: 1
+  flexGrow: 0
+}

@@ -1,0 +1,31 @@
+view Suggestion {
+  __cursor: pointer
+  flexShrink: 0
+  width: percentage(100)
+  paddingLeft: 16
+  paddingRight: 16
+  paddingTop: 12
+  paddingBottom: 12
+  borderTopWidth: 0
+  borderRightWidth: 0
+  borderLeftWidth: 0
+  borderBottomWidth: 2
+  borderColor: rgb(220 220 220)
+  borderStyle: solid
+  [@lastChild] {
+    borderBottomWidth: 0
+  }
+}
+
+view SuggestionContainer {
+  __overflow: auto
+  # __zIndex: 100
+  # position: absolute
+  # marginTop: 47
+  borderBottomLeftRadius: 7
+  borderBottomRightRadius: 7
+  backgroundColor: white
+  borderWidth: 2
+  borderColor: rgb(220 220 220)
+  borderStyle: solid
+}

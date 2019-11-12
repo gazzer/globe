@@ -1,0 +1,14 @@
+.merlin
+.bsb.lock
+*.bs.js
+*.elo.js
+*.elo.css
+*Style.re
+.graphql_ppx_cache/
+.DS_Store
+
+.next
+node_modules
+lib
+es
+public

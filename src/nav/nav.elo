@@ -1,0 +1,9 @@
+view Nav {
+  __overflowY: hidden
+  __overflowX: auto
+  flexDirection: row
+}
+
+view Container {
+  backgroundColor: $theme_colors_primary
+}

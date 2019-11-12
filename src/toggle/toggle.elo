@@ -1,0 +1,74 @@
+variant Status {
+  On
+  Off
+}
+
+view Toggle {
+  __outline: 0
+  __WebkitAppearance: none
+  __MozAppearance: none
+  __appearance: none
+  __cursor: pointer
+  __transition: raw("background-color 300ms cubic-bezier(0.230, 1.000, 0.320, 1.000)")
+  __display: inlineBlock
+  __verticalAlign: middle
+  width: 50
+  height: 30
+  position: relative
+  alignSelf: flexStart
+  borderWidth: 2
+  borderStyle: solid
+  borderRadius: 50
+    borderColor: rgb(200 200 200)
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  padding: 0
+  [@focus] {
+    borderColor: rgb(0 176 164)
+  }
+  [@hover] {
+    borderColor: rgb(190 190 190)
+  }
+  [@checked] {
+    backgroundColor: rgba(0 176 164 percentage(20))
+    [@after] {
+      __boxShadow: raw("0 0px 6px rgba(0, 207, 192, 0.7)")
+      backgroundColor: rgb(0 176 164)
+    }
+  }
+
+  [@after] {
+    __transition: raw("all 300ms cubic-bezier(0.230, 1.000, 0.320, 1.000)")
+    __boxShadow: raw("0 0px 6px rgba(200, 200, 200, 0.7)")
+    __content: raw("''")
+    position: absolute
+    bottom: 1
+    left: 1
+    width: 24
+    height: 24
+    borderRadius: 24
+    backgroundColor: rgb(180 180 180)
+  }
+  [@disabled] {
+    __cursor: notAllowed
+    backgroundColor: rgb(230 230 230)
+            [@hover] {
+      borderColor: rgb(200 200 200)
+    }
+    [@checked] {
+      backgroundColor: rgb(215 215 215)
+    }
+    [@after] {
+      __boxShadow: raw("0 0 0 white")
+      backgroundColor: rgb(150 150 150)
+    }
+  }
+  [Status=On] {
+
+    [@after] {
+      __transform: raw("translateX(20px)")
+    }
+  }
+}

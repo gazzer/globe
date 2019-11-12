@@ -1,0 +1,19 @@
+variant Layout {
+  Left
+  Right
+  Center
+  Spread
+}
+
+view TabNav {
+  __overflowY: hidden
+  __overflowX: auto
+  flexDirection: row
+  justifyContent: center
+  [Layout=Left] {
+    justifyContent: flexStart
+  }
+  [Layout=Right] {
+    justifyContent: flexEnd
+  }
+}

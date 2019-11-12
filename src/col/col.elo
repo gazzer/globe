@@ -1,0 +1,11 @@
+view Col {
+  flexBasis: percentage(100)
+  maxWidth: percentage(100)
+
+  paddingLeft: 16
+  paddingRight: 16
+  [@viewportWidth>=1024] {
+    flexBasis: $width
+    maxWidth: $width
+  }
+}

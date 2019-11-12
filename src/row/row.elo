@@ -1,0 +1,32 @@
+variant Align {
+  End
+  Start
+  Center
+}
+
+view Row {
+  flexWrap: wrap
+  flexShrink: 0
+  maxWidth: raw("inherit")
+  marginLeft: -16
+  marginRight: -16
+  [Align=Center] {
+    alignItems: center
+    [@viewportWidth>=1024] {
+      justifyContent: center
+    }
+  }
+  [Align=Start] {
+    [@viewportWidth>=1024] {
+      justifyContent: flexStart
+    }
+  }
+  [Align=End] {
+    [@viewportWidth>=1024] {
+      justifyContent: flexEnd
+    }
+  }
+  [@viewportWidth>=1024] {
+    flexDirection: row
+  }
+}

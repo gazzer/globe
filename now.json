@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "name": "globe.gazzer",
+  "alias": "globe.gazzer.io",
+  "builds": [{ "src": "next.config.js", "use": "@now/next" }]
+}

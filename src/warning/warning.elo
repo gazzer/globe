@@ -1,0 +1,14 @@
+view Warning {
+  __WebkitUserSelect: none
+  __MozUserSelect: none
+  __userSelect: none
+  flexShrink: 1
+  alignSelf: auto
+  paddingLeft: 4
+}
+
+text WarningText {
+  color: rgb(209 50 90)
+  lineHeight: 1.1
+  fontSize: 16
+}

@@ -1,0 +1,15 @@
+view Container {
+  flexDirection: column
+  flexGrow: 1
+  flexShrink: 1
+  [@viewportWidth>=550] {
+    flexDirection: row
+  }
+}
+
+view TimeInput {
+  [@viewportWidth>=550] {
+    flexGrow: 0
+    flexBasis: 220
+  }
+}

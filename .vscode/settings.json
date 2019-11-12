@@ -1,0 +1,17 @@
+{
+  "files.exclude": {
+    "node_modules/bs-platform/esy.lock/**/*": false,
+    "**/.merlin": true,
+    "**/.bsb.lock": true,
+    "**/*.bs.js": true,
+    "**/*.elo.js": true,
+    "**/*.elo.css": true,
+    // "**/*Style.re": true,
+    "**/.DS_Store": true,
+    "**/.next": true,
+    "**/node_modules": true,
+    "**/lib": true,
+    "**/es": true,
+    "**/public": true
+  }
+}
