@@ -6,6 +6,7 @@
 *Style.re
 .graphql_ppx_cache/
 .DS_Store
+.log
 
 .next
 node_modules
