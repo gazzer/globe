@@ -4,8 +4,8 @@ variant Status {
 }
 
 variant Layout {
-  Left
-  Right
+  Start
+  End
   Center
   Spread
 }

@@ -1,8 +1,8 @@
 let layout = {
   "Spread": TabNavStyle.layoutToJs(TabNavStyle.Spread),
   "Center": TabNavStyle.layoutToJs(TabNavStyle.Center),
-  "Left": TabNavStyle.layoutToJs(TabNavStyle.Left),
-  "Right": TabNavStyle.layoutToJs(TabNavStyle.Right),
+  "Start": TabNavStyle.layoutToJs(TabNavStyle.Start),
+  "End": TabNavStyle.layoutToJs(TabNavStyle.End_),
 };
 
 [@react.component]
@@ -13,8 +13,8 @@ let make = (~children, ~onChange, ~style=?, ~layout=TabNavStyle.Center) => {
     switch (layout) {
     | Spread => TabNavItemStyle.Spread
     | Center => TabNavItemStyle.Center
-    | Left => TabNavItemStyle.Left
-    | Right => TabNavItemStyle.Right
+    | Start => TabNavItemStyle.Start
+    | End_ => TabNavItemStyle.End_
     };
 
   let context: TabNavContext.context = {onChange, layout: childLayout};

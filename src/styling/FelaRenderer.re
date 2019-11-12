@@ -58,7 +58,13 @@ let staticStyles = [|
 
 let make = (~staticStyle=?, ()) => {
   let renderer =
-    Renderer.make(RendererConfig.make(~plugins=Presets.web, ~devMode, ()));
+    Renderer.make(
+      RendererConfig.make(
+        ~plugins=Presets.web->Belt.Array.concat([|Plugins.rtl("ltr")|]),
+        ~devMode,
+        (),
+      ),
+    );
 
   staticStyles
   ->Belt.Array.concat(resolveOption(staticStyle, s => s, [||]))

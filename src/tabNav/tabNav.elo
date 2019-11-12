@@ -1,6 +1,6 @@
 variant Layout {
-  Left
-  Right
+  Start
+  End
   Center
   Spread
 }
@@ -10,10 +10,10 @@ view TabNav {
   __overflowX: auto
   flexDirection: row
   justifyContent: center
-  [Layout=Left] {
+  [Layout=Start] {
     justifyContent: flexStart
   }
-  [Layout=Right] {
+  [Layout=End] {
     justifyContent: flexEnd
   }
 }
