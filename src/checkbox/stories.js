@@ -23,44 +23,60 @@ storiesOf('Forms/Checkbox', module)
 
     return <InputWithValue />
   })
-  .add('Disabled', () => (
-    <Wrapper>
-      <Separator>
-        <Checkbox disabled checked={true} />
-      </Separator>
-      <Separator>
-        <Checkbox disabled checked={false} />
-      </Separator>
-    </Wrapper>
-  ))
   .add('Labeled', () => {
     const InputWithValue = () => {
       const [value, setValue] = useState(true)
       const [value2, setValue2] = useState(false)
-      const ref = React.useRef()
 
       return (
         <Wrapper>
-          <Separator style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Separator>
             <Checkbox
-              ref={ref}
               name="agb"
               checked={value}
               onChange={() => setValue(!value)}
+              label="Accept AGB"
             />
-            <Label pointer htmlFor="agb">
-              Accept AGB
-            </Label>
           </Separator>
-          <Separator style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Separator>
             <Checkbox
               name="newsletter"
               checked={value2}
               onChange={() => setValue2(!value2)}
+              label="Subscribe Newsletter"
             />
-            <Label pointer htmlFor="newsletter">
-              Subscribe Newsletter
-            </Label>
+          </Separator>
+        </Wrapper>
+      )
+    }
+
+    return <InputWithValue />
+  })
+  .add('Disabled', () => (
+    <Wrapper>
+      <Separator>
+        <Checkbox label="Accept AGB" disabled checked={true} />
+      </Separator>
+      <Separator>
+        <Checkbox label="Subscribe Newsletter" disabled checked={false} />
+      </Separator>
+    </Wrapper>
+  ))
+  .add('Validation', () => {
+    const InputWithValue = () => {
+      const [value, setValue] = useState(false)
+
+      return (
+        <Wrapper>
+          <Separator>
+            <Checkbox
+              name="agb"
+              checked={value}
+              onChange={() => setValue(!value)}
+              label="Accept AGB"
+              error={!value ? 'You need to accept the AGBs.' : null}
+              isValid={value}
+            />
           </Separator>
         </Wrapper>
       )

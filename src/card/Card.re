@@ -1,4 +1,5 @@
-open Utils;
+open ReactUtils;
+open OptionUtils;
 
 let elevation = {
   "Minimal": CardStyle.elevationToJs(CardStyle.Minimal),

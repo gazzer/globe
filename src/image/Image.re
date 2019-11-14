@@ -1,15 +1,20 @@
+open ReactUtils;
+open OptionUtils;
+
 [@react.component]
 let make =
     (~src, ~height, ~extend=?, ~maxHeight=height, ~width, ~alt=?, ~style=?) => {
-  let css = ReactFela.useFela2();
+  let css = ReactFela.useFela();
 
   <img
     src
     ?alt
     ?style
     className={css(
-      ImageStyle.image(~height, ~width, ~maxHeight, ()),
-      extend,
+      collapseOption([
+        Some(ImageStyle.image(~height, ~width, ~maxHeight, ())),
+        extend,
+      ]),
     )}
   />;
 };

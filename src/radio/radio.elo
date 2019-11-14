@@ -3,7 +3,7 @@ view Radio {
   __MozAppearance: none
   __appearance: none
   __cursor: pointer
-    borderColor: rgb(200 200 200)
+  borderColor: rgb(200 200 200)
   backgroundColor: rgb(255 255 255)
   alignSelf: flexStart
   borderWidth: 2
@@ -14,42 +14,62 @@ view Radio {
   alignItems: center
   justifyContent: center
   position: relative
-  [@focus] {
-    borderColor: rgb(0 176 164)
-  }
-  [@hover] {
-    borderColor: rgb(190 190 190)
-  }
-  [@checked] {
-    [@before] {
-      __boxShadow: raw("0 0px 6px rgba(0, 207, 192, 0.7)")
-      __display: block
-      __content: raw("''")
-      width: 16
-      height: 16
-      position: absolute
-      backgroundColor: rgb(0 176 164)
-      borderRadius: 50
+  [@enabled] {
+    [@focus] {
+      borderColor: rgb(0 176 164)
     }
-        [@active] {
-             [@before] {
+    [@hover] {
+      [@before] {
+        __display: block
+        __content: raw("''")
+        width: 16
+        height: 16
+        position: absolute
+        backgroundColor: rgb(220 220 220)
+        borderRadius: 50
+      }
+    }
+    [@active] {
+      [@before] {
         width: 15
         height: 15
-
       }
+    }
+    [@checked] {
+      [@before] {
+        __boxShadow: raw("0 0px 6px rgba(0, 207, 192, 0.7)")
+        __display: block
+        __content: raw("''")
+        width: 16
+        height: 16
+        position: absolute
+        backgroundColor: rgb(0 176 164)
+        borderRadius: 50
+      }
+      [@active] {
+        [@before] {
+          width: 15
+          height: 15
         }
+      }
+    }
   }
-
   [@disabled] {
     __cursor: notAllowed
-    backgroundColor: rgb(230 230 230)
-            [@hover] {
+    backgroundColor: rgb(245 245 245)
+    [@hover] {
       borderColor: rgb(200 200 200)
     }
     [@checked] {
       [@before] {
         __boxShadow: none
+        __display: block
+        __content: raw("''")
+        width: 16
+        height: 16
+        position: absolute
         backgroundColor: rgb(150 150 150)
+        borderRadius: 50
       }
     }
   }

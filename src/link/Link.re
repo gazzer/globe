@@ -1,4 +1,4 @@
-open Utils;
+open ReactUtils;
 
 [@react.component]
 let make =

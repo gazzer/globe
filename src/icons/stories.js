@@ -1,10 +1,10 @@
-import React, { createElement } from 'react'
-import { storiesOf } from '@storybook/react'
+import React, { createElement } from "react";
+import { storiesOf } from "@storybook/react";
 
-import Icons from './'
+import Icons from "./";
 
-import Wrapper from '../../stories/Wrapper'
-import Separator from '../../stories/Separator'
+import Wrapper from "../../stories/Wrapper";
+import Separator from "../../stories/Separator";
 
 const Icon = ({ type }) => (
   <div
@@ -12,23 +12,24 @@ const Icon = ({ type }) => (
       width: 150,
       padding: 5,
       marginBottom: 20,
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}>
+      alignItems: "center",
+      justifyContent: "center"
+    }}
+  >
     {createElement(Icons[type], {
       style: {
         fontSize: 28,
-        alignSelf: 'center',
-        marginBottom: 5,
-      },
+        alignSelf: "center",
+        marginBottom: 5
+      }
     })}
-    <div style={{ textAlign: 'center' }}>{type}</div>
+    <div style={{ textAlign: "center" }}>{type}</div>
   </div>
-)
+);
 
-storiesOf('Core/Icons', module).add('Default', () => (
+storiesOf("Core/Icons", module).add("Default", () => (
   <Separator>
-    <div style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+    <div style={{ flexDirection: "row", flexWrap: "wrap" }}>
       <Icon type="address" />
       <Icon type="adjust" />
       <Icon type="air" />
@@ -124,6 +125,7 @@ storiesOf('Core/Icons', module).add('Default', () => (
       <Icon type="fastBackward" />
       <Icon type="fastForward" />
       <Icon type="feather" />
+      <Icon type="filter" />
       <Icon type="flag" />
       <Icon type="flash" />
       <Icon type="flashlight" />
@@ -315,4 +317,4 @@ storiesOf('Core/Icons', module).add('Default', () => (
       <Icon type="window" />
     </div>
   </Separator>
-))
+));

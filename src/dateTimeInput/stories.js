@@ -35,11 +35,51 @@ storiesOf('Forms/DateTimeInput', module)
       return (
         <Wrapper>
           <Separator>
-            <Label htmlFor="startDateTime">Start Date Time:</Label>
             <DateTimeInput
+              label="Start Date Time"
               name="startDateTime"
               value={value}
               onChange={setValue}
+            />
+          </Separator>
+        </Wrapper>
+      )
+    }
+
+    return <DateTimeInputWithValue />
+  })
+
+  .add('Disabled', () => (
+    <Wrapper>
+      <Separator>
+        <DateTimeInput
+          value={[2019, 10, 20, 10, 30]}
+          disabled
+          label="Start Date Time"
+          name="startDateTime"
+        />
+      </Separator>
+    </Wrapper>
+  ))
+
+  .add('Validation', () => {
+    const DateTimeInputWithValue = () => {
+      const [value, setValue] = useState({})
+      const [isValid, setValid] = useState(false)
+
+      return (
+        <Wrapper>
+          <Separator>
+            <DateTimeInput
+              label="Start Date Time"
+              name="startDateTime"
+              isValid={isValid}
+              error={isValid ? null : 'Please enter a valid start date.'}
+              value={value}
+              onChange={newVal => {
+                setValue(newVal)
+                setValid(newVal.filter(val => val !== undefined).length === 5)
+              }}
             />
           </Separator>
         </Wrapper>

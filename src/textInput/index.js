@@ -1,7 +1,3 @@
-import React, { forwardRef } from 'react'
+import { make as TextInput } from './TextInput.bs.js'
 
-import { make as BaseTextInput } from './TextInput.bs.js'
-
-export default forwardRef(({ type, ...props }, ref) => (
-  <BaseTextInput {...props} type_={type} ref={ref} />
-))
+export default TextInput

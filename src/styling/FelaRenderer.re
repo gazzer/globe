@@ -1,8 +1,10 @@
 open Fela;
-open Utils;
+open ReactUtils;
 
 let devMode: bool = [%bs.raw {| process.env.NODE_ENV !== "production" |}];
 let systemFonts = "system-ui, -apple-system, BlinkMacSystemFont, Segeo UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, Arial, sans-serif";
+
+[@bs.module "../themes/gazzer.js"] external theme: Js.t('a) = "default";
 
 let staticStyles = [|
   ("*", style({"margin": 0, "padding": 0})),
@@ -56,21 +58,21 @@ let staticStyles = [|
   ),
 |];
 
-let make = (~staticStyle=?, ()) => {
+let make = () => {
   let renderer =
     Renderer.make(
       RendererConfig.make(
-        ~plugins=Presets.web->Belt.Array.concat([|Plugins.rtl("ltr")|]),
+        ~plugins=
+          [|Plugins.namedKeys(theme##breakpoints), Plugins.rtl("ltr")|]
+          ->Belt.Array.concat(Presets.web),
         ~devMode,
         (),
       ),
     );
 
-  staticStyles
-  ->Belt.Array.concat(resolveOption(staticStyle, s => s, [||]))
-  ->Belt.Array.map(((selector, style)) =>
-      renderer##renderStatic(style, selector)
-    );
+  staticStyles->Belt.Array.map(((selector, style)) =>
+    renderer##renderStatic(style, selector)
+  );
 
   renderer;
 };

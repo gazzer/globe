@@ -9,10 +9,10 @@ view Checkbox {
   __appearance: none
   __display: flex
   __cursor: pointer
-  backgroundColor: rgb(255 255 255)
+  backgroundColor: white
   alignSelf: flexStart
   position: relative
-    borderColor: rgb(200 200 200)
+  borderColor: $theme_colors_border
   borderWidth: 2
   borderStyle: solid
   borderRadius: 7
@@ -20,11 +20,28 @@ view Checkbox {
   justifyContent: center
   width: 28
   height: 28
-  [@focus] {
-    borderColor: rgb(0 176 164)
-  }
-  [@hover] {
-    borderColor: rgb(190 190 190)
+  [@enabled] {
+    [@focus] {
+      borderColor: $theme_colors_primary
+    }
+    [@hover] {
+      [@before] {
+        __transform: raw("translateY(-2px) rotate(45deg)")
+        __display: block
+        __content: raw("''")
+        __borderRight: raw("3px solid rgb(220, 220, 220)")
+        __borderBottom: raw("3px solid rgb(220, 220, 220)")
+        width: 7
+        height: 12
+        position: absolute
+      }
+    }
+    [@active] {
+      [@before] {
+        width: 6
+        height: 11
+      }
+    }
   }
   [@checked] {
     [@before] {
@@ -38,19 +55,16 @@ view Checkbox {
       height: 12
       position: absolute
     }
-    [@active] {
+    [@hover] {
       [@before] {
-        width: 6 
-        height: 11
+        __borderRight: raw("3px solid rgb(0, 176, 164)")
+        __borderBottom: raw("3px solid rgb(0, 176, 164)")
       }
     }
   }
   [@disabled] {
     __cursor: notAllowed
-    backgroundColor: rgb(230 230 230)
-        [@hover] {
-      borderColor: rgb(200 200 200)
-    }
+    backgroundColor: rgb(245 245 245)
     [@checked] {
       [@before] {
         __borderRight: raw("3px solid rgb(150,150,150)")
@@ -61,6 +75,7 @@ view Checkbox {
   }
   [Validation=Invalid] {
     __boxShadow: raw("0 0 6px rgba(220, 60, 110, 0.4)")
+    # TODO: use theme value
     borderColor: rgba(209 50 90 percentage(50))
     backgroundColor: rgb(255 250 250)
   }

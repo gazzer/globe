@@ -1,7 +1,7 @@
-var createGenerator = require("./generator/out/createGenerator").default
-var replaceVariable = require("@elodin/plugin-replace-variable").default
+var createGenerator = require('./generator/out/createGenerator').default
+var replaceVariable = require('@elodin/plugin-replace-variable').default
 
-var gazzerTheme = require("./src/themes/gazzer")
+var gazzerTheme = require('./src/themes/gazzer')
 
 module.exports = {
   plugins: [
@@ -9,14 +9,14 @@ module.exports = {
       variables: { theme: gazzerTheme },
       selector: (vars, prop) =>
         prop
-          .split("_")
+          .split('_')
           .reduce((out, sub) => (out ? out[sub] : undefined), vars),
     }),
   ],
   generator: createGenerator({
-    devMode: process.env.NODE_ENV !== "production",
-    extractCss: false,
-    viewBaseClassName: "_v",
-    textBaseClassName: "_t",
+    devMode: process.env.NODE_ENV !== 'production',
+    extractCSS: false,
+    viewBaseClassName: '_v',
+    textBaseClassName: '_t',
   }),
 }

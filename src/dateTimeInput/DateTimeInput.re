@@ -1,19 +1,19 @@
 open MomentRe;
 open Js.Date;
-open Utils;
+open ReactUtils;
 
 type dateTime = {
-  day: option(int),
-  month: option(int),
   year: option(int),
+  month: option(int),
+  day: option(int),
   hours: option(int),
   minutes: option(int),
 };
 
 let defaultDateTime = {
-  day: None,
-  month: None,
   year: None,
+  month: None,
+  day: None,
   hours: None,
   minutes: None,
 };
@@ -30,6 +30,8 @@ let make =
       ~required=?,
       ~onChange,
       ~onFocus=?,
+      ~label=?,
+      ~error=?,
     ) => {
   let css = ReactFela.useFela1();
   let date: DateInput.date = {
@@ -40,38 +42,62 @@ let make =
 
   let time: TimeInput.time = {hours: value.hours, minutes: value.minutes};
 
-  <div className={css(DateTimeInputStyle.container())}>
-    <DatePicker
-      ?required
-      ?disabled
-      ?isValid
-      withFullScreenPortal=fullscreenDatePicker
-      name={name ++ "date"}
-      placeholder="Date"
-      ?isOutsideRange
-      value=date
-      onChange={(newDate: DateInput.date) =>
-        onChange({
-          ...value,
-          day: newDate.day,
-          month: newDate.month,
-          year: newDate.year,
-        })
-      }
-    />
-    <Spacer size=10 />
-    <div className={css(DateTimeInputStyle.timeInput())}>
-      <TimeInput
-        ?required
-        ?disabled
-        ?isValid
-        ?onFocus
-        name={name ++ "time"}
-        value=time
-        onChange={(newTime: TimeInput.time) =>
-          onChange({...value, hours: newTime.hours, minutes: newTime.minutes})
-        }
-      />
-    </div>
-  </div>;
+  <Box grow=1 shrink=1 space=1>
+    {switch (label) {
+     | Some(label) =>
+       <Label ?disabled pointer=true htmlFor=name> label </Label>
+     | None => n
+     }}
+    <Box
+      grow=1
+      shrink=1
+      space=2
+      extend={Fela.style({
+        "@media (min-width: 550px)": {
+          "flexDirection": "row",
+        },
+      })}>
+      <Box grow=1 shrink=1>
+        <DatePicker
+          ?required
+          ?disabled
+          ?isValid
+          withFullScreenPortal=fullscreenDatePicker
+          name={name ++ "date"}
+          placeholder="Date"
+          ?isOutsideRange
+          value=date
+          onChange={(newDate: DateInput.date) =>
+            onChange({
+              ...value,
+              day: newDate.day,
+              month: newDate.month,
+              year: newDate.year,
+            })
+          }
+        />
+      </Box>
+      <Box grow=1 shrink=1 minWidth=180>
+        <TimeInput
+          ?required
+          ?disabled
+          ?isValid
+          ?onFocus
+          name={name ++ "time"}
+          value=time
+          onChange={(newTime: TimeInput.time) =>
+            onChange({
+              ...value,
+              hours: newTime.hours,
+              minutes: newTime.minutes,
+            })
+          }
+        />
+      </Box>
+    </Box>
+    {switch (error) {
+     | Some(error) => <Warning> error </Warning>
+     | None => n
+     }}
+  </Box>;
 };

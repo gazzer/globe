@@ -1,8 +1,11 @@
 import * as Icons from './Icons.bs.js'
 
-Icons.switch = Icons.$$switch
-Icons.export = Icons.$$export
-Icons.window = Icons.$$window
-Icons.location = Icons.$$location
+const JsIcons = {
+  ...Icons,
+  switch: Icons.$$switch,
+  export: Icons.$$export,
+  window: Icons.$$window,
+  location: Icons.$$location,
+}
 
-export default Icons
+export default JsIcons

@@ -24,6 +24,7 @@ function loadStories() {
 
     // Actions
     './button/stories.js',
+    './iconButton/stories.js',
     './link/stories.js',
 
     // Indicators
@@ -43,10 +44,10 @@ function loadStories() {
     './datePicker/stories.js',
     './locationInput/stories.js',
     './suggestionInput/stories.js',
-    './inputMask/stories.js',
 
     // Navigation
     './tabNav/stories.js',
+    './nav/stories.js',
   ]
 
   stories.forEach(filename => req(filename))

@@ -1,4 +1,5 @@
-open Utils;
+open ReactUtils;
+open OptionUtils;
 
 [@react.component]
 let make = (~children, ~id, ~active=?, ~disabled=false) => {

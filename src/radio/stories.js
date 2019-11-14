@@ -36,54 +36,38 @@ storiesOf('Forms/Radio', module)
 
     return <InputWithValue />
   })
-  .add('Disabled', () => (
-    <Wrapper>
-      <Separator>
-        <Radio disabled checked={true} />
-      </Separator>
-      <Separator>
-        <Radio disabled checked={false} />
-      </Separator>
-    </Wrapper>
-  ))
   .add('Labeled', () => {
     const InputWithValue = () => {
-      const [value, setValue] = useState('male')
+      const [value, setValue] = useState('one')
 
       return (
         <Wrapper>
-          <Separator style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Separator>
             <Radio
-              value="male"
-              name="gender"
-              checked={value === 'male'}
+              value="one"
+              name="choose"
+              checked={value === 'one'}
               onChange={setValue}
+              label="One"
             />
-            <Label pointer htmlFor="gender-male">
-              Male
-            </Label>
           </Separator>
-          <Separator style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Separator>
             <Radio
-              value="female"
-              name="gender"
-              checked={value === 'female'}
+              value="two"
+              name="choose"
+              checked={value === 'two'}
               onChange={setValue}
+              label="Two"
             />
-            <Label pointer htmlFor="gender-female">
-              Female
-            </Label>
           </Separator>
-          <Separator style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Separator>
             <Radio
-              value="other"
-              name="gender"
-              checked={value === 'other'}
+              value="three"
+              name="choose"
+              checked={value === 'three'}
               onChange={setValue}
+              label="Three"
             />
-            <Label pointer htmlFor="gender-other">
-              Other
-            </Label>
           </Separator>
         </Wrapper>
       )
@@ -91,3 +75,13 @@ storiesOf('Forms/Radio', module)
 
     return <InputWithValue />
   })
+  .add('Disabled', () => (
+    <Wrapper>
+      <Separator>
+        <Radio label="One" disabled checked={true} />
+      </Separator>
+      <Separator>
+        <Radio label="Two" disabled checked={false} />
+      </Separator>
+    </Wrapper>
+  ))

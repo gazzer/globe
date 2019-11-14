@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { storiesOf } from '@storybook/react'
+import { text } from '@storybook/addon-knobs'
 
 import LocationInput from './'
 import Label from '../label'
@@ -18,6 +19,7 @@ storiesOf('Forms/LocationInput', module)
               value={value}
               onChange={setValue}
               placeholder="Type some text..."
+              googleApiKey={text('Google API Key')}
             />
           </Separator>
         </Wrapper>
@@ -38,6 +40,7 @@ storiesOf('Forms/LocationInput', module)
               value={value}
               onChange={setValue}
               placeholder="Type some text..."
+              googleApiKey={text('Google API Key')}
             />
           </Separator>
         </Wrapper>
@@ -57,7 +60,8 @@ storiesOf('Forms/LocationInput', module)
             <LocationInput
               value={value}
               onChange={setValue}
-              placeholder="Karlsruhe, Germany"
+              placeholder="Type your address..."
+              googleApiKey={text('Google API Key')}
             />
           </Separator>
         </Wrapper>

@@ -1,4 +1,4 @@
-open Utils;
+open ReactUtils;
 
 let isClickOnInner: (option(Dom.element), ReactEvent.Mouse.t) => bool = [%bs.raw
   {| function (container, e) { return container ? container.contains(e.target) : false } |}

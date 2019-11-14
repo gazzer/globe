@@ -23,16 +23,7 @@ storiesOf('Forms/Toggle', module)
 
     return <InputWithValue />
   })
-  .add('Disabled', () => (
-    <Wrapper>
-      <Separator>
-        <Toggle disabled checked={true} />
-      </Separator>
-      <Separator>
-        <Toggle disabled checked={false} />
-      </Separator>
-    </Wrapper>
-  ))
+
   .add('Labeled', () => {
     const InputWithValue = () => {
       const [value, setValue] = useState(true)
@@ -40,17 +31,21 @@ storiesOf('Forms/Toggle', module)
 
       return (
         <Wrapper>
-          <Separator style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Toggle name="motion" checked={value} onChange={setValue} />
-            <Label pointer htmlFor="motion">
-              Reduce Motion
-            </Label>
+          <Separator>
+            <Toggle
+              name="motion"
+              checked={value}
+              onChange={setValue}
+              label="Reduce Motion"
+            />
           </Separator>
-          <Separator style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Toggle name="dark" checked={value2} onChange={setValue2} />
-            <Label pointer htmlFor="dark">
-              Dark Mode
-            </Label>
+          <Separator>
+            <Toggle
+              name="dark"
+              checked={value2}
+              onChange={setValue2}
+              label="Dark Mode"
+            />
           </Separator>
         </Wrapper>
       )
@@ -58,3 +53,13 @@ storiesOf('Forms/Toggle', module)
 
     return <InputWithValue />
   })
+  .add('Disabled', () => (
+    <Wrapper>
+      <Separator>
+        <Toggle label="Reduce Motion" disabled checked={true} />
+      </Separator>
+      <Separator>
+        <Toggle label="Dark Mode" disabled checked={false} />
+      </Separator>
+    </Wrapper>
+  ))

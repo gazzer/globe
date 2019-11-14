@@ -11,6 +11,16 @@
   "reason": {
     "react-jsx": 3
   },
+  "gentypeconfig": {
+    "language": "typescript",
+    "shims": {
+      "ReasonReact": "ReactShim"
+    },
+    "debug": {
+      "all": false,
+      "basic": false
+    }
+  },
   "package-specs": {
     "module": "es6",
     "in-source": true

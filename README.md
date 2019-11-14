@@ -21,9 +21,9 @@ yarn add @gazzer/globe
 If you're using Globe with JavaScript, all you have to do is wrap your app with the `StyleProvider` component.
 
 ```javascript
-import { StyleProvider } from "@gazzer/globe"
+import { StyleProvider } from '@gazzer/globe'
 
-import App from "../path/to/root"
+import App from '../path/to/root'
 
 export default () => (
   <StyleProvider>
@@ -35,7 +35,7 @@ export default () => (
 Now you're ready to import components as you like.
 
 ```javascript
-import { ScrollView, Box, Button } from "@gazzer/globe"
+import { ScrollView, Box, Button } from '@gazzer/globe'
 
 export default () => (
   <ScrollView>

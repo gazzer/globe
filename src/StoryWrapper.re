@@ -62,18 +62,16 @@ let staticStylesStorybook = [|
   ),
 |];
 
+let renderer = FelaRenderer.make();
+
 [@react.component]
 let make = (~children, ~isStorybook=false) => {
-  let renderer =
-    FelaRenderer.make(
-      ~staticStyle={
-        isStorybook ? staticStylesStorybook : staticStylesPlayroom;
-      },
-      (),
-    );
-
   <div id={isStorybook ? "" : "__next"}>
-    <StyleProvider renderer> children </StyleProvider>
+    <StyleProvider
+      renderer
+      staticStyles={isStorybook ? staticStylesStorybook : staticStylesPlayroom}>
+      children
+    </StyleProvider>
   </div>;
 };
 let default = make;

@@ -23,9 +23,11 @@ import generateCSSValue from './generateCSSValue'
 const defaultConfig = {
   devMode: false,
   dynamicImport: false,
-  extractCss: true,
-  generateFileName: (fileName, moduleName) =>
-    capitalizeString(fileName) + moduleName + 'Style',
+  extractCSS: true,
+  generateStyleName: styleName => styleName,
+  generateCSSFileName: (moduleName, styleName) =>
+    capitalizeString(moduleName) + styleName + '.elo',
+  generateReasonFileName: fileName => capitalizeString(fileName) + 'Style',
 }
 
 export default function createGenerator(customConfig = {}) {
@@ -44,7 +46,7 @@ export default function createGenerator(customConfig = {}) {
       .join('')
 
     const escapedAst = escapeKeywords(ast, keywords)
-    const css = config.extractCss
+    const css = config.extractCSS
       ? generateCSSFiles(escapedAst, config, fileName)
       : {}
     const reason = generateReasonFile(escapedAst, config, fileName)
@@ -56,9 +58,9 @@ export default function createGenerator(customConfig = {}) {
   }
 
   generate.filePattern = [
-    config.generateFileName('*', '') + '.re',
-    config.generateFileName('*', '') + '.bs.js',
-    '*.elo.css',
+    config.generateReasonFileName('*') + '.re',
+    config.generateReasonFileName('*') + '.bs.js',
+    config.generateCSSFileName('*', '') + '.css',
   ]
 
   generate.ignorePattern = ['node_modules']
@@ -67,21 +69,29 @@ export default function createGenerator(customConfig = {}) {
 }
 
 function generateReasonFile(ast, config, fileName) {
-  const { devMode, generateFileName, dynamicImport, extractCss } = config
-  const moduleName = generateFileName(fileName, '')
+  const {
+    devMode,
+    generateReasonFileName,
+    generateCSSFileName,
+    dynamicImport,
+    extractCSS,
+  } = config
+  const moduleName = generateReasonFileName(fileName)
 
   // TODO: include fragments
   const styles = ast.body.filter(node => node.type === 'Style')
   const variants = ast.body.filter(node => node.type === 'Variant')
 
-  const imports = extractCss
+  const imports = extractCSS
     ? styles.reduce((imports, module) => {
-        imports.push('require("./' + moduleName + module.name + '.elo.css")')
+        imports.push(
+          'require("./' + generateCSSFileName(fileName, module.name) + '.css")'
+        )
         return imports
       }, [])
     : []
 
-  const modules = generateModules(ast, config, moduleName)
+  const modules = generateModules(ast, config, fileName)
 
   const variantMap = variants.reduce((flatVariants, variant) => {
     flatVariants[variant.name] = variant.body.map(variation => variation.value)
@@ -115,11 +125,14 @@ function generateReasonFile(ast, config, fileName) {
   }
 }
 
-function generateCSSFiles(ast, { devMode, generateFileName }, fileName) {
+function generateCSSFiles(
+  ast,
+  { devMode, generateReasonFileName, generateCSSFileName },
+  fileName
+) {
   // TODO: include fragments
   const styles = ast.body.filter(node => node.type === 'Style')
   const variants = ast.body.filter(node => node.type === 'Variant')
-  const generatedFileName = generateFileName(fileName, '')
 
   return styles.reduce((files, module) => {
     const usedVariants = getVariantsFromAST(module)
@@ -135,7 +148,7 @@ function generateCSSFiles(ast, { devMode, generateFileName }, fileName) {
 
     const classes = generateCSSClasses(module.body, variantMap, devMode)
 
-    files[generatedFileName + module.name + '.elo.css'] = classes
+    files[generateCSSFileName(fileName, module.name) + '.css'] = classes
       .filter(selector => selector.declarations.length > 0)
       .map(selector => {
         const css = stringifyCSSRule(
@@ -158,8 +171,16 @@ function generateCSSFiles(ast, { devMode, generateFileName }, fileName) {
 
 function generateModules(
   ast,
-  { devMode, dynamicImport, extractCss, viewBaseClassName, textBaseClassName },
-  moduleName
+  {
+    devMode,
+    dynamicImport,
+    extractCSS,
+    viewBaseClassName,
+    textBaseClassName,
+    generateStyleName,
+    generateCSSFileName,
+  },
+  fileName
 ) {
   // TODO: include fragments
   const styles = ast.body.filter(node => node.type === 'Style')
@@ -173,13 +194,13 @@ function generateModules(
   const variantOrder = Object.keys(variantMap)
 
   return styles.reduce((rules, module) => {
-    const out = generateStyle(module.body, extractCss, {})
+    const out = generateStyle(module.body, extractCSS, {})
 
     const variables = getVariablesFromAST(module)
     const variantStyleMap = generateVariantStyleMap(
       module.body,
       variants,
-      extractCss
+      extractCSS
     )
 
     const usedVariants = getVariantsFromAST(module)
@@ -193,8 +214,8 @@ function generateModules(
       (module.format === 'text' && textBaseClassName)
 
     const className =
-      (baseClassName ? baseClassName + ' ' : '') +
-      (extractCss ? getModuleName(module, devMode) : '')
+      (baseClassName ? baseClassName + (extractCSS ? ' ' : '') : '') +
+      (extractCSS ? getModuleName(module, devMode) : '')
 
     let variantSwitch = ''
 
@@ -279,40 +300,41 @@ function generateModules(
 
     const style =
       '  style({\n' +
-      '    "_className": ' +
-      '"' +
-      className +
-      '"' +
-      (variantSwitch
-        ? ' ++ get' +
+      (className || (variantSwitch && extractCSS) ? '    "_className": ' : '') +
+      (className ? wrapInString(className) : '') +
+      (variantSwitch && extractCSS
+        ? (className ? ' ++ ' : '') +
+          'get' +
           module.name +
           'Variants(' +
           variantNames.map(n => '~' + uncapitalizeString(n)).join(', ') +
-          ', ())'
+          ', ()),\n'
+        : className
+        ? ',\n'
         : '') +
-      ',\n' +
       stringifyStyle(out) +
       '  })'
 
     const rule =
       'let ' +
-      uncapitalizeString(module.name) +
+      uncapitalizeString(generateStyleName(module.name)) +
       ' = (' +
       (params.length > 0
         ? params.map(name => '~' + uncapitalizeString(name) + '=?').join(', ') +
           ', ()'
         : '') +
       ') => {\n' +
-      (dynamicImport && extractCss
+      (dynamicImport && extractCSS
         ? '  [%bs.raw {| import("./' +
-          moduleName +
-          module.name +
-          '.elo.css") |}];\n\n'
+          generateCSSFileName(fileName, module.name) +
+          '.css") |}];\n\n'
         : '') +
       style +
       '\n};'
 
-    rules.push((variantSwitch ? variantSwitch + '\n\n' : '') + rule)
+    rules.push(
+      (variantSwitch && extractCSS ? variantSwitch + '\n\n' : '') + rule
+    )
 
     return rules
   }, [])
@@ -370,9 +392,9 @@ function stringifyStyle(style, out = '', level = 2) {
   return out
 }
 
-function generateStyle(nodes, extractCss, style = {}) {
+function generateStyle(nodes, extractCSS, style = {}) {
   nodes.map(node => {
-    if (node.type === 'Declaration' && (node.dynamic || !extractCss)) {
+    if (node.type === 'Declaration' && (node.dynamic || !extractCSS)) {
       style[node.property] = generateValue(
         node.value,
         node.property,
@@ -387,15 +409,18 @@ function generateStyle(nodes, extractCss, style = {}) {
           (isPseudoClass(node.property.value) ||
             isPseudoElement(node.property.value))
         ) {
-          const nested = generateStyle(node.body, extractCss)
+          const nested = generateStyle(node.body, extractCSS)
 
           if (Object.keys(nested).length > 0) {
-            style[':' + hyphenateProperty(node.property.value)] = nested
+            style[
+              (isPseudoElement(node.property.value) ? '::' : ':') +
+                hyphenateProperty(node.property.value)
+            ] = nested
           }
         }
 
         if (isMediaQuery(node.property.value)) {
-          const nested = generateStyle(node.body, extractCss)
+          const nested = generateStyle(node.body, extractCSS)
 
           if (Object.keys(nested).length > 0) {
             style[
@@ -418,7 +443,7 @@ function generateStyle(nodes, extractCss, style = {}) {
             style.extend = []
           }
 
-          const nested = generateStyle(node.body, extractCss)
+          const nested = generateStyle(node.body, extractCSS)
 
           if (Object.keys(nested).length > 0) {
             style.extend.push({
@@ -445,7 +470,7 @@ function generateStyle(nodes, extractCss, style = {}) {
 function generateVariantStyleMap(
   nodes,
   variants,
-  extractCss,
+  extractCSS,
   styles = [],
   style = [],
   modifier = {}
@@ -473,9 +498,9 @@ function generateVariantStyleMap(
             generateVariantStyleMap(
               nest.body,
               variants,
-              extractCss,
+              extractCSS,
               styles,
-              generateStyle(nest.body, extractCss),
+              generateStyle(nest.body, extractCSS),
               {
                 ...modifier,
                 [variant.name]: variation.value,
@@ -561,7 +586,7 @@ function generateFunction(node, floatingPercentage = false) {
   if (inlineFns[node.callee]) {
     return wrapInParens(
       node.params
-        .map(value => generateValue(value, floatingPercentage))
+        .map(value => generateValue(value, floatingPercentage, true))
         .join(inlineFns[node.callee])
     )
   }

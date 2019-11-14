@@ -10,6 +10,10 @@ var serializer = new XMLSerializer()
 function fixIcons() {
   fs.readdir(path.join(__dirname, '../src/icons/svg/'), (err, files) => {
     files.forEach(file => {
+      if (file === '.DS_Store') {
+        return
+      }
+
       const transform = data => write => {
         const svg = parser.parseFromString(data).documentElement
 

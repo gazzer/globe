@@ -36,6 +36,7 @@ view Button {
   alignItems: center
   justifyContent: center
   borderRadius: 7
+  minWidth: 105
   [@disabled] {
     __boxShadow: none
     __cursor: notAllowed

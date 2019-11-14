@@ -1,4 +1,5 @@
-open Utils;
+open ReactUtils;
+open OptionUtils;
 
 [@react.component]
 let make =
@@ -11,16 +12,29 @@ let make =
       ~required=?,
       ~isValid=?,
       ~disabled=?,
+      ~label=?,
+      ~error=?,
     ) => {
   let css = ReactFela.useFela1();
 
-  <div className={css(Fela.style({"flexDirection": "row"}))}>
-    <div className={css(Fela.style({"alignSelf": "center"}))}>
+  <Box space=1 grow=1 shrink=1>
+    {switch (label) {
+     | Some(label) =>
+       <Label ?disabled pointer=true htmlFor=name> label </Label>
+     | None => n
+     }}
+    <Box row=true space=1 grow=1 shrink=1>
       <Button
         ?disabled
         intent=ButtonStyle.Text
         size=ButtonStyle.Small
-        style={ReactDOMRe.Style.make(~padding="8px", ())}
+        style={ReactDOMRe.Style.make(
+          ~padding="8px",
+          ~minWidth="unset",
+          ~flexGrow="0",
+          ~alignSelf="center",
+          (),
+        )}
         onClick={_ =>
           onChange(
             switch (min) {
@@ -38,29 +52,31 @@ let make =
           style={ReactDOMRe.Style.make(~fontSize="22px", ())}
         />
       </Button>
-    </div>
-    <Spacer size=4 />
-    <TextInput
-      ?disabled
-      ?isValid
-      ?required
-      name
-      type_="number"
-      ?min
-      ?max
-      style={ReactDOMRe.Style.make(~width="100px", ())}
-      value={string_of_int(value)}
-      onChange={value =>
-        onChange(String.length(value) > 0 ? int_of_string(value) : 0)
-      }
-    />
-    <Spacer size=4 />
-    <div className={css(Fela.style({"alignSelf": "center"}))}>
+      <TextInput
+        ?disabled
+        ?isValid
+        ?required
+        name
+        type_="number"
+        ?min
+        ?max
+        style={ReactDOMRe.Style.make(~flexGrow="1", ())}
+        value={string_of_int(value)}
+        onChange={value =>
+          onChange(String.length(value) > 0 ? int_of_string(value) : 0)
+        }
+      />
       <Button
         ?disabled
         intent=ButtonStyle.Text
         size=ButtonStyle.Small
-        style={ReactDOMRe.Style.make(~padding="8px", ())}
+        style={ReactDOMRe.Style.make(
+          ~padding="8px",
+          ~minWidth="unset",
+          ~flexGrow="0",
+          ~alignSelf="center",
+          (),
+        )}
         onClick={_ =>
           onChange(
             switch (max) {
@@ -78,6 +94,10 @@ let make =
           style={ReactDOMRe.Style.make(~fontSize="22px", ())}
         />
       </Button>
-    </div>
-  </div>;
+    </Box>
+    {switch (error) {
+     | Some(error) => <Warning> error </Warning>
+     | None => n
+     }}
+  </Box>;
 };

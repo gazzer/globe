@@ -1,4 +1,5 @@
-open Utils;
+open ReactUtils;
+open OptionUtils;
 open MomentRe;
 open DateInput;
 open Js.Date;
@@ -21,9 +22,9 @@ module SingleDatePicker = {
       ~withFullScreenPortal: bool=?,
       ~id: string,
       ~date: Moment.t=?,
-      ~placeholder: string=?,
+      ~placeholder: string,
       ~focused: bool,
-      ~onDateChange: Moment.t => unit,
+      ~onDateChange: Js.Nullable.t(Moment.t) => unit,
       ~onFocusChange: Js.t('a) => unit,
       unit
     ) =>
@@ -38,6 +39,8 @@ let make =
       ~isOutsideRange=?,
       ~withFullScreenPortal=?,
       ~name,
+      ~label=?,
+      ~error=?,
       ~required=?,
       ~disabled=?,
       ~isValid=?,
@@ -65,48 +68,67 @@ let make =
     };
 
   let onDateChange = newDate => {
-    let floatDate = Moment.valueOf(newDate);
-    let date = fromFloat(floatDate);
+    switch (Js.Nullable.toOption(newDate)) {
+    | Some(newDate) =>
+      let floatDate = Moment.valueOf(newDate);
+      let date = fromFloat(floatDate);
 
-    onChange({
-      day: Some(int_of_float(getDate(date))),
-      month: Some(int_of_float(getMonth(date))),
-      year: Some(int_of_float(getFullYear(date))),
-    });
+      onChange({
+        day: Some(int_of_float(getDate(date))),
+        month: Some(int_of_float(getMonth(date))),
+        year: Some(int_of_float(getFullYear(date))),
+      });
+    | None => onChange({day: None, month: None, year: None})
+    };
   };
 
-  <div
-    className={css(
-      collapseOption([
-        resolveOption(
+  <Box grow=1 shrink=1 space=1>
+    {switch (label) {
+     | Some(label) =>
+       <Label ?disabled pointer=true htmlFor=name> label </Label>
+     | None => n
+     }}
+    <div
+      className={css(
+        collapseOption([
+          resolveOption(
+            disabled,
+            d => d ? Some(Fela.raw("disabled")) : None,
+            None,
+          ),
+          focused ? Some(Fela.raw("focused")) : None,
+          resolveOption(
+            isValid,
+            v => v ? None : Some(Fela.raw("invalid")),
+            None,
+          ),
+          Some(DatePickerStyle.container()),
+        ]),
+      )}>
+      <SingleDatePicker
+        ?disabled
+        ?isOutsideRange
+        ?withFullScreenPortal
+        // ?required
+        block=true
+        id=name
+        showClearDate={resolveOption(disabled, d => !d, true)}
+        numberOfMonths=1
+        displayFormat="dddd, DD MMM, YYYY"
+        placeholder={resolveOption(
           disabled,
-          d => d ? Some(Fela.raw("disabled")) : None,
-          None,
-        ),
-        focused ? Some(Fela.raw("focused")) : None,
-        resolveOption(
-          isValid,
-          v => v ? None : Some(Fela.raw("invalid")),
-          None,
-        ),
-        Some(DatePickerStyle.container()),
-      ]),
-    )}>
-    <SingleDatePicker
-      ?disabled
-      ?isOutsideRange
-      ?withFullScreenPortal
-      // ?required
-      block=true
-      id=name
-      // showClearDate=true
-      numberOfMonths=1
-      displayFormat="dddd, DD MMM, YYYY"
-      placeholder
-      date=?momentDate
-      focused
-      onFocusChange={obj => setFocused(obj##focused)}
-      onDateChange
-    />
-  </div>;
+          d => d ? "" : placeholder,
+          placeholder,
+        )}
+        date=?momentDate
+        focused
+        onFocusChange={obj => setFocused(obj##focused)}
+        onDateChange
+      />
+    </div>
+    {switch (error) {
+     | Some(error) => <Warning> error </Warning>
+     | None => n
+     }}
+  </Box>;
 };

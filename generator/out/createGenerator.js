@@ -36,9 +36,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var defaultConfig = {
   devMode: false,
   dynamicImport: false,
-  extractCss: true,
-  generateFileName: function generateFileName(fileName, moduleName) {
-    return (0, _utils.capitalizeString)(fileName) + moduleName + 'Style';
+  extractCSS: true,
+  generateStyleName: function generateStyleName(styleName) {
+    return styleName;
+  },
+  generateCSSFileName: function generateCSSFileName(moduleName, styleName) {
+    return (0, _utils.capitalizeString)(moduleName) + styleName + '.elo';
+  },
+  generateReasonFileName: function generateReasonFileName(fileName) {
+    return (0, _utils.capitalizeString)(fileName) + 'Style';
   }
 };
 
@@ -51,22 +57,23 @@ function createGenerator() {
     var path = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
     var fileName = path.split('/').pop().replace(/[.]elo/gi, '').split('.').map(_utils.capitalizeString).join('');
     var escapedAst = (0, _utils.escapeKeywords)(ast, _keywords.default);
-    var css = config.extractCss ? generateCSSFiles(escapedAst, config, fileName) : {};
+    var css = config.extractCSS ? generateCSSFiles(escapedAst, config, fileName) : {};
     var reason = generateReasonFile(escapedAst, config, fileName);
     return _objectSpread({}, css, {}, reason);
   }
 
-  generate.filePattern = [config.generateFileName('*', '') + '.re', config.generateFileName('*', '') + '.bs.js', '*.elo.css'];
+  generate.filePattern = [config.generateReasonFileName('*') + '.re', config.generateReasonFileName('*') + '.bs.js', config.generateCSSFileName('*', '') + '.css'];
   generate.ignorePattern = ['node_modules'];
   return generate;
 }
 
 function generateReasonFile(ast, config, fileName) {
   var devMode = config.devMode,
-      generateFileName = config.generateFileName,
+      generateReasonFileName = config.generateReasonFileName,
+      generateCSSFileName = config.generateCSSFileName,
       dynamicImport = config.dynamicImport,
-      extractCss = config.extractCss;
-  var moduleName = generateFileName(fileName, ''); // TODO: include fragments
+      extractCSS = config.extractCSS;
+  var moduleName = generateReasonFileName(fileName); // TODO: include fragments
 
   var styles = ast.body.filter(function (node) {
     return node.type === 'Style';
@@ -74,11 +81,11 @@ function generateReasonFile(ast, config, fileName) {
   var variants = ast.body.filter(function (node) {
     return node.type === 'Variant';
   });
-  var imports = extractCss ? styles.reduce(function (imports, module) {
-    imports.push('require("./' + moduleName + module.name + '.elo.css")');
+  var imports = extractCSS ? styles.reduce(function (imports, module) {
+    imports.push('require("./' + generateCSSFileName(fileName, module.name) + '.css")');
     return imports;
   }, []) : [];
-  var modules = generateModules(ast, config, moduleName);
+  var modules = generateModules(ast, config, fileName);
   var variantMap = variants.reduce(function (flatVariants, variant) {
     flatVariants[variant.name] = variant.body.map(function (variation) {
       return variation.value;
@@ -98,7 +105,8 @@ function generateReasonFile(ast, config, fileName) {
 
 function generateCSSFiles(ast, _ref2, fileName) {
   var devMode = _ref2.devMode,
-      generateFileName = _ref2.generateFileName;
+      generateReasonFileName = _ref2.generateReasonFileName,
+      generateCSSFileName = _ref2.generateCSSFileName;
   // TODO: include fragments
   var styles = ast.body.filter(function (node) {
     return node.type === 'Style';
@@ -106,7 +114,6 @@ function generateCSSFiles(ast, _ref2, fileName) {
   var variants = ast.body.filter(function (node) {
     return node.type === 'Variant';
   });
-  var generatedFileName = generateFileName(fileName, '');
   return styles.reduce(function (files, module) {
     var usedVariants = (0, _utils.getVariantsFromAST)(module);
     var variantMap = variants.reduce(function (flatVariants, variant) {
@@ -119,7 +126,7 @@ function generateCSSFiles(ast, _ref2, fileName) {
       return flatVariants;
     }, {});
     var classes = (0, _utils.generateCSSClasses)(module.body, variantMap, devMode);
-    files[generatedFileName + module.name + '.elo.css'] = classes.filter(function (selector) {
+    files[generateCSSFileName(fileName, module.name) + '.css'] = classes.filter(function (selector) {
       return selector.declarations.length > 0;
     }).map(function (selector) {
       var css = (0, _utils.stringifyCSSRule)(selector.declarations, (0, _utils.getModuleName)(module, devMode) + selector.modifier + selector.pseudo, selector.media ? '  ' : '');
@@ -134,12 +141,14 @@ function generateCSSFiles(ast, _ref2, fileName) {
   }, {});
 }
 
-function generateModules(ast, _ref3, moduleName) {
+function generateModules(ast, _ref3, fileName) {
   var devMode = _ref3.devMode,
       dynamicImport = _ref3.dynamicImport,
-      extractCss = _ref3.extractCss,
+      extractCSS = _ref3.extractCSS,
       viewBaseClassName = _ref3.viewBaseClassName,
-      textBaseClassName = _ref3.textBaseClassName;
+      textBaseClassName = _ref3.textBaseClassName,
+      generateStyleName = _ref3.generateStyleName,
+      generateCSSFileName = _ref3.generateCSSFileName;
   // TODO: include fragments
   var styles = ast.body.filter(function (node) {
     return node.type === 'Style';
@@ -155,16 +164,16 @@ function generateModules(ast, _ref3, moduleName) {
   }, {});
   var variantOrder = Object.keys(variantMap);
   return styles.reduce(function (rules, module) {
-    var out = generateStyle(module.body, extractCss, {});
+    var out = generateStyle(module.body, extractCSS, {});
     var variables = (0, _utils.getVariablesFromAST)(module);
-    var variantStyleMap = generateVariantStyleMap(module.body, variants, extractCss);
+    var variantStyleMap = generateVariantStyleMap(module.body, variants, extractCSS);
     var usedVariants = (0, _utils.getVariantsFromAST)(module);
     var variantNames = Object.keys(usedVariants).sort(function (x, y) {
       return variantOrder.indexOf(x) > variantOrder.indexOf(y) ? 1 : -1;
     });
     var params = [].concat(_toConsumableArray(variables), _toConsumableArray(variantNames));
     var baseClassName = module.format === 'view' && viewBaseClassName || module.format === 'text' && textBaseClassName;
-    var className = (baseClassName ? baseClassName + ' ' : '') + (extractCss ? (0, _utils.getModuleName)(module, devMode) : '');
+    var className = (baseClassName ? baseClassName + (extractCSS ? ' ' : '') : '') + (extractCSS ? (0, _utils.getModuleName)(module, devMode) : '');
     var variantSwitch = '';
 
     if (variantNames.length > 0) {
@@ -219,13 +228,13 @@ function generateModules(ast, _ref3, moduleName) {
       }).join('\n    '), "\n  }\n};");
     }
 
-    var style = '  style({\n' + '    "_className": ' + '"' + className + '"' + (variantSwitch ? ' ++ get' + module.name + 'Variants(' + variantNames.map(function (n) {
+    var style = '  style({\n' + (className || variantSwitch && extractCSS ? '    "_className": ' : '') + (className ? wrapInString(className) : '') + (variantSwitch && extractCSS ? (className ? ' ++ ' : '') + 'get' + module.name + 'Variants(' + variantNames.map(function (n) {
       return '~' + (0, _utils.uncapitalizeString)(n);
-    }).join(', ') + ', ())' : '') + ',\n' + stringifyStyle(out) + '  })';
-    var rule = 'let ' + (0, _utils.uncapitalizeString)(module.name) + ' = (' + (params.length > 0 ? params.map(function (name) {
+    }).join(', ') + ', ()),\n' : className ? ',\n' : '') + stringifyStyle(out) + '  })';
+    var rule = 'let ' + (0, _utils.uncapitalizeString)(generateStyleName(module.name)) + ' = (' + (params.length > 0 ? params.map(function (name) {
       return '~' + (0, _utils.uncapitalizeString)(name) + '=?';
-    }).join(', ') + ', ()' : '') + ') => {\n' + (dynamicImport && extractCss ? '  [%bs.raw {| import("./' + moduleName + module.name + '.elo.css") |}];\n\n' : '') + style + '\n};';
-    rules.push((variantSwitch ? variantSwitch + '\n\n' : '') + rule);
+    }).join(', ') + ', ()' : '') + ') => {\n' + (dynamicImport && extractCSS ? '  [%bs.raw {| import("./' + generateCSSFileName(fileName, module.name) + '.css") |}];\n\n' : '') + style + '\n};';
+    rules.push((variantSwitch && extractCSS ? variantSwitch + '\n\n' : '') + rule);
     return rules;
   }, []);
 }
@@ -256,25 +265,25 @@ function stringifyStyle(style) {
   return out;
 }
 
-function generateStyle(nodes, extractCss) {
+function generateStyle(nodes, extractCSS) {
   var style = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   nodes.map(function (node) {
-    if (node.type === 'Declaration' && (node.dynamic || !extractCss)) {
+    if (node.type === 'Declaration' && (node.dynamic || !extractCSS)) {
       style[node.property] = generateValue(node.value, node.property, node.dynamic);
     }
 
     if (node.type === 'Conditional') {
       if (node.property.type === 'Variable' && node.property.environment) {
         if (node.boolean && ((0, _utils.isPseudoClass)(node.property.value) || (0, _utils.isPseudoElement)(node.property.value))) {
-          var nested = generateStyle(node.body, extractCss);
+          var nested = generateStyle(node.body, extractCSS);
 
           if (Object.keys(nested).length > 0) {
-            style[':' + (0, _cssInJsUtils.hyphenateProperty)(node.property.value)] = nested;
+            style[((0, _utils.isPseudoElement)(node.property.value) ? '::' : ':') + (0, _cssInJsUtils.hyphenateProperty)(node.property.value)] = nested;
           }
         }
 
         if ((0, _utils.isMediaQuery)(node.property.value)) {
-          var _nested = generateStyle(node.body, extractCss);
+          var _nested = generateStyle(node.body, extractCSS);
 
           if (Object.keys(_nested).length > 0) {
             style['@media ' + (0, _utils.generateCSSMediaQueryFromNode)(node.boolean ? undefined : node.value.value, node.property.value, node.operator)] = _nested;
@@ -286,7 +295,7 @@ function generateStyle(nodes, extractCss) {
             style.extend = [];
           }
 
-          var _nested2 = generateStyle(node.body, extractCss);
+          var _nested2 = generateStyle(node.body, extractCSS);
 
           if (Object.keys(_nested2).length > 0) {
             style.extend.push({
@@ -305,7 +314,7 @@ function generateStyle(nodes, extractCss) {
   return style;
 }
 
-function generateVariantStyleMap(nodes, variants, extractCss) {
+function generateVariantStyleMap(nodes, variants, extractCSS) {
   var styles = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
   var style = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : [];
   var modifier = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : {};
@@ -336,7 +345,7 @@ function generateVariantStyleMap(nodes, variants, extractCss) {
           });
 
           if (variation) {
-            generateVariantStyleMap(nest.body, variants, extractCss, styles, generateStyle(nest.body, extractCss), _objectSpread({}, modifier, _defineProperty({}, variant.name, variation.value)));
+            generateVariantStyleMap(nest.body, variants, extractCSS, styles, generateStyle(nest.body, extractCSS), _objectSpread({}, modifier, _defineProperty({}, variant.name, variation.value)));
           }
         }
       } else {// TODO: throw
@@ -395,7 +404,7 @@ function generateFunction(node) {
 
   if (inlineFns[node.callee]) {
     return wrapInParens(node.params.map(function (value) {
-      return generateValue(value, floatingPercentage);
+      return generateValue(value, floatingPercentage, true);
     }).join(inlineFns[node.callee]));
   } // if (math[node.callee]) {
   //   return generateValue({

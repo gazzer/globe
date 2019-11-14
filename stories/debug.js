@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, createElement } from 'react'
 import { storiesOf } from '@storybook/react'
 
 import {
@@ -6,7 +6,11 @@ import {
   Toggle,
   Grid,
   Row,
+  Spacer,
   Col,
+  Text,
+  Box,
+  ScrollView,
   Accordion,
   Link,
   Checkbox,
@@ -16,7 +20,11 @@ import {
   TabNavItem,
   Label,
   Select,
-  InputMask,
+  IconButton,
+  Modal,
+  Icons,
+  Nav,
+  NavItem,
   TextInput,
   DateTimeInput,
   TimeInput,
@@ -24,6 +32,7 @@ import {
   DateInput,
   NumberInput,
   SuggestionInput,
+  SuggestionItem,
   Card,
 } from '../src'
 
@@ -33,7 +42,58 @@ import Separator from './Separator'
 // import BaselineGrid from '../src/text/BaselineGrid'
 
 storiesOf('Debug', module).add('Components', () => {
-  const suggestions = ['Apple', 'Banana', 'Grapes']
+  const Icon = ({ type }) => (
+    <div
+      style={{
+        width: 50,
+        height: 50,
+        padding: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      {createElement(Icons[type], {
+        style: {
+          fontSize: 24,
+          alignSelf: 'center',
+          marginBottom: 5,
+        },
+      })}
+    </div>
+  )
+
+  const ModalWithTrigger = () => {
+    const [visible, setVisible] = useState(false)
+
+    const close = () => setVisible(false)
+
+    return (
+      <>
+        <div style={{ alignSelf: 'flex-start' }}>
+          <Button onClick={() => setVisible(true)}>Modal</Button>
+        </div>
+        {visible ? (
+          <Modal onClose={close} style={{ backgroundColor: 'white' }}>
+            <div style={{ width: 200 }}>
+              <h2 style={{ textAlign: 'center' }}>Modal</h2>
+              <br />
+              <Button variant={Button.variant.Destructive} onClick={close}>
+                Close
+              </Button>
+            </div>
+          </Modal>
+        ) : null}
+      </>
+    )
+  }
+
+  const suggestions = [
+    'Apple',
+    'Banana',
+    'Grapes',
+    'Cherry',
+    'Pineapple',
+    'Strawberry',
+  ]
 
   const SuggestionInputWithValue = ({ disabled }) => {
     const [value, setValue] = useState('')
@@ -41,13 +101,13 @@ storiesOf('Debug', module).add('Components', () => {
     return (
       <Wrapper style={{ maxWidth: 500 }}>
         <Separator>
-          <Label htmlFor="fruit">Choose a fruit</Label>
           <SuggestionInput
-            name="fruit"
-            disabled={disabled}
             value={value}
+            disabled={disabled}
             onChange={setValue}
+            label="Choose a fruit"
             onSelect={sugg => alert('Selected: ' + sugg)}
+            getValue={suggestion => suggestion}
             getSuggestions={value =>
               new Promise((resolve, reject) => {
                 const search = value.trim().toLowerCase()
@@ -67,43 +127,13 @@ storiesOf('Debug', module).add('Components', () => {
                 )
               })
             }
-            placeholder="Type to see suggestions"
-          />
-        </Separator>
-      </Wrapper>
-    )
-  }
-
-  const MaskedTextInputWithValue = ({ disabled }) => {
-    const [value, setValue] = useState('')
-    const [price, setPrice] = useState('')
-
-    return (
-      <Wrapper style={{ maxWidth: 500 }}>
-        <Separator>
-          <Label htmlFor="username">E-Mail</Label>
-          <InputMask mask="https://example.com/user/">
-            <TextInput
-              disabled={disabled}
-              value={value}
-              name="username"
-              onChange={setValue}
-              placeholder="Type some text..."
-            />
-          </InputMask>
-        </Separator>
-        <Separator>
-          <Label htmlFor="price">Price</Label>
-          <InputMask mask=",00 €" position={InputMask.position.After}>
-            <TextInput
-              disabled={disabled}
-              value={price}
-              style={{ textAlign: 'right' }}
-              name="price"
-              onChange={setPrice}
-              placeholder=""
-            />
-          </InputMask>
+            placeholder="Type to see suggestions">
+            {(suggestion, isFocused, selectSuggestion) => (
+              <SuggestionItem isFocused={isFocused} onClick={selectSuggestion}>
+                {suggestion}
+              </SuggestionItem>
+            )}
+          </SuggestionInput>
         </Separator>
       </Wrapper>
     )
@@ -130,8 +160,8 @@ storiesOf('Debug', module).add('Components', () => {
     return (
       <Wrapper style={{ maxWidth: 500 }}>
         <Separator>
-          <Label htmlFor="country">Country</Label>
           <Select
+            label="Country"
             disabled={disabled}
             name="country"
             required
@@ -151,10 +181,8 @@ storiesOf('Debug', module).add('Components', () => {
     return (
       <Wrapper style={{ maxWidth: 500 }}>
         <Separator>
-          <Label disabled={disabled} htmlFor="count">
-            Number:
-          </Label>
           <NumberInput
+            label="Number"
             disabled={disabled}
             name="count"
             value={value}
@@ -171,10 +199,8 @@ storiesOf('Debug', module).add('Components', () => {
     return (
       <Wrapper style={{ maxWidth: 500 }}>
         <Separator>
-          <Label disabled={disabled} htmlFor="birthdate">
-            Birthday:
-          </Label>
           <DateInput
+            label="Birthday"
             disabled={disabled}
             name="birthdate"
             value={value}
@@ -191,10 +217,8 @@ storiesOf('Debug', module).add('Components', () => {
     return (
       <Wrapper style={{ maxWidth: 500 }}>
         <Separator>
-          <Label disabled={disabled} htmlFor="startdate">
-            Start Date
-          </Label>
           <DatePicker
+            label="Start Date"
             disabled={disabled}
             name="startdate"
             value={value}
@@ -211,10 +235,8 @@ storiesOf('Debug', module).add('Components', () => {
     return (
       <Wrapper style={{ maxWidth: 500 }}>
         <Separator>
-          <Label disabled={disabled} htmlFor="startDateTime">
-            Start Date Time:
-          </Label>
           <DateTimeInput
+            label="Start Date Time"
             disabled={disabled}
             name="startDateTime"
             value={value}
@@ -230,10 +252,8 @@ storiesOf('Debug', module).add('Components', () => {
     return (
       <Wrapper style={{ maxWidth: 500 }}>
         <Separator>
-          <Label disabled={disabled} htmlFor="startTime">
-            Start Time:
-          </Label>
           <TimeInput
+            label="Start Time"
             disabled={disabled}
             name="startTime"
             value={value}
@@ -247,12 +267,13 @@ storiesOf('Debug', module).add('Components', () => {
   const TextInputWithValue = ({ disabled }) => {
     const [value, setValue] = useState('')
     const [pw, setPw] = useState('')
+    const [website, setWebsite] = useState('')
 
     return (
       <Wrapper style={{ maxWidth: 500 }}>
         <Separator>
-          <Label htmlFor="email">E-Mail:</Label>
           <TextInput
+            label="E-Mail"
             disabled={disabled}
             value={value}
             onChange={setValue}
@@ -260,13 +281,23 @@ storiesOf('Debug', module).add('Components', () => {
           />
         </Separator>
         <Separator>
-          <Label htmlFor="password">Password:</Label>
           <TextInput
+            label="Password"
             disabled={disabled}
             name="password"
             type="password"
             value={pw}
             onChange={setPw}
+          />
+        </Separator>
+        <Separator>
+          <TextInput
+            label="Website"
+            disabled={disabled}
+            name="website"
+            value={website}
+            maskStart="https://"
+            onChange={setWebsite}
           />
         </Separator>
       </Wrapper>
@@ -279,27 +310,23 @@ storiesOf('Debug', module).add('Components', () => {
 
     return (
       <Wrapper style={{ maxWidth: 500 }}>
-        <Separator style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Separator>
           <Checkbox
+            label="Accept AGB"
             disabled={disabled}
             name={'agb' + disabled}
             checked={value}
             onChange={setValue}
           />
-          <Label pointer={!disabled} htmlFor={'agb' + disabled}>
-            Accept AGB
-          </Label>
         </Separator>
-        <Separator style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Separator>
           <Checkbox
             disabled={disabled}
             name={'newsletter' + disabled}
             checked={value2}
             onChange={setValue2}
+            label="Subscribe Newsletter"
           />
-          <Label pointer={!disabled} htmlFor={'newsletter' + disabled}>
-            Subscribe Newsletter
-          </Label>
         </Separator>
       </Wrapper>
     )
@@ -310,41 +337,35 @@ storiesOf('Debug', module).add('Components', () => {
 
     return (
       <Wrapper style={{ maxWidth: 500 }}>
-        <Separator style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Separator>
           <Radio
             disabled={disabled}
-            value="male"
-            name={'gender' + disabled}
-            checked={value === 'male'}
+            value="one"
+            name={'number' + disabled}
+            checked={value === 'one'}
+            label="One"
             onChange={setValue}
           />
-          <Label pointer={!disabled} htmlFor={'gender' + disabled + '-male'}>
-            Male
-          </Label>
         </Separator>
-        <Separator style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Separator>
           <Radio
             disabled={disabled}
-            value="female"
-            name={'gender' + disabled}
-            checked={value === 'female'}
+            value="two"
+            name={'number' + disabled}
+            checked={value === 'two'}
+            label="Two"
             onChange={setValue}
           />
-          <Label pointer={!disabled} htmlFor={'gender' + disabled + '-female'}>
-            Female
-          </Label>
         </Separator>
-        <Separator style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Separator>
           <Radio
             disabled={disabled}
-            value="other"
-            name={'gender' + disabled}
-            checked={value === 'other'}
+            value="three"
+            name={'number' + disabled}
+            checked={value === 'three'}
+            label="Three"
             onChange={setValue}
           />
-          <Label pointer={!disabled} htmlFor={'gender' + disabled + '-other'}>
-            Other
-          </Label>
         </Separator>
       </Wrapper>
     )
@@ -356,33 +377,29 @@ storiesOf('Debug', module).add('Components', () => {
 
     return (
       <Wrapper style={{ maxWidth: 500 }}>
-        <Separator style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Separator>
           <Toggle
             disabled={disabled}
             name={'motion' + disabled}
             checked={value}
             onChange={setValue}
+            label="Reduce Motion"
           />
-          <Label pointer htmlFor={'motion' + disabled}>
-            Reduce Motion
-          </Label>
         </Separator>
-        <Separator style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Separator>
           <Toggle
             disabled={disabled}
             name={'dark' + disabled}
             checked={value2}
             onChange={setValue2}
+            label="Dark Mode"
           />
-          <Label pointer htmlFor={'dark' + disabled}>
-            Dark Mode
-          </Label>
         </Separator>
       </Wrapper>
     )
   }
 
-  const Tab = () => {
+  const TabNavigation = () => {
     const [active, setActive] = React.useState('events')
 
     return (
@@ -633,6 +650,312 @@ storiesOf('Debug', module).add('Components', () => {
       <Separator>
         <h2>Core</h2>
       </Separator>
+      <Separator>
+        <Text variant={Text.variant.Title}>Title</Text>
+        <Text variant={Text.variant.Subtitle}>Subtitle</Text>
+        <Text variant={Text.variant.Category}>Category</Text>
+
+        <Text variant={Text.variant.Body}>Body Text</Text>
+        <Text>Default Text</Text>
+        <Text variant={Text.variant.Label}>Label Text</Text>
+        <Text variant={Text.variant.Label} intent={Text.intent.Info}>
+          Label Info
+        </Text>
+      </Separator>
+      <Separator>
+        <div style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+          <Icon type="address" />
+          <Icon type="adjust" />
+          <Icon type="air" />
+          <Icon type="alert" />
+          <Icon type="archive" />
+          <Icon type="arrowCombo" />
+          <Icon type="arrowsCcw" />
+          <Icon type="attach" />
+          <Icon type="attention" />
+          <Icon type="back" />
+          <Icon type="backInTime" />
+          <Icon type="bag" />
+          <Icon type="basket" />
+          <Icon type="battery" />
+          <Icon type="behance" />
+          <Icon type="bell" />
+          <Icon type="block" />
+          <Icon type="book" />
+          <Icon type="bookOpen" />
+          <Icon type="bookmark" />
+          <Icon type="bookmarks" />
+          <Icon type="box" />
+          <Icon type="briefcase" />
+          <Icon type="brush" />
+          <Icon type="bucket" />
+          <Icon type="calendar" />
+          <Icon type="camera" />
+          <Icon type="cancel" />
+          <Icon type="cancelCircled" />
+          <Icon type="cancelSquared" />
+          <Icon type="cc" />
+          <Icon type="ccBy" />
+          <Icon type="ccNc" />
+          <Icon type="ccNcEu" />
+          <Icon type="ccNcJp" />
+          <Icon type="ccNd" />
+          <Icon type="ccPd" />
+          <Icon type="ccRemix" />
+          <Icon type="ccSa" />
+          <Icon type="ccShare" />
+          <Icon type="ccZero" />
+          <Icon type="ccw" />
+          <Icon type="cd" />
+          <Icon type="chartArea" />
+          <Icon type="chartBar" />
+          <Icon type="chartLine" />
+          <Icon type="chartPie" />
+          <Icon type="chat" />
+          <Icon type="check" />
+          <Icon type="clipboard" />
+          <Icon type="clock" />
+          <Icon type="cloud" />
+          <Icon type="cloudThunder" />
+          <Icon type="code" />
+          <Icon type="cog" />
+          <Icon type="comment" />
+          <Icon type="compass" />
+          <Icon type="creditCard" />
+          <Icon type="cup" />
+          <Icon type="cw" />
+          <Icon type="database" />
+          <Icon type="dbShape" />
+          <Icon type="direction" />
+          <Icon type="doc" />
+          <Icon type="docLandscape" />
+          <Icon type="docText" />
+          <Icon type="docTextInv" />
+          <Icon type="docs" />
+          <Icon type="dot" />
+          <Icon type="dot2" />
+          <Icon type="dot3" />
+          <Icon type="down" />
+          <Icon type="downBold" />
+          <Icon type="downCircled" />
+          <Icon type="downDir" />
+          <Icon type="downOpen" />
+          <Icon type="downOpenBig" />
+          <Icon type="downOpenMini" />
+          <Icon type="downThin" />
+          <Icon type="download" />
+          <Icon type="dribbble" />
+          <Icon type="dribbbleCircled" />
+          <Icon type="drive" />
+          <Icon type="dropbox" />
+          <Icon type="droplet" />
+          <Icon type="erase" />
+          <Icon type="evernote" />
+          <Icon type="export" />
+          <Icon type="eye" />
+          <Icon type="facebook" />
+          <Icon type="facebookCircled" />
+          <Icon type="facebookSquared" />
+          <Icon type="fastBackward" />
+          <Icon type="fastForward" />
+          <Icon type="feather" />
+          <Icon type="filter" />
+          <Icon type="flag" />
+          <Icon type="flash" />
+          <Icon type="flashlight" />
+          <Icon type="flattr" />
+          <Icon type="flickr" />
+          <Icon type="flickrCircled" />
+          <Icon type="flight" />
+          <Icon type="floppy" />
+          <Icon type="flowBranch" />
+          <Icon type="flowCascade" />
+          <Icon type="flowLine" />
+          <Icon type="flowParallel" />
+          <Icon type="flowTree" />
+          <Icon type="folder" />
+          <Icon type="forward" />
+          <Icon type="gauge" />
+          <Icon type="github" />
+          <Icon type="githubCircled" />
+          <Icon type="globe" />
+          <Icon type="googleCircles" />
+          <Icon type="gplus" />
+          <Icon type="gplusCircled" />
+          <Icon type="graduationCap" />
+          <Icon type="heart" />
+          <Icon type="heartEmpty" />
+          <Icon type="help" />
+          <Icon type="helpCircled" />
+          <Icon type="home" />
+          <Icon type="hourglass" />
+          <Icon type="inbox" />
+          <Icon type="infinity" />
+          <Icon type="info" />
+          <Icon type="infoCircled" />
+          <Icon type="instagrem" />
+          <Icon type="install" />
+          <Icon type="key" />
+          <Icon type="keyboard" />
+          <Icon type="lamp" />
+          <Icon type="language" />
+          <Icon type="lastfm" />
+          <Icon type="lastfmCircled" />
+          <Icon type="layout" />
+          <Icon type="leaf" />
+          <Icon type="left" />
+          <Icon type="leftBold" />
+          <Icon type="leftCircled" />
+          <Icon type="leftDir" />
+          <Icon type="leftOpen" />
+          <Icon type="leftOpenBig" />
+          <Icon type="leftOpenMini" />
+          <Icon type="leftThin" />
+          <Icon type="levelDown" />
+          <Icon type="levelUp" />
+          <Icon type="lifebuoy" />
+          <Icon type="lightDown" />
+          <Icon type="lightUp" />
+          <Icon type="link" />
+          <Icon type="linkedin" />
+          <Icon type="linkedinCircled" />
+          <Icon type="list" />
+          <Icon type="listAdd" />
+          <Icon type="location" />
+          <Icon type="lock" />
+          <Icon type="lockOpen" />
+          <Icon type="login" />
+          <Icon type="logoDb" />
+          <Icon type="logout" />
+          <Icon type="loop" />
+          <Icon type="magnet" />
+          <Icon type="mail" />
+          <Icon type="map" />
+          <Icon type="megaphone" />
+          <Icon type="menu" />
+          <Icon type="mic" />
+          <Icon type="minus" />
+          <Icon type="minusCircled" />
+          <Icon type="minusSquared" />
+          <Icon type="mixi" />
+          <Icon type="mobile" />
+          <Icon type="monitor" />
+          <Icon type="moon" />
+          <Icon type="mouse" />
+          <Icon type="music" />
+          <Icon type="mute" />
+          <Icon type="network" />
+          <Icon type="newspaper" />
+          <Icon type="note" />
+          <Icon type="noteBeamed" />
+          <Icon type="palette" />
+          <Icon type="paperPlane" />
+          <Icon type="pause" />
+          <Icon type="paypal" />
+          <Icon type="pencil" />
+          <Icon type="phone" />
+          <Icon type="picasa" />
+          <Icon type="picture" />
+          <Icon type="pinterest" />
+          <Icon type="pinterestCircled" />
+          <Icon type="play" />
+          <Icon type="plus" />
+          <Icon type="plusCircled" />
+          <Icon type="plusSquared" />
+          <Icon type="popup" />
+          <Icon type="print" />
+          <Icon type="progress0" />
+          <Icon type="progress1" />
+          <Icon type="progress2" />
+          <Icon type="progress3" />
+          <Icon type="publish" />
+          <Icon type="qq" />
+          <Icon type="quote" />
+          <Icon type="rdio" />
+          <Icon type="rdioCircled" />
+          <Icon type="record" />
+          <Icon type="renren" />
+          <Icon type="reply" />
+          <Icon type="replyAll" />
+          <Icon type="resizeFull" />
+          <Icon type="resizeSmall" />
+          <Icon type="retweet" />
+          <Icon type="right" />
+          <Icon type="rightBold" />
+          <Icon type="rightCircled" />
+          <Icon type="rightDir" />
+          <Icon type="rightOpen" />
+          <Icon type="rightOpenBig" />
+          <Icon type="rightOpenMini" />
+          <Icon type="rightThin" />
+          <Icon type="rocket" />
+          <Icon type="rss" />
+          <Icon type="search" />
+          <Icon type="share" />
+          <Icon type="shareable" />
+          <Icon type="shuffle" />
+          <Icon type="signal" />
+          <Icon type="sinaWeibo" />
+          <Icon type="skype" />
+          <Icon type="skypeCircled" />
+          <Icon type="smashing" />
+          <Icon type="sound" />
+          <Icon type="soundcloud" />
+          <Icon type="spotify" />
+          <Icon type="spotifyCircled" />
+          <Icon type="star" />
+          <Icon type="starEmpty" />
+          <Icon type="stop" />
+          <Icon type="stumbleupon" />
+          <Icon type="stumbleuponCircled" />
+          <Icon type="suitcase" />
+          <Icon type="sweden" />
+          <Icon type="switch" />
+          <Icon type="tag" />
+          <Icon type="tape" />
+          <Icon type="target" />
+          <Icon type="thermometer" />
+          <Icon type="thumbsDown" />
+          <Icon type="thumbsUp" />
+          <Icon type="ticket" />
+          <Icon type="toEnd" />
+          <Icon type="toStart" />
+          <Icon type="tools" />
+          <Icon type="trafficCone" />
+          <Icon type="trash" />
+          <Icon type="trophy" />
+          <Icon type="tumblr" />
+          <Icon type="tumblrCircled" />
+          <Icon type="twitter" />
+          <Icon type="twitterCircled" />
+          <Icon type="up" />
+          <Icon type="upBold" />
+          <Icon type="upCircled" />
+          <Icon type="upDir" />
+          <Icon type="upOpen" />
+          <Icon type="upOpenBig" />
+          <Icon type="upOpenMini" />
+          <Icon type="upThin" />
+          <Icon type="upload" />
+          <Icon type="uploadCloud" />
+          <Icon type="user" />
+          <Icon type="userAdd" />
+          <Icon type="users" />
+          <Icon type="vcard" />
+          <Icon type="video" />
+          <Icon type="vimeo" />
+          <Icon type="vimeoCircled" />
+          <Icon type="vkontakte" />
+          <Icon type="volume" />
+          <Icon type="water" />
+          <Icon type="window" />
+        </div>
+      </Separator>
+      <br />
+      <br />
+      <Separator>
+        <h2>Layout</h2>
+      </Separator>
       <Wrapper style={{ flexDirection: 'row' }}>
         <Separator>
           <Card
@@ -721,12 +1044,90 @@ storiesOf('Debug', module).add('Components', () => {
         </Row>
       </Grid>
       <br />
-      <Wrapper>
-        <Separator>
-          <AccordionWithValue />
-          <AccordionWithValue />
-        </Separator>
-      </Wrapper>
+      <Separator style={{ flexDirection: 'row' }}>
+        <div
+          style={{
+            width: 80,
+            height: 80,
+            justifyContent: 'center',
+            backgroundColor: 'rgb(180, 180, 180)',
+          }}>
+          0
+        </div>
+        <Spacer size={4} />
+        <div
+          style={{
+            width: 80,
+            height: 80,
+            justifyContent: 'center',
+            backgroundColor: 'rgb(180, 180, 180)',
+          }}>
+          4
+        </div>
+        <Spacer size={8} />
+        <div
+          style={{
+            width: 80,
+            height: 80,
+            justifyContent: 'center',
+            backgroundColor: 'rgb(180, 180, 180)',
+          }}>
+          8
+        </div>
+        <Spacer size={16} />
+        <div
+          style={{
+            width: 80,
+            height: 80,
+            justifyContent: 'center',
+            backgroundColor: 'rgb(180, 180, 180)',
+          }}>
+          16
+        </div>
+        <Spacer size={32} />
+        <div
+          style={{
+            width: 80,
+            height: 80,
+            justifyContent: 'center',
+            backgroundColor: 'rgb(180, 180, 180)',
+          }}>
+          32
+        </div>
+      </Separator>
+      <Separator>
+        <Box row space={3}>
+          <Box padding={20} extend={{ backgroundColor: 'black' }} />
+          <Box padding={20} extend={{ backgroundColor: 'grey' }} />
+        </Box>
+      </Separator>
+      <Separator>
+        <ScrollView
+          extend={{ height: 200, width: 200, border: '2px solid black' }}>
+          <Box padding={3} space={3}>
+            <Box padding={20} extend={{ backgroundColor: 'rgb(0, 0,0)' }} />
+            <Box padding={20} extend={{ backgroundColor: 'rgb(50, 50,50)' }} />
+            <Box
+              padding={20}
+              extend={{ backgroundColor: 'rgb(100, 100,100)' }}
+            />
+            <Box
+              padding={20}
+              extend={{ backgroundColor: 'rgb(150, 150,150)' }}
+            />
+            <Box
+              padding={20}
+              extend={{ backgroundColor: 'rgb(200, 200,200)' }}
+            />
+            <Box
+              padding={20}
+              extend={{ backgroundColor: 'rgb(220, 220,220)' }}
+            />
+          </Box>
+        </ScrollView>
+      </Separator>
+      <br />
+      <br />
       <Separator>
         <h2>Actions</h2>
       </Separator>
@@ -734,6 +1135,34 @@ storiesOf('Debug', module).add('Components', () => {
       <ButtonList intent={Button.intent.Inline} />
       <ButtonList intent={Button.intent.Outline} />
       <ButtonList intent={Button.intent.Text} />
+      <br />
+      <div style={{ flexDirection: 'row' }}>
+        <div style={{ width: 400, flexDirection: 'row' }}>
+          <Separator>
+            <IconButton>
+              <Icons.plus />
+            </IconButton>
+          </Separator>
+          <Separator>
+            <IconButton variant={IconButton.variant.Destructive}>
+              <Icons.minus />
+            </IconButton>
+          </Separator>
+        </div>
+
+        <div style={{ width: 400, flexDirection: 'row' }}>
+          <Separator>
+            <IconButton disabled>
+              <Icons.plus />
+            </IconButton>
+          </Separator>
+          <Separator>
+            <IconButton disabled variant={IconButton.variant.Destructive}>
+              <Icons.minus />
+            </IconButton>
+          </Separator>
+        </div>
+      </div>
       <br />
       <div style={{ flexDirection: 'row' }}>
         <div style={{ width: 400 }}>
@@ -751,6 +1180,19 @@ storiesOf('Debug', module).add('Components', () => {
       </div>
       <br />
       <br />
+      <Separator>
+        <h2>Disclosure</h2>
+      </Separator>
+      <Separator>
+        <ModalWithTrigger />
+      </Separator>
+      <Wrapper>
+        <Separator>
+          <AccordionWithValue />
+          <AccordionWithValue />
+        </Separator>
+      </Wrapper>
+      <br /> <br />
       <Separator>
         <h2>Indicators</h2>
       </Separator>
@@ -776,14 +1218,6 @@ storiesOf('Debug', module).add('Components', () => {
         </div>
         <div style={{ width: 500 }}>
           <TextInputWithValue disabled />
-        </div>
-      </div>
-      <div style={{ flexDirection: 'row' }}>
-        <div style={{ width: 500 }}>
-          <MaskedTextInputWithValue />
-        </div>
-        <div style={{ width: 500 }}>
-          <MaskedTextInputWithValue disabled />
         </div>
       </div>
       <div style={{ flexDirection: 'row' }}>
@@ -872,7 +1306,17 @@ storiesOf('Debug', module).add('Components', () => {
       </Separator>
       <Separator>
         <div style={{ width: 500, border: '1px solid grey' }}>
-          <Tab />
+          <Nav>
+            <NavItem active icon={<Icons.home />}>
+              Home
+            </NavItem>
+            <NavItem icon={<Icons.user />}>Account</NavItem>
+          </Nav>
+        </div>
+      </Separator>
+      <Separator>
+        <div style={{ width: 500, border: '1px solid grey' }}>
+          <TabNavigation />
         </div>
       </Separator>
     </>

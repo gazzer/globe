@@ -2,12 +2,17 @@ variant Validation {
   Invalid
 }
 
+variant Position {
+  Start
+  End
+  Both
+}
+
 view Input {
   __WebkitAppearance: none
   __MozAppearance: none
   __appearance: none
   __outline: 0
-  __resize: vertical
   flexGrow: 1
   flexShrink: 1
   borderWidth: 2
@@ -50,13 +55,65 @@ view Input {
       borderColor: rgb(220 220 220)
     }
   }
+  [Position=Start] {
+    borderTopLeftRadius: 0
+    borderBottomLeftRadius: 0
+    paddingLeft: 4
+  }
+  [Position=End] {
+    borderTopRightRadius: 0
+    borderBottomRightRadius: 0
+    paddingRight: 4
+  }
+  [Position=Both] {
+    borderTopLeftRadius: 0
+    borderBottomLeftRadius: 0
+    borderTopRightRadius: 0
+    borderBottomRightRadius: 0
+    paddingLeft: 4
+    paddingRight: 4
+  }
 }
 
 text InputText {
   fontSize: 18
   lineHeight: 1.2
   color: rgb(20 20 20)
+  [Position=End] {
+    textAlign: right
+  }
   [@disabled] {
+    __WebkitTextFillColor: rgb(100 100 100)
     color: rgb(100 100 100)
   }
+}
+
+view Mask {
+  backgroundColor: rgb(220 220 220)
+  alignItems: center
+  justifyContent: center
+  paddingTop: 13
+  paddingBottom: 11
+  [Position=Start] {
+    paddingLeft: 12
+    paddingRight: 4
+    borderTopLeftRadius: 7
+    borderTopRightRadius: 0
+    borderBottomRightRadius: 0
+    borderBottomLeftRadius: 7
+  }
+  [Position=End] {
+    paddingRight: 12
+    paddingLeft: 4
+    borderTopLeftRadius: 0
+    borderTopRightRadius: 7
+    borderBottomRightRadius: 7
+    borderBottomLeftRadius: 0
+  }
+}
+
+text MaskText {
+  color: rgb(100 100 100)
+  lineHeight: 1.2
+  fontSize: 18
 }

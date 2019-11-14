@@ -1,10 +1,12 @@
-open Utils;
+open ReactUtils;
+open OptionUtils;
 
 [@react.component]
-let make = (~extend=?, ~children) => {
+let make = (~extend=?, ~style=?, ~children) => {
   let css = ReactFela.useFela();
 
   <div
+    ?style
     className={css(
       collapseOption([extend, Some(ScrollViewStyle.scrollView())]),
     )}>

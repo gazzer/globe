@@ -30,8 +30,51 @@ storiesOf('Forms/TimeInput', module)
       return (
         <Wrapper>
           <Separator>
-            <Label htmlFor="startTime">Start Time:</Label>
-            <TimeInput name="startTime" value={value} onChange={setValue} />
+            <TimeInput
+              label="Start Time"
+              name="startTime"
+              value={value}
+              onChange={setValue}
+            />
+          </Separator>
+        </Wrapper>
+      )
+    }
+
+    return <TimeInputWithValue />
+  })
+
+  .add('Disabled', () => (
+    <Wrapper>
+      <Separator>
+        <TimeInput
+          disabled
+          label="Start Time"
+          name="startTime"
+          value={[20, 30]}
+        />
+      </Separator>
+    </Wrapper>
+  ))
+  .add('Validation', () => {
+    const TimeInputWithValue = () => {
+      const [value, setValue] = useState({})
+      const [isValid, setValid] = useState(false)
+
+      return (
+        <Wrapper>
+          <Separator>
+            <TimeInput
+              label="Start Time"
+              name="startTime"
+              value={value}
+              isValid={isValid}
+              onChange={newVal => {
+                setValue(newVal)
+                setValid(newVal.filter(val => val !== undefined).length === 2)
+              }}
+              error={isValid ? null : 'Please enter a start time.'}
+            />
           </Separator>
         </Wrapper>
       )

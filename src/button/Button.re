@@ -1,4 +1,5 @@
-open Utils;
+open ReactUtils;
+open OptionUtils;
 
 [@bs.deriving jsConverter]
 type type_ =

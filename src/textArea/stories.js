@@ -28,27 +28,6 @@ storiesOf('Forms/TextArea', module)
 
     return <TextAreaWithValue />
   })
-  .add('Disabled', () => {
-    const TextAreaWithValue = () => {
-      const [value, setValue] = useState('')
-
-      return (
-        <Wrapper>
-          <Separator>
-            <TextArea
-              disabled
-              name="description"
-              value={value}
-              onChange={setValue}
-              placeholder="Type some text..."
-            />
-          </Separator>
-        </Wrapper>
-      )
-    }
-
-    return <TextAreaWithValue />
-  })
   .add('Min/max', () => {
     const TextInputWithValue = () => {
       const [value, setValue] = useState('')
@@ -80,6 +59,27 @@ storiesOf('Forms/TextArea', module)
 
     return <TextInputWithValue />
   })
+  .add('AutoResize=false', () => {
+    const TextAreaWithValue = () => {
+      const [value, setValue] = useState('')
+
+      return (
+        <Wrapper>
+          <Separator>
+            <TextArea
+              autoResize={false}
+              name="description"
+              value={value}
+              onChange={setValue}
+              placeholder="Type some text..."
+            />
+          </Separator>
+        </Wrapper>
+      )
+    }
+
+    return <TextAreaWithValue />
+  })
   .add('Labeled', () => {
     const TextAreaWithValue = () => {
       const [value, setValue] = useState('')
@@ -87,8 +87,12 @@ storiesOf('Forms/TextArea', module)
       return (
         <Wrapper>
           <Separator>
-            <Label htmlFor="description">Description:</Label>
-            <TextArea name="description" value={value} onChange={setValue} />
+            <TextArea
+              label="Description"
+              name="description"
+              value={value}
+              onChange={setValue}
+            />
           </Separator>
         </Wrapper>
       )
@@ -97,20 +101,39 @@ storiesOf('Forms/TextArea', module)
     return <TextAreaWithValue />
   })
 
+  .add('Disabled', () => (
+    <Wrapper>
+      <Separator>
+        <TextArea
+          disabled
+          label="Description"
+          name="description"
+          value="Some text"
+          placeholder="Type some text..."
+        />
+      </Separator>
+    </Wrapper>
+  ))
+
   .add('Validation', () => {
     const TextAreaWithValue = () => {
       const [value, setValue] = useState('')
+      const [isValid, setValid] = useState(false)
+
       return (
         <Wrapper>
           <Separator>
-            <Label htmlFor="description">Description</Label>
             <TextArea
               name="description"
               minLength={50}
-              isValid={value.length >= 50}
+              isValid={isValid}
               value={value}
-              onChange={setValue}
-              placeholder="Type at least 50 chars"
+              onChange={newVal => {
+                setValue(newVal)
+                setValid(newVal.length >= 50)
+              }}
+              label="Description"
+              error={isValid ? null : 'Type at least 50 chars.'}
             />
           </Separator>
         </Wrapper>

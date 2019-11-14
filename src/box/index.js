@@ -1,12 +1,12 @@
-import React, { Children } from "react"
-import { useFela } from "react-fela"
+import React, { Children } from 'react'
+import { useFela } from 'react-fela'
 
-import Spacer from "../spacer"
+import Spacer from '../spacer'
 
 const applySpacing = spacing => value => (value ? value * spacing : undefined)
 
 export default function Box({
-  as: Component = "div",
+  as: Component = 'div',
   space,
   children,
   padding,
@@ -24,7 +24,11 @@ export default function Box({
   size,
   width,
   height,
-  alignSelf = "stretch",
+  minWidth,
+  maxWidth,
+  minHeight,
+  maxHeight,
+  alignSelf = 'stretch',
   alignItems,
   justifyContent,
   wrap,
@@ -56,18 +60,22 @@ export default function Box({
           flexBasis: size,
           width,
           height,
+          minWidth,
+          maxWidth,
+          minHeight,
+          maxHeight,
           alignSelf,
           alignItems,
           justifyContent,
-          flexWrap: wrap ? "wrap" : "nowrap",
-          flexDirection: row ? "row" : "column",
-          maxWidth: "100%",
-          boxSizing: "border-box",
-          WebkitOverflowScrolling: "touch",
+          flexWrap: wrap ? 'wrap' : 'nowrap',
+          flexDirection: row ? 'row' : 'column',
+          display: 'flex',
+          maxWidth: '100%',
+          boxSizing: 'border-box',
+          WebkitOverflowScrolling: 'touch',
         },
         extend
-      )}
-    >
+      )}>
       {space
         ? Children.toArray(children).map((child, index, arr) => (
             <React.Fragment key={index}>

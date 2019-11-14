@@ -1,4 +1,5 @@
-open Utils;
+open ReactUtils;
+open OptionUtils;
 
 [@bs.deriving jsConverter]
 type variant =
@@ -23,7 +24,7 @@ type intent =
 let intent = {"Info": intentToJs(Info)};
 
 [@react.component]
-let make = (~intent=?, ~variant=Body, ~as_=?, ~style=?, ~extend=?, ~children) => {
+let make = (~intent=?, ~variant=Body, ~_as=?, ~style=?, ~extend=?, ~children) => {
   let css = ReactFela.useFela2();
   let theme = ReactFela.useTheme();
 
@@ -37,7 +38,7 @@ let make = (~intent=?, ~variant=Body, ~as_=?, ~style=?, ~extend=?, ~children) =>
     };
 
   let el =
-    switch (as_) {
+    switch (_as) {
     | Some(el) => el
     | None => options##element
     };
@@ -63,6 +64,7 @@ let make = (~intent=?, ~variant=Body, ~as_=?, ~style=?, ~extend=?, ~children) =>
         ~className=
           css(
             Fela.style({
+              "display": "inline",
               "fontSize": options##fontSize,
               "lineHeight": options##lineHeight ++ "px",
               "fontFamily": resolveOption(options##fontFamily, f => f, None),

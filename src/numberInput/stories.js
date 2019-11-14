@@ -31,8 +31,45 @@ storiesOf('Forms/NumberInput', module)
       return (
         <Wrapper>
           <Separator>
-            <Label htmlFor="count">Number</Label>
-            <NumberInput name="count" value={value} onChange={setValue} />
+            <NumberInput
+              label="Number"
+              name="count"
+              value={value}
+              onChange={setValue}
+            />
+          </Separator>
+        </Wrapper>
+      )
+    }
+
+    return <NumberInputWithValue />
+  })
+  .add('Disabled', () => (
+    <Wrapper>
+      <Separator>
+        <NumberInput disabled label="Number" name="count" value="25" />
+      </Separator>
+    </Wrapper>
+  ))
+  .add('Validation', () => {
+    const NumberInputWithValue = () => {
+      const [value, setValue] = useState(1)
+      const [isValid, setValid] = useState(false)
+
+      return (
+        <Wrapper>
+          <Separator>
+            <NumberInput
+              label="Number"
+              name="count"
+              value={value}
+              onChange={newVal => {
+                setValue(newVal)
+                setValid(parseInt(newVal) % 2 === 0)
+              }}
+              error={isValid ? null : 'Please enter an even number.'}
+              isValid={isValid}
+            />
           </Separator>
         </Wrapper>
       )

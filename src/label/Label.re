@@ -1,4 +1,4 @@
-open Utils;
+open ReactUtils;
 
 [@react.component]
 let make =
@@ -15,7 +15,10 @@ let make =
   <label
     htmlFor
     className={css([
-      LabelStyle.label(~cursor=pointer ? "pointer" : "inherit", ()),
+      LabelStyle.label(
+        ~cursor=pointer && !disabled ? "pointer" : "inherit",
+        (),
+      ),
       LabelStyle.labelText(
         ~status=?{
           disabled ? Some(LabelStyle.Disabled) : None;

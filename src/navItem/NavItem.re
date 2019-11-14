@@ -1,11 +1,9 @@
-open Utils;
+open ReactUtils;
+open OptionUtils;
 
 [@react.component]
-let make =
-    (~children, ~id, ~active=?, ~disabled=false, ~intent=?, ~icon, ~extend=?) => {
+let make = (~children, ~href, ~active=?, ~disabled=false, ~icon, ~extend=?) => {
   let css = ReactFela.useFela();
-
-  let onChange: NavContext.context = React.useContext(NavContext.context);
 
   let status =
     resolveOption(
@@ -16,12 +14,8 @@ let make =
 
   let state = disabled ? NavItemStyle.Disabled : NavItemStyle.Enabled;
 
-  <div
-    onClick={_ =>
-      if (!disabled) {
-        onChange(id);
-      }
-    }
+  <a
+    href
     className={css(
       collapseOption([
         Some(NavItemStyle.navItem(~status, ~state, ())),
@@ -42,5 +36,5 @@ let make =
       icon
     </div>
     children
-  </div>;
+  </a>;
 };

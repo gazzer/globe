@@ -1,24 +1,22 @@
-import React, { useState } from "react"
-import { storiesOf } from "@storybook/react"
+import React, { useState } from 'react'
+import { storiesOf } from '@storybook/react'
 
-import Select from "./"
-import Label from "../label"
+import Select from './'
+import Label from '../label'
 
-import Wrapper from "../../stories/Wrapper"
-import Separator from "../../stories/Separator"
+import Wrapper from '../../stories/Wrapper'
+import Separator from '../../stories/Separator'
 
-storiesOf("Forms/Select", module)
-  .add("Default", () => {
+storiesOf('Forms/Select', module)
+  .add('Default', () => {
     const SelectWithValue = () => {
-      const [value, setValue] = useState("Germany")
+      const [value, setValue] = useState('Germany')
 
       return (
         <Wrapper>
           <Separator>
             <Select onChange={setValue} value={value}>
-              <option value="Germany">
-                Germany foo bar baz barum bazum asd
-              </option>
+              <option value="Germany">Germany</option>
               <option value="Italy">Italy</option>
             </Select>
           </Separator>
@@ -28,27 +26,60 @@ storiesOf("Forms/Select", module)
 
     return <SelectWithValue />
   })
-  .add("Disabled", () => (
+  .add('Labeled', () => {
+    const SelectWithValue = () => {
+      const [value, setValue] = useState('Germany')
+
+      return (
+        <Wrapper>
+          <Separator>
+            <Select
+              label="Country"
+              name="country"
+              required
+              onChange={setValue}
+              value={value}>
+              <option value="Germany">Germany</option>
+              <option value="Italy">Italy</option>
+            </Select>
+          </Separator>
+        </Wrapper>
+      )
+    }
+
+    return <SelectWithValue />
+  })
+  .add('Disabled', () => (
     <Wrapper>
       <Separator>
-        <Select disabled>
+        <Select label="Country" disabled>
           <option value="Germany">Germany</option>
           <option value="Italy">Italy</option>
         </Select>
       </Separator>
     </Wrapper>
   ))
-  .add("Labeled", () => {
+
+  .add('Validation', () => {
     const SelectWithValue = () => {
-      const [value, setValue] = useState("Germany")
+      const [value, setValue] = useState('')
+      const [isValid, setValid] = useState(false)
 
       return (
         <Wrapper>
           <Separator>
-            <Label required htmlFor="country">
-              Country
-            </Label>
-            <Select name="country" required onChange={setValue} value={value}>
+            <Select
+              label="Country"
+              error={isValid ? null : 'Please set a country.'}
+              name="country"
+              required
+              isValid={isValid}
+              onChange={newVal => {
+                setValue(newVal)
+                setValid(newVal.length > 0)
+              }}
+              value={value}>
+              <option value=""></option>
               <option value="Germany">Germany</option>
               <option value="Italy">Italy</option>
             </Select>

@@ -1,4 +1,4 @@
-open Utils;
+open ReactUtils;
 
 [@react.component]
 let make = (~expanded=false, ~onChange, ~trigger, ~children) => {
