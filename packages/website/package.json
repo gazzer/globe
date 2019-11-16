@@ -15,7 +15,7 @@
     "dev": "now dev",
     "start": "next start",
     "export": "next export",
-    "deploy": "yarn build && now --target production",
+    "deploy": "yarn build && now --prod",
     "clean": "rimraf public/storybook public/playroom",
     "build": "bsb -clean-world -make-world && next build",
     "reason": "bsb -clean-world -make-world -w",
