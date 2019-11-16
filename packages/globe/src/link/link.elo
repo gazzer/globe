@@ -1,0 +1,49 @@
+variant Status {
+  Disabled
+}
+
+variant Line {
+  Show
+  Hide
+}
+
+view Link {
+  __display: inlineFlex
+  borderWidth: 0
+  borderStyle: solid
+  borderBottomColor: rgb(0 156 144)
+  alignSelf: flexStart
+  [@hover] {
+    borderBottomColor: rgb(0 126 114)
+  }
+  [@focus] {
+    __boxShadow: raw("0 0 0 2pt rgb(60, 206, 194)")
+  }
+  [Status=Disabled] {
+    borderBottomColor: rgb(160 160 160)
+    [@hover] {
+      borderBottomColor: rgb(160 160 160)
+    }
+  }
+  [Line=Show] {
+    borderBottomWidth: 1
+  }
+}
+
+text LinkText {
+  color: rgb(0 156 144)
+  textDecorationLine: none
+  [@visited] {
+    color: rgb(0 156 144)
+  }
+  [@hover] {
+    color: rgb(0 126 114)
+  }
+  [Status=Disabled] {
+    __cursor: notAllowed
+    color: rgb(160 160 160)
+    [@hover] {
+      color: rgb(160 160 160)
+    }
+  }
+}

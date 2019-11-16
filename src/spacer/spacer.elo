@@ -1,9 +1,0 @@
-view Spacer {
-  __WebkitUserSelect: none
-  __MozUserSelect: none
-  __userSelect: none
-  flexBasis: $size
-  [@viewportWidth>=1024] {
-    flexBasis: $desktopSize
-  }
-}

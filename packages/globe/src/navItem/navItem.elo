@@ -1,0 +1,83 @@
+variant Status {
+  Active
+  Inactive
+}
+
+variant State {
+  Disabled
+  Enabled
+}
+
+view NavItem {
+  __WebkitUserSelect: none
+  __MozUserSelect: none
+  __userSelect: none
+  __cursor: pointer
+  __transition: raw("border-bottom-color 200ms ease-in-out, color 200ms ease-in-out")
+  alignSelf: auto
+  flexDirection: column
+  flexBasis: 0
+  flexShrink: 0
+  flexGrow: 1
+  paddingTop: 5
+  paddingBottom: 6
+  borderStyle: solid
+  borderRightWidth: 0
+  borderLeftWidth: 0
+  borderTopWidth: 0
+  borderBottomWidth: 3
+  borderBottomColor: rgba(0 0 0 percentage(0))
+  [@firstChild] {
+    marginLeft: 0
+  }
+  [@lastChild] {
+    marginRight: 0
+  }
+  [@viewportWidth>=1024] {
+    marginLeft: 8
+    marginRight: 8
+    flexGrow: 0
+    paddingTop: 16
+    paddingBottom: 13
+  }
+  [Status=Active] {
+    borderBottomColor: white
+  }
+  [State=Enabled] {
+    [@hover] {
+      [Status=Inactive] {
+        borderBottomColor: rgba(255 255 255 percentage(50))
+      }
+    }
+  }
+  [State=Disabled] {
+    __cursor: notAllowed
+  }
+}
+
+text NavItemText {
+  __display: flex
+  textAlign: center
+  textDecorationLine: none
+  fontSize: 11
+  lineHeight: .9
+  color: white
+  [@viewportWidth>=1024] {
+    fontSize: 18
+    lineHeight: 1
+  }
+  [State=Disabled] {
+    color: rgba(255 255 255 percentage(50))
+  }
+}
+
+view NavItemIcon {
+  [@viewportWidth>=1024] {
+    __display: none
+  }
+}
+
+text NavItemIconText {
+  fontSize: 24
+  lineHeight: 1.0
+}

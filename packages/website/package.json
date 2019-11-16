@@ -1,0 +1,44 @@
+{
+  "private": true,
+  "name": "@gazzer/globe-website",
+  "version": "0.1.3",
+  "browserslist": [
+    "IE >= 11",
+    "Firefox >= 60",
+    "Safari >= 11.1",
+    "Chrome >= 66",
+    "ChromeAndroid >= 66",
+    "iOS >= 11.3",
+    "Edge >= 15"
+  ],
+  "scripts": {
+    "dev": "now dev",
+    "start": "next start",
+    "export": "next export",
+    "deploy": "yarn build && now --target production",
+    "clean": "rimraf public/storybook public/playroom",
+    "build": "bsb -clean-world -make-world && next build",
+    "reason": "bsb -clean-world -make-world -w",
+    "now-build": "yarn build"
+  },
+  "dependencies": {
+    "@gazzer/globe": "^0.1.3",
+    "bs-platform": "^6.0.x",
+    "fela-dom": "^11.0.2",
+    "next": "latest",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "reason-fela": "^11.0.2",
+    "reason-react": "^0.7.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/polyfill": "^7.6.0",
+    "@next/bundle-analyzer": "^9.1.1",
+    "@now/next": "^0.5.8",
+    "@zeit/next-css": "^1.0.1",
+    "next-transpile-modules": "^2.3.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "rimraf": "^3.0.0"
+  }
+}

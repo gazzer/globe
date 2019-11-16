@@ -1,0 +1,6 @@
+view Line {
+  __border: 0
+  backgroundColor: $color
+  height: $size
+  width: $width
+}

@@ -14,7 +14,7 @@
     "**/public": true,
     "**/.graphql_ppx_cache/": true,
     "**/.log": true,
-    // "**/*Style.re": true,
+    "**/*Style.re": true,
     "src/icons/js": true,
     "**/*.gen.*": true
   }

@@ -74,7 +74,7 @@ let s = React.string;
 [@react.component]
 let make = () =>
   <ScrollView>
-    <Box padding=4 space=2>
+    <Box padding=4 space={Int(2)}>
       <Button>"Click"->s</Button>
       <Button>"Me"->s</Button>
     </Box>
