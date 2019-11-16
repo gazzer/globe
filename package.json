@@ -5,7 +5,10 @@
   ],
   "scripts": {
     "bootstrap": "lerna bootstrap --reject-cycles",
-    "cleanup": "lerna run clean && lerna clean --yes"
+    "cleanup": "lerna runcd clean && lerna clean --yes",
+    "build": "cd packages/globe && yarn build",
+    "website": "cd packages/website && yarn deploy",
+    "release": "git pull --rebase && yarn build && lerna publish --force-publish && yarn website"
   },
   "devDependencies": {
     "lerna": "^3.16.4",

@@ -40,7 +40,7 @@
     "storybook": "start-storybook -p 6006 -s ./",
     "playroom": "playroom start",
     "reason": "bsb -clean-world -make-world -w",
-    "release": "yarn build:package && npm publish",
+    "release": "yarn build && npm publish",
     "elodin": "elodin src --watch --clean"
   },
   "license": "MIT",
