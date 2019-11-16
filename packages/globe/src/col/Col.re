@@ -17,7 +17,7 @@ let make =
                 ColStyle.col(
                   ~width={
                     Js.Float.toString(float_of_int(size) /. 12. *. 100.)
-                    ++ "0%";
+                    ++ "%";
                   },
                   (),
                 ),

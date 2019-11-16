@@ -100,7 +100,7 @@ const Box = forwardRef(
               <React.Fragment key={index}>
                 {child}
                 {index === arr.length - 1 ? null : (
-                  <Box width={spacing(space)} />
+                  <Box width={spacing(space)} size={spacing(space)} />
                 )}
               </React.Fragment>
             ))
