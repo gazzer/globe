@@ -40,6 +40,7 @@ module BaseBox = {
       ~wrap: responsive=?,
       ~display: responsive=?,
       ~extend: Fela.style=?,
+      ~style: ReactDOMRe.style=?,
       ~domProps: Js.t('a)=?
     ) =>
     React.element =
@@ -80,6 +81,7 @@ let make =
       ~row=?,
       ~wrap=?,
       ~extend=?,
+      ~style=?,
       ~domProps=?,
       ref,
     ) =>
@@ -87,6 +89,7 @@ let make =
       ref
       ?_as
       ?extend
+      ?style
       domProps={toDomProps(domProps)}
       space={toResponsive(space)}
       alignSelf={toResponsive(alignSelf)}
