@@ -4,7 +4,7 @@ type domProps;
 external toDomProps: option(domProps) => Js.t('a) = "%identity";
 
 module BaseText = {
-  [@bs.module "./text.js"] [@react.component]
+  [@bs.module "./index.js"] [@react.component]
   external make:
     (
       ~_as: string=?,
@@ -12,6 +12,7 @@ module BaseText = {
       ~children: React.element,
       ~domProps: Js.t('a)=?,
       ~extend: Fela.style=?,
+      ~style: ReactDOMRe.style=?,
       ~variant: string=?,
       ~intent: string=?,
       ~align: responsive=?,
@@ -61,6 +62,7 @@ let make =
       ~intent=?,
       ~_as=?,
       ~extend=?,
+      ~style=?,
       ~domProps=?,
       ~children,
       ref,
@@ -69,6 +71,7 @@ let make =
       ref
       ?_as
       ?extend
+      ?style
       domProps={toDomProps(domProps)}
       height={toResponsive(height)}
       weight={toResponsive(weight)}

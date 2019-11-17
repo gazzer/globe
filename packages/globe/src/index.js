@@ -24,6 +24,7 @@ import Radio from './radio'
 import Row from './row'
 import ScrollView from './scrollView'
 import Select from './select'
+import Spacer from './spacer'
 import SuggestionInput from './suggestionInput'
 import SuggestionItem from './suggestionItem'
 import TabNav from './tabNav'
@@ -67,6 +68,7 @@ export {
   ScrollView,
   Select,
   StyleProvider,
+  Spacer,
   SuggestionInput,
   SuggestionItem,
   TabNav,
