@@ -1,25 +1,15 @@
 import React, { Children, forwardRef } from 'react'
 import { useFela } from 'react-fela'
 
-const applySpacing = spacing => value => {
-  if (!value) {
-    return undefined
-  }
-
-  if (Array.isArray(value)) {
-    return value.map(v => v * spacing)
-  }
-
-  return value * spacing
-}
+import applySpacing from '../utils/applySpacing'
 
 export default forwardRef(
   (
     {
       as,
       children,
-      variant = 'body',
-      intent,
+      variant,
+      intent = 'body',
       extend,
       align,
       weight,
@@ -37,8 +27,9 @@ export default forwardRef(
       fontSize,
       lineHeight,
       fontWeight,
+      variants,
       ...fontStyle
-    } = theme.typography[variant]
+    } = theme.typography[intent]
 
     const Component = as || element
 
@@ -56,6 +47,7 @@ export default forwardRef(
             lineHeight: height || lineHeight + 'px',
             fontSize,
             ...fontStyle,
+            ...(variants && variants[variant] ? variants[variant] : {}),
           },
           extend
         )}>

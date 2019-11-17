@@ -1,17 +1,7 @@
 import React, { Children, forwardRef } from 'react'
 import { useFela } from 'react-fela'
 
-const applyGrid = spacing => value => {
-  if (!value) {
-    return undefined
-  }
-
-  if (Array.isArray(value)) {
-    return value.map(v => v * spacing)
-  }
-
-  return value * spacing
-}
+import applySpacing from '../utils/applySpacing'
 
 const Box = forwardRef(
   (
@@ -52,7 +42,7 @@ const Box = forwardRef(
     ref
   ) => {
     const { css, theme } = useFela()
-    const spacing = applyGrid(theme.baselineGrid)
+    const spacing = applySpacing(theme.baselineGrid)
 
     return (
       <Component

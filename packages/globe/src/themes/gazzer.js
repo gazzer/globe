@@ -30,6 +30,11 @@ module.exports = {
       // baseline correction
       marginBottom: 1,
       paddingTop: 3,
+      variants: {
+        info: {
+          textTransform: 'uppercase',
+        },
+      },
     },
     body: {
       element: 'p',
@@ -61,10 +66,10 @@ module.exports = {
       fontFamily: 'Lato',
       fontWeight: 900,
       fontSize: 40.0,
-      lineHeight: 52.0,
+      lineHeight: 40.0,
       // baseline correction
-      marginTop: -1,
-      paddingBottom: 1,
+      marginBottom: 3,
+      paddingTop: 1,
     },
   },
 }

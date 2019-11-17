@@ -24,15 +24,15 @@ module BaseText = {
     "default";
 };
 
-type variant =
+type intent =
   | Title
   | Subtitle
   | Category
   | Body
   | Label;
 
-let toVariant = variant =>
-  switch (variant) {
+let toIntent = intent =>
+  switch (intent) {
   | Some(Title) => "title"
   | Some(Subtitle) => "subtitle"
   | Some(Category) => "category"
@@ -41,11 +41,11 @@ let toVariant = variant =>
   | Some(Label) => "label"
   };
 
-type intent =
+type variant =
   | Info;
 
-let toIntent = intent =>
-  switch (intent) {
+let toVariant = variant =>
+  switch (variant) {
   | Some(Info) => "info"
   | None => ""
   };

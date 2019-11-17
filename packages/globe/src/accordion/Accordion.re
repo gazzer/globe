@@ -11,8 +11,8 @@ let make = (~expanded=false, ~onChange, ~trigger, ~children) => {
       onClick={_ => onChange(!expanded)}>
       <span className={css(AccordionStyle.triggerText())}> triggerEl </span>
       {expanded
-         ? <Icons.downOpenBig fill="rgb(160, 160, 160)" />
-         : <Icons.rightOpenBig fill="rgb(160, 160, 160)" />}
+         ? <Icons.minus fill="rgb(160, 160, 160)" />
+         : <Icons.plus fill="rgb(160, 160, 160)" />}
     </div>
     <div className={css(AccordionStyle.body(~mode?, ()))}> children </div>
   </div>;

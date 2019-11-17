@@ -2,37 +2,37 @@ import React, { useState, createElement } from 'react'
 import { storiesOf } from '@storybook/react'
 
 import {
-  Button,
-  Toggle,
-  Grid,
-  Row,
-  Col,
-  Text,
-  Box,
-  ScrollView,
   Accordion,
-  Link,
+  Box,
+  Button,
+  Card,
   Checkbox,
-  Loading,
-  Radio,
-  TabNav,
-  TabNavItem,
-  Label,
-  Select,
+  Col,
+  DateInput,
+  DatePicker,
+  DateTimeInput,
+  Grid,
   IconButton,
-  Modal,
   Icons,
+  Label,
+  Link,
+  Loading,
+  Modal,
   Nav,
   NavItem,
-  TextInput,
-  DateTimeInput,
-  TimeInput,
-  DatePicker,
-  DateInput,
   NumberInput,
+  Radio,
+  Row,
+  ScrollView,
+  Select,
   SuggestionInput,
   SuggestionItem,
-  Card,
+  TabNav,
+  TabNavItem,
+  Text,
+  TextInput,
+  TimeInput,
+  Toggle,
 } from '../src'
 
 import Wrapper from './Wrapper'
@@ -650,13 +650,13 @@ storiesOf('Debug', module).add('Components', () => {
         <h2>Core</h2>
       </Separator>
       <Separator>
-        <Text variant="title">Title</Text>
-        <Text variant="subtitle">Subtitle</Text>
-        <Text variant="category">Category</Text>
-        <Text variant="body">Body Text</Text>
+        <Text intent="title">Title</Text>
+        <Text intent="subtitle">Subtitle</Text>
+        <Text intent="category">Category</Text>
+        <Text intent="body">Body Text</Text>
         <Text>Default Text</Text>
-        <Text variant="label">Label Text</Text>
-        <Text variant="label" intent="info">
+        <Text intent="label">Label Text</Text>
+        <Text intent="label" variant="info">
           Label Info
         </Text>
       </Separator>
@@ -1052,7 +1052,7 @@ storiesOf('Debug', module).add('Components', () => {
           }}>
           0
         </div>
-        <Box size={4} />
+        <Box width={4} size={4} />
         <div
           style={{
             width: 80,
@@ -1062,7 +1062,7 @@ storiesOf('Debug', module).add('Components', () => {
           }}>
           4
         </div>
-        <Box size={8} />
+        <Box width={8} size={8} />
         <div
           style={{
             width: 80,
@@ -1072,7 +1072,7 @@ storiesOf('Debug', module).add('Components', () => {
           }}>
           8
         </div>
-        <Box size={16} />
+        <Box width={16} size={16} />
         <div
           style={{
             width: 80,
@@ -1082,7 +1082,7 @@ storiesOf('Debug', module).add('Components', () => {
           }}>
           16
         </div>
-        <Box size={32} />
+        <Box width={32} size={32} />
         <div
           style={{
             width: 80,
