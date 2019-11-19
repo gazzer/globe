@@ -12,7 +12,7 @@
 .SingleDatePickerInput .DateInput,
 .SingleDatePickerInput input {
   border-radius: 7px;
-  line-height: 1.2;
+  line-height: 1.25;
   font-size: 18px;
   font-weight: 400;
   border: 0;
@@ -39,7 +39,7 @@
 }
 
 .SingleDatePickerInput input {
-  padding: 12px 16px;
+  padding: 11px 15px;
   width: 100%;
   box-sizing: border-box;
 }

@@ -2,5 +2,6 @@ view ScrollView {
   __overflow: auto
   flexShrink: 1
   flexGrow: 1
-    flexBasis: auto
+  flexBasis: auto
+  maxHeight: percentage(100)
 }

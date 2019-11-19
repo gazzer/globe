@@ -2,10 +2,10 @@ view Suggestion {
   __cursor: pointer
   flexShrink: 0
   width: percentage(100)
-  paddingLeft: 16
-  paddingRight: 16
-  paddingTop: 12
-  paddingBottom: 12
+  paddingLeft: 15
+  paddingRight: 15
+  paddingTop: 11
+  paddingBottom: 11
   borderTopWidth: 0
   borderRightWidth: 0
   borderLeftWidth: 0
@@ -21,7 +21,7 @@ view SuggestionContainer {
   __overflow: auto
   __zIndex: 100
   position: absolute
-  marginTop: 45
+  marginTop: 46
   maxHeight: 200
   width: $width
   maxWidth: $width

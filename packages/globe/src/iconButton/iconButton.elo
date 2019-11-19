@@ -15,12 +15,12 @@ view IconButton {
   __cursor: pointer
   __transition: raw("200ms background-color ease-in-out")
   flexDirection: row
-  width: 50
-  height: 50
+  width: 48
+  height: 48
   alignItems: center
   justifyContent: center
   alignSelf: flexStart
-  borderRadius: 50
+  borderRadius: 48
   [Variant=Primary] {
     __boxShadow: raw("0 4px 12px rgba(0, 207, 192, 0.4)")
     backgroundColor: $theme_colors_primary
@@ -65,5 +65,5 @@ view IconButton {
 
 text IconButtonText {
   lineHeight: 1
-  fontSize: 28
+  fontSize: 26
 }

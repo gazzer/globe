@@ -15,7 +15,6 @@ variant State {
   Enabled
 }
 
-
 view TabNavItem {
   __WebkitUserSelect: none
   __MozUserSelect: none
@@ -28,8 +27,6 @@ view TabNavItem {
   paddingLeft: 8
   paddingBottom: 10
   paddingRight: 8
-  marginLeft: 8
-  marginRight: 8
   borderStyle: solid
   borderRightWidth: 0
   borderLeftWidth: 0
@@ -44,7 +41,6 @@ view TabNavItem {
   }
   [Status=Active] {
     borderBottomColor: rgb(0 176 164)
-
   }
   [Layout=Spread] {
     flexGrow: 1
@@ -53,7 +49,6 @@ view TabNavItem {
     [@hover] {
       [Status=Inactive] {
         borderBottomColor: rgba(0 176 164 percentage(50))
-
       }
     }
   }
@@ -65,13 +60,10 @@ view TabNavItem {
 text TabNavItemText {
   textAlign: center
   fontSize: 18
-
   [Status=Active] {
     color: rgb(0 176 164)
-
   }
   [State=Disabled] {
     color: rgb(180 180 180)
-
   }
 }

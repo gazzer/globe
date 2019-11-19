@@ -22,7 +22,11 @@ let make =
        <Label ?disabled pointer=true htmlFor=name> label </Label>
      | None => n
      }}
-    <Box row={Bool(true)} space={Int(1)} grow={Int(1)} shrink={Int(1)}>
+    <Box
+      direction={String("row")}
+      space={Int(1)}
+      grow={Int(1)}
+      shrink={Int(1)}>
       <Button
         ?disabled
         intent=ButtonStyle.Text

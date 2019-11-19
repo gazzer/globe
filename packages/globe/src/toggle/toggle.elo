@@ -12,8 +12,8 @@ view Toggle {
   __transition: raw("background-color 300ms cubic-bezier(0.230, 1.000, 0.320, 1.000)")
   __display: inlineBlock
   __verticalAlign: middle
-  width: 50
-  height: 30
+  width: 48
+  height: 28
   position: relative
   alignSelf: flexStart
   borderWidth: 2
@@ -44,8 +44,8 @@ view Toggle {
       [@after] {
         left: 2
         bottom: 2
-        width: 22
-        height: 22
+        width: 20
+        height: 20
       }
     }
   }
@@ -65,9 +65,9 @@ view Toggle {
     position: absolute
     bottom: 1
     left: 1
-    width: 24
-    height: 24
-    borderRadius: 24
+    width: 22
+    height: 22
+    borderRadius: 22
     backgroundColor: rgb(180 180 180)
   }
   [@disabled] {

@@ -21,10 +21,10 @@ view Input {
   borderStyle: solid
   borderColor: rgb(220 220 220)
   borderRadius: 7
-  paddingLeft: 16
   paddingRight: 40
-  paddingTop: 12
-  paddingBottom: 12
+  paddingLeft: 15
+  paddingTop: 11
+  paddingBottom: 11
   [@hover] {
     borderColor: rgb(205 205 205)
   }
@@ -59,7 +59,7 @@ view Input {
 
 text InputText {
   fontSize: 18
-  lineHeight: 1.2
+  lineHeight: 1.25
   color: rgb(20 20 20)
   [@disabled] {
     color: rgb(100 100 100)

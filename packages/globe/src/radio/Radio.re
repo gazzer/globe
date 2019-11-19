@@ -19,7 +19,10 @@ let make =
     let css = ReactFela.useFela1();
 
     <Box space={Int(1)}>
-      <Box row={Bool(true)} alignItems={String("center")} space={Int(1)}>
+      <Box
+        direction={String("row")}
+        alignItems={String("center")}
+        space={Int(1)}>
         <input
           ref=?{
             ref->Js.Nullable.toOption->Belt.Option.map(ReactDOMRe.Ref.domRef)

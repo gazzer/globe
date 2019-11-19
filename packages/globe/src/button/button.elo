@@ -28,7 +28,7 @@ view Button {
   __transition: raw("200ms background-color ease-in-out")
   flexDirection: row
   flexGrow: 1
-  paddingTop: 9
+  paddingTop: 8
   paddingBottom: 9
   paddingLeft: 20
   paddingRight: 20
@@ -91,7 +91,7 @@ view Button {
     backgroundColor: raw("transparent")
     borderWidth: 2
     borderStyle: solid
-    paddingTop: 7
+    paddingTop: 6
     paddingBottom: 7
     paddingLeft: 18
     paddingRight: 18
@@ -179,9 +179,11 @@ text ButtonText {
   }
   [Size=Small] {
     fontSize: 16
+    lineHeight: 1.45
   }
   [Size=Big] {
     fontSize: 20
+    lineHeight: 1.55
   }
   [Intent=Outline] {
     [@disabled] {

@@ -19,7 +19,7 @@ view NavItem {
   flexBasis: 0
   flexShrink: 0
   flexGrow: 1
-  paddingTop: 5
+  paddingTop: 6
   paddingBottom: 6
   borderStyle: solid
   borderRightWidth: 0

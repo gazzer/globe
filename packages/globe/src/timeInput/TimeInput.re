@@ -26,7 +26,11 @@ let make =
        <Label ?disabled pointer=true htmlFor=name> label </Label>
      | None => n
      }}
-    <Box grow={Int(1)} shrink={Int(1)} row={Bool(true)} space={Int(2)}>
+    <Box
+      direction={String("row")}
+      grow={Int(1)}
+      shrink={Int(1)}
+      space={Int(2)}>
       <Select
         ?isValid
         ?required

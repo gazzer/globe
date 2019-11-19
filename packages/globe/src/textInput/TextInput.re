@@ -48,7 +48,7 @@ let make =
        | None => n
        }}
       <Box grow={Int(1)} shrink={Int(1)}>
-        <Box row={Bool(true)} grow={Int(1)} shrink={Int(1)}>
+        <Box direction={String("row")} grow={Int(1)} shrink={Int(1)}>
           {switch (maskStart) {
            | Some(mask) =>
              <div

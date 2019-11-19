@@ -77,7 +77,7 @@ view Input {
 
 text InputText {
   fontSize: 18
-  lineHeight: 1.2
+  lineHeight: 1.25
   color: rgb(20 20 20)
   [Position=End] {
     textAlign: right

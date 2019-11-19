@@ -34,7 +34,11 @@ let make =
        <Label ?disabled pointer=true htmlFor=name> label </Label>
      | None => n
      }}
-    <Box row={Bool(true)} grow={Int(1)} shrink={Int(1)} space={Int(2)}>
+    <Box
+      direction={String("row")}
+      grow={Int(1)}
+      shrink={Int(1)}
+      space={Int(2)}>
       <Box grow={Int(1)} shrink={Int(1)} size={Int(80)}>
         <TextInput
           name={name ++ "-day"}
