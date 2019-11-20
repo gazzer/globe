@@ -22,7 +22,7 @@ module.exports = {
     huge: '@media (min-width: 1600px)',
   },
   typography: {
-    label: {
+    note: {
       element: 'span',
       fontSize: 14.0,
       lineHeight: 16.0,
@@ -35,6 +35,14 @@ module.exports = {
           textTransform: 'uppercase',
         },
       },
+    },
+    label: {
+      element: 'span',
+      fontSize: 16.0,
+      lineHeight: 16.0,
+      // baseline correction
+      marginBottom: 1,
+      paddingTop: 3,
     },
     body: {
       element: 'p',

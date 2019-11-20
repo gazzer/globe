@@ -1,11 +1,15 @@
 [@react.component]
-let make = (~size=20, ~className=?, ~color="rgb(0, 176, 164)") => {
-  let r = size / 2;
+let make = (~size=5, ~className=?, ~color="rgb(0, 176, 164)") => {
+  let theme = ReactFela.useTheme();
+
+  let pxSize = size * theme##baselineGrid;
+
+  let r = pxSize / 2;
 
   let radius = string_of_int(r);
   let lowRadius = string_of_int(r / 3);
-  let height = string_of_int(size);
-  let width = string_of_int(size * 3 + 10);
+  let height = string_of_int(pxSize);
+  let width = string_of_int(pxSize * 3 + r * 2);
 
   let animateValues =
     radius ++ ";" ++ lowRadius ++ ";" ++ radius ++ ";" ++ radius;
@@ -45,7 +49,7 @@ let make = (~size=20, ~className=?, ~color="rgb(0, 176, 164)") => {
         repeatCount="indefinite"
       />
     </circle>
-    <circle cx={string_of_int(r * 3 + 5)} cy=radius r=radius>
+    <circle cx={string_of_int(r * 3 + size)} cy=radius r=radius>
       <animate
         attributeName="r"
         from=radius
@@ -67,7 +71,7 @@ let make = (~size=20, ~className=?, ~color="rgb(0, 176, 164)") => {
         repeatCount="indefinite"
       />
     </circle>
-    <circle cx={string_of_int(r * 5 + 5 * 2)} cy=radius r=radius>
+    <circle cx={string_of_int(r * 5 + size * 2)} cy=radius r=radius>
       <animate
         attributeName="r"
         from=radius

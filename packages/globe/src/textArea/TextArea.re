@@ -32,7 +32,6 @@ let make =
       ~label: option(React.element)=?,
       ~error: option(React.element)=?,
       ~autoResize: option(bool)=?,
-      (),
       ref,
     ) => {
     let css = ReactFela.useFela();

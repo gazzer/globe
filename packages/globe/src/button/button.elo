@@ -25,7 +25,9 @@ view Button {
   __appearance: none
   __borderWidth: 0
   __cursor: pointer
-  __transition: raw("200ms background-color ease-in-out")
+  __transitionDuration: raw("150ms, 40ms")
+  __transitionProperty: raw("background-color, transform")
+  __transitionTimingFunction: easeInOut
   flexDirection: row
   flexGrow: 1
   paddingTop: 8
@@ -41,6 +43,9 @@ view Button {
     __cursor: notAllowed
     [@hover] {
       __boxShadow: none
+    }
+    [@active] {
+      __transform: none
     }
   }
   [Variant=Primary] {
@@ -67,10 +72,11 @@ view Button {
       __boxShadow: raw("0 4px 12px rgba(0, 207, 192, 0.4)")
       backgroundColor: rgb(0 176 164)
       [@hover] {
-        __boxShadow: raw("0 6px 20px rgba(0, 207, 192, 0.2)")
         backgroundColor: rgb(0 166 154)
       }
       [@active] {
+        __boxShadow: raw("0 6px 20px rgba(0, 207, 192, 0.2)")
+        __transform: raw("scale(0.99)")
         backgroundColor: rgb(0 156 144)
       }
     }
@@ -78,10 +84,11 @@ view Button {
       __boxShadow: raw("0 4px 12px rgba(220, 60, 110, 0.4)")
       backgroundColor: rgb(209 50 90)
       [@hover] {
-        __boxShadow: raw("0 6px 20px rgba(220, 60, 110, 0.2)")
         backgroundColor: rgb(200 40 80)
       }
       [@active] {
+        __boxShadow: raw("0 6px 20px rgba(220, 60, 110, 0.2)")
+        __transform: raw("scale(0.99)")
         backgroundColor: rgb(190 30 70)
       }
     }
@@ -116,7 +123,8 @@ view Button {
         backgroundColor: rgb(0 166 154)
       }
       [@active] {
-        borderColor: rgb(0 166 154)
+        __transform: raw("scale(0.99)")
+        borderColor: rgb(0 156 144)
         backgroundColor: rgb(0 156 144)
       }
     }
@@ -127,7 +135,8 @@ view Button {
         backgroundColor: rgb(200 40 80)
       }
       [@active] {
-        borderColor: rgb(190 30 70)
+        __transform: raw("scale(0.99)")
+        borderColor: rgb(200 40 80)
         backgroundColor: rgb(200 40 80)
       }
     }

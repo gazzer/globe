@@ -1,9 +1,14 @@
+open OptionUtils;
+
+external childrenToString: React.element => string = "%identity";
+
 [@react.component]
 let make =
   React.forwardRef(
     (
       ~href=?,
       ~disabled=false,
+      ~title=?,
       ~children,
       ~onClick=?,
       ~style=?,
@@ -17,6 +22,7 @@ let make =
     <a
       ?onClick
       ?style
+      title={resolveOption(title, t => t, childrenToString(children))}
       ref=?{ref->Js.Nullable.toOption->Belt.Option.map(ReactDOMRe.Ref.domRef)}
       href=?{disabled ? None : href}
       className={css([

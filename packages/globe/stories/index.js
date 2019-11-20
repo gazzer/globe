@@ -43,6 +43,10 @@ function loadStories() {
     './datePicker/stories.js',
     './locationInput/stories.js',
     './suggestionInput/stories.js',
+    './markdownInput/stories.js',
+
+    // Misc
+    './markdown/stories.js',
 
     // Navigation
     './tabNav/stories.js',

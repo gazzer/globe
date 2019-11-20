@@ -16,8 +16,9 @@ storiesOf('Core/Text', module).add('Default', () => (
     <Text intent="body">Body Text</Text>
     <Text>Default Text</Text>
     <Text intent="label">Label Text</Text>
-    <Text intent="label" variant="info">
-      Label Info
+    <Text intent="note">Note Text</Text>
+    <Text intent="note" variant="info">
+      Note Text
     </Text>
   </Wrapper>
 ))

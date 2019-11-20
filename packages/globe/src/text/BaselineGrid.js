@@ -5,7 +5,7 @@ export default function BaselineGrid({ full = false }) {
     <div
       style={{
         position: 'fixed',
-        zIndex: 1100,
+        zIndex: -1,
         opacity: 0.3,
         top: 0,
         left: 0,

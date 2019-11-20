@@ -24,9 +24,9 @@ view TabNavItem {
   alignSelf: auto
   minWidth: 50
   paddingTop: 12
-  paddingLeft: 8
   paddingBottom: 10
-  paddingRight: 8
+  marginLeft: 8
+  marginRight: 8
   borderStyle: solid
   borderRightWidth: 0
   borderLeftWidth: 0

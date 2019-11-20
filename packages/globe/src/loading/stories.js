@@ -12,10 +12,10 @@ storiesOf('Indicators/Loading', module).add('Default', () => (
       <Loading />
     </Separator>
     <Separator>
-      <Loading size={30} />
+      <Loading size={7} />
     </Separator>
     <Separator>
-      <Loading size={40} />
+      <Loading size={9} />
     </Separator>
   </Wrapper>
 ))

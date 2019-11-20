@@ -16,6 +16,9 @@ import IconButton from './iconButton'
 import Icons from './icons'
 import Link from './link'
 import Loading from './loading'
+import LocationInput from './locationInput'
+import Markdown from './markdown'
+import MarkdownInput from './markdownInput'
 import Modal from './modal'
 import Nav from './nav'
 import NavItem from './navItem'
@@ -59,6 +62,9 @@ export {
   Icons,
   Link,
   Loading,
+  LocationInput,
+  Markdown,
+  MarkdownInput,
   Modal,
   Nav,
   NavItem,

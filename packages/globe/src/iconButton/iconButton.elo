@@ -13,7 +13,9 @@ view IconButton {
   __appearance: none
   __borderWidth: 0
   __cursor: pointer
-  __transition: raw("200ms background-color ease-in-out")
+  __transitionDuration: raw("150ms, 40ms")
+  __transitionProperty: raw("background-color, transform")
+  __transitionTimingFunction: easeInOut
   flexDirection: row
   width: 48
   height: 48
@@ -25,10 +27,11 @@ view IconButton {
     __boxShadow: raw("0 4px 12px rgba(0, 207, 192, 0.4)")
     backgroundColor: $theme_colors_primary
     [@hover] {
-      __boxShadow: raw("0 6px 20px rgba(0, 207, 192, 0.2)")
       backgroundColor: $theme_colors_primaryHover
     }
     [@active] {
+      __boxShadow: raw("0 6px 20px rgba(0, 207, 192, 0.2)")
+      __transform: raw("scale(0.99)")
       backgroundColor: $theme_colors_primaryActive
     }
     [@focus] {
@@ -39,10 +42,11 @@ view IconButton {
     __boxShadow: raw("0 4px 12px rgba(220, 60, 110, 0.4)")
     backgroundColor: $theme_colors_destructive
     [@hover] {
-      __boxShadow: raw("0 6px 20px rgba(220, 60, 110, 0.2)")
       backgroundColor: $theme_colors_destructiveHover
     }
     [@active] {
+      __boxShadow: raw("0 6px 20px rgba(220, 60, 110, 0.2)")
+      __transform: raw("scale(0.99)")
       backgroundColor: $theme_colors_destructiveActive
     }
     [@focus] {
@@ -58,6 +62,7 @@ view IconButton {
       backgroundColor: rgb(190 190 190)
     }
     [@active] {
+      __transform: none
       backgroundColor: rgb(190 190 190)
     }
   }

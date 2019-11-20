@@ -1,5 +1,3 @@
-import React, { forwardRef } from 'react'
+import { make as TextArea } from './TextArea.bs.js'
 
-import { make as BaseTextArea } from './TextArea.bs.js'
-
-export default forwardRef((props, ref) => <BaseTextArea {...props} ref={ref} />)
+export default TextArea

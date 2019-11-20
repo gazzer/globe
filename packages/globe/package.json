@@ -53,6 +53,7 @@
     "fela-plugin-rtl": "^11.0.2",
     "fela-preset-web": "^11.0.2",
     "fela-sort-media-query-mobile-first": "^11.0.2",
+    "markdown-to-jsx": "^6.10.3",
     "moment": "^2.24.0",
     "react": "^16.9.0",
     "react-dates": "^21.0.1",

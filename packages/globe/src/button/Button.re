@@ -48,10 +48,34 @@ let make =
       ?disabled
       ?style
       type_="button"
-      className={css([
-        ButtonStyle.button(~variant, ~intent, ()),
-        ButtonStyle.buttonText(~size, ~variant, ~intent, ()),
-      ])}>
+      className={css(
+        collapseOption([
+          Some(ButtonStyle.button(~variant, ~intent, ())),
+          Some(ButtonStyle.buttonText(~size, ~variant, ~intent, ())),
+          {
+            intent === ButtonStyle.Outline
+            && !resolveOption(disabled, d => d, false)
+              ? Some(
+                  Fela.style({
+                    "& svg": {
+                      "transition": "150ms fill ease-in-out",
+                    },
+                    ":hover": {
+                      "& svg": {
+                        "fill": "white",
+                      },
+                    },
+                    ":active": {
+                      "& svg": {
+                        "fill": "white",
+                      },
+                    },
+                  }),
+                )
+              : None;
+          },
+        ]),
+      )}>
       <div style={ReactDOMRe.Style.make(~flexDirection="column", ())}>
         <div
           style={ReactDOMRe.Style.make(
@@ -60,9 +84,9 @@ let make =
             ~alignItems="center",
             (),
           )}>
-          {{js| |js} |> s}
+          e->s
           <Loading
-            size=15
+            size=4
             color={resolveOption(
               disabled,
               _ =>
@@ -82,7 +106,7 @@ let make =
               },
             )}
           />
-          {{js| |js} |> s}
+          e->s
         </div>
         <div
           style={ReactDOMRe.Style.make(

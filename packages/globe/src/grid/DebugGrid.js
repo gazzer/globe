@@ -27,7 +27,7 @@ export default function DebugGrid() {
         right: 0,
         left: 0,
         bottom: 0,
-        zIndex: 1000,
+        zIndex: -1,
         opacity: 0.4,
         pointerEvents: 'none',
       }}>
