@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@gazzer/globe-website",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "browserslist": [
     "IE >= 11",
     "Firefox >= 60",
@@ -22,7 +22,7 @@
     "now-build": "yarn build"
   },
   "dependencies": {
-    "@gazzer/globe": "^0.1.9",
+    "@gazzer/globe": "^0.1.10",
     "bs-platform": "^6.0.x",
     "fela-dom": "^11.0.2",
     "next": "latest",
