@@ -29,7 +29,8 @@ type intent =
   | Subtitle
   | Category
   | Body
-  | Label;
+  | Label
+  | Note;
 
 let toIntent = intent =>
   switch (intent) {
@@ -39,6 +40,7 @@ let toIntent = intent =>
   | Some(Body)
   | None => "body"
   | Some(Label) => "label"
+  | Some(Note) => "note"
   };
 
 type variant =
