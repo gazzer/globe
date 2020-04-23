@@ -15,9 +15,7 @@ let make =
       ~disabled: option(bool)=?,
       (),
       ref,
-    ) => {
-    let css = ReactFela.useFela1();
-
+    ) =>
     <Box space={Int(1)}>
       <Box
         direction={String("row")}
@@ -35,7 +33,7 @@ let make =
           id={name ++ "-" ++ value}
           type_="radio"
           onChange={_ => onChange(value)}
-          className={css(RadioStyle.radio())}
+          className={RadioStyle.radio()}
           onKeyPress={event => {
             ReactEvent.Synthetic.preventDefault(event);
 
@@ -60,5 +58,5 @@ let make =
        | Some(error) => <Warning> error </Warning>
        | None => n
        }}
-    </Box>;
-  });
+    </Box>
+  );

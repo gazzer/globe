@@ -1,8 +1,7 @@
-[@react.component]
-let make = (~children) => {
-  let css = ReactFela.useFela();
+open ReactUtils;
 
-  <span className={css([WarningStyle.warning(), WarningStyle.warningText()])}>
+[@react.component]
+let make = (~children) =>
+  <span className={cls([WarningStyle.warning(), WarningStyle.warningText()])}>
     children
   </span>;
-};

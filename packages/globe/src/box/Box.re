@@ -3,7 +3,8 @@ open ReactUtils;
 open OptionUtils;
 
 type domProps;
-external toDomProps: option(domProps) => Js.t('a) = "%identity";
+external fromDomProps: option(domProps) => Js.t('a) = "%identity";
+external toDomProps: Js.t('a) => domProps = "%identity";
 
 module BaseBox = {
   [@bs.module "./index.js"] [@react.component]
@@ -42,6 +43,7 @@ module BaseBox = {
       ~display: responsive=?,
       ~extend: Fela.style=?,
       ~style: ReactDOMRe.style=?,
+      ~className: string=?,
       ~domProps: Js.t('a)=?
     ) =>
     React.element =
@@ -84,6 +86,7 @@ let make =
       ~wrap=?,
       ~extend=?,
       ~style=?,
+      ~className=?,
       ~domProps=?,
       ref,
     ) =>
@@ -92,7 +95,8 @@ let make =
       ?_as
       ?extend
       ?style
-      domProps={toDomProps(domProps)}
+      ?className
+      domProps={fromDomProps(domProps)}
       space={toResponsive(space)}
       alignSelf={toResponsive(alignSelf)}
       alignItems={toResponsive(alignItems)}

@@ -13,9 +13,8 @@ view Input {
   __MozAppearance: none
   __appearance: none
   __outline: 0
-  flexGrow: 1
-  flexShrink: 1
   borderWidth: 2
+  flexShrink: 1
   alignSelf: flexStart
   width: percentage(100)
   borderStyle: solid
@@ -76,7 +75,7 @@ view Input {
 }
 
 text InputText {
-  fontSize: 18
+  fontSize: 16
   lineHeight: 1.25
   color: rgb(20 20 20)
   [Position=End] {
@@ -92,7 +91,7 @@ view Mask {
   backgroundColor: rgb(220 220 220)
   alignItems: center
   justifyContent: center
-  paddingTop: 13
+  paddingTop: 11
   paddingBottom: 11
   [Position=Start] {
     paddingLeft: 12
@@ -115,5 +114,5 @@ view Mask {
 text MaskText {
   color: rgb(100 100 100)
   lineHeight: 1.2
-  fontSize: 18
+  fontSize: 16
 }

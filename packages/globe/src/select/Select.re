@@ -43,7 +43,7 @@ let make =
           ~backgroundImage="url(\"data:image/svg+xml;base64," ++ icon ++ "\")",
           (),
         )}
-        className={css([
+        className={cls([
           SelectStyle.input(
             ~validation=?isValid ? None : Some(SelectStyle.Invalid),
             (),

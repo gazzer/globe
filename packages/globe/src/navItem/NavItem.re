@@ -1,8 +1,9 @@
 open OptionUtils;
+open ReactUtils;
 
 [@react.component]
 let make = (~children, ~href, ~active=?, ~disabled=false, ~icon, ~extend=?) => {
-  let css = ReactFela.useFela();
+  let css = ReactFela.useFela1();
 
   let status =
     resolveOption(
@@ -15,22 +16,22 @@ let make = (~children, ~href, ~active=?, ~disabled=false, ~icon, ~extend=?) => {
 
   <a
     href
-    className={css(
+    className={cls(
       collapseOption([
         Some(NavItemStyle.navItem(~status, ~state, ())),
         Some(NavItemStyle.navItemText(~state, ())),
-        extend,
+        resolveOption(extend, e => Some(css(e)), None),
       ]),
     )}>
     <div
-      className={css([
+      className={cls([
         NavItemStyle.navItemIcon(),
         NavItemStyle.navItemIconText(),
-        Fela.style({
-          "& path": {
-            fill: "white",
-          },
-        }),
+        css(Fela.style({
+              "& path": {
+                fill: "white",
+              },
+            })),
       ])}>
       icon
     </div>

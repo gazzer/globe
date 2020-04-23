@@ -41,14 +41,14 @@ let make =
       ~text=?,
       ~children=?,
     ) => {
-  let css = ReactFela.useFela();
+  let css1 = ReactFela.useFela1();
 
   if (loading) {
     <button
       ?disabled
       ?style
       type_="button"
-      className={css(
+      className={cls(
         collapseOption([
           Some(ButtonStyle.button(~variant, ~intent, ())),
           Some(ButtonStyle.buttonText(~size, ~variant, ~intent, ())),
@@ -56,28 +56,33 @@ let make =
             intent === ButtonStyle.Outline
             && !resolveOption(disabled, d => d, false)
               ? Some(
-                  Fela.style({
-                    "& svg": {
-                      "transition": "150ms fill ease-in-out",
-                    },
-                    ":hover": {
+                  css1(
+                    Fela.style({
                       "& svg": {
-                        "fill": "white",
+                        "transition": "150ms fill ease-in-out",
                       },
-                    },
-                    ":active": {
-                      "& svg": {
-                        "fill": "white",
+                      ":hover": {
+                        "& svg": {
+                          "fill": "white",
+                        },
                       },
-                    },
-                  }),
+                      ":active": {
+                        "& svg": {
+                          "fill": "white",
+                        },
+                      },
+                    }),
+                  ),
                 )
               : None;
           },
         ]),
       )}>
-      <div style={ReactDOMRe.Style.make(~flexDirection="column", ())}>
+      <div
+        className="_v"
+        style={ReactDOMRe.Style.make(~flexDirection="column", ())}>
         <div
+          className="_v"
           style={ReactDOMRe.Style.make(
             ~flexDirection="row",
             ~justifyContent="center",
@@ -130,7 +135,7 @@ let make =
       <a
         ?style
         ?disabled
-        className={css([
+        className={cls([
           ButtonStyle.button(~variant, ~intent, ()),
           ButtonStyle.buttonText(~size, ~variant, ~intent, ()),
         ])}>
@@ -146,7 +151,7 @@ let make =
         ?onMouseDown
         ?onClick
         ?style
-        className={css([
+        className={cls([
           ButtonStyle.button(~variant, ~intent, ()),
           ButtonStyle.buttonText(~size, ~variant, ~intent, ()),
         ])}>
@@ -158,7 +163,7 @@ let make =
         ?style
         type_="submit"
         value=?text
-        className={css([
+        className={cls([
           ButtonStyle.button(~variant, ~intent, ()),
           ButtonStyle.buttonText(~size, ~variant, ~intent, ()),
         ])}

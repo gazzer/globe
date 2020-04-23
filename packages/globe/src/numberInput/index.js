@@ -1,7 +1,3 @@
-import React, { forwardRef } from 'react'
+import { make as NumberInput } from './NumberInput.bs.js'
 
-import { make as BaseNumberInput } from './NumberInput.bs.js'
-
-export default forwardRef((props, ref) => (
-  <BaseNumberInput {...props} ref={ref} />
-))
+export default NumberInput

@@ -6,7 +6,5 @@ let align = {
 
 [@react.component]
 let make = (~children, ~style=?, ~align=RowStyle.Start) => {
-  let css = ReactFela.useFela1();
-
-  <div ?style className={css(RowStyle.row(~align, ()))}> children </div>;
+  <div ?style className={RowStyle.row(~align, ())}> children </div>;
 };

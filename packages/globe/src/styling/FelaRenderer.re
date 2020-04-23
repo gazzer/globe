@@ -11,19 +11,19 @@ let staticStyles = [|
   // ),
   // ("a:focus", style({"boxShadow": "0 0 0 2pt rgb(60, 206, 194)"})),
   // ("a:hover:focus, a:active:focus", style({"boxShadow": "none !important"})),
-  (
-    "._v",
-    style({
-      "display": "flex",
-      "alignSelf": "stretch",
-      "flexDirection": "column",
-      "flexShrink": 0,
-      "maxWidth": "100%",
-      "boxSizing": "border-box",
-      "WebkitOverflowScrolling": "touch",
-    }),
-  ),
-  ("._t", style({"display": "inline"})),
+  // (
+  //   "._v",
+  //   style({
+  //     "display": "flex",
+  //     "flexDirection": "column",
+  //     "flexShrink": 1,
+  //     "alignItems": "stretch",
+  //     "maxWidth": "100%",
+  //     "boxSizing": "border-box",
+  //     "WebkitOverflowScrolling": "touch",
+  //   }),
+  // ),
+  // ("._t", style({"display": "inline"})),
   // ("address", style({"fontStyle": "normal"})),
   // (
   //   "html",

@@ -4,11 +4,10 @@ let isClickOnInner: (option(Dom.element), ReactEvent.Mouse.t) => bool = [%bs.raw
 
 [@react.component]
 let make = (~children, ~style=?, ~extend=?, ~onClose=?) => {
-  let css = ReactFela.useFela1();
   let innerRef = React.useRef(Js.Nullable.null);
 
   <div
-    className={css(ModalStyle.modal())}
+    className={ModalStyle.modal()}
     onClick={e => {
       let dom = React.Ref.current(innerRef);
 
@@ -21,7 +20,7 @@ let make = (~children, ~style=?, ~extend=?, ~onClose=?) => {
       };
     }}>
     <div
-      className={css(ModalStyle.modalInner())}
+      className={ModalStyle.modalInner()}
       ref={ReactDOMRe.Ref.domRef(innerRef)}>
       <Card ?style ?extend> children </Card>
     </div>

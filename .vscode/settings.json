@@ -6,6 +6,7 @@
     "**/*.bs.js": true,
     "**/*.elo.js": true,
     "**/*.elo.css": true,
+    "**/*Style.re": true,
     "**/.DS_Store": true,
     "**/.next": true,
     "**/node_modules": true,
@@ -14,7 +15,6 @@
     "**/public": true,
     "**/.graphql_ppx_cache/": true,
     "**/.log": true,
-    "**/*Style.re": true,
     "src/icons/js": true,
     "**/*.gen.*": true
   }

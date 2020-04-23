@@ -4,26 +4,31 @@ open OptionUtils;
 [@react.component]
 let make =
     (~children=?, ~style=?, ~className=?, ~extend=?, ~size=12, ~as_="div") => {
-  let css = ReactFela.useFela();
+  let css = ReactFela.useFela1();
+
+  let width = Js.Float.toString(float_of_int(size) /. 12. *. 100.) ++ "%";
 
   ReactDOMRe.createDOMElementVariadic(
     as_,
     ~props=
       ReactDOMRe.domProps(
         ~className=
-          css(
+          cls(
             collapseOption([
+              Some(ColStyle.col()),
               Some(
-                ColStyle.col(
-                  ~width={
-                    Js.Float.toString(float_of_int(size) /. 12. *. 100.)
-                    ++ "%";
-                  },
-                  (),
+                css(
+                  Fela.style({
+                    "@media (min-width: 1024px)": {
+                      "flexBasis": width,
+                      "maxWidth": width,
+                    },
+                  }),
                 ),
               ),
-              resolveOption(className, c => Some(Fela.raw(c)), None),
-              extend,
+              Some(ColStyle.col()),
+              className,
+              resolveOption(extend, e => Some(css(e)), None),
             ]),
           ),
         ~style?,

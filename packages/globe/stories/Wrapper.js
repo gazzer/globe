@@ -1,5 +1,9 @@
 import React from 'react'
 
+import Box from '../src/box'
+
 export default ({ children, style }) => (
-  <div style={{ width: '100%', maxWidth: 450, ...style }}>{children}</div>
+  <Box width="100%" maxWidth={450} style={style}>
+    {children}
+  </Box>
 )

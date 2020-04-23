@@ -1,0 +1,10 @@
+variant Resize {
+  Resize
+  NoResize
+}
+
+view TextArea {
+  [Resize=NoResize] {
+    __resize: none
+  }
+}

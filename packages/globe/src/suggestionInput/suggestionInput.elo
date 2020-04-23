@@ -23,9 +23,6 @@ view SuggestionContainer {
   position: absolute
   marginTop: 46
   maxHeight: 200
-  width: $width
-  maxWidth: $width
-  marginLeft: $offset
   borderBottomLeftRadius: 7
   borderBottomRightRadius: 7
   backgroundColor: white

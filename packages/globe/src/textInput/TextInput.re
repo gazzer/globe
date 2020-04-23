@@ -29,13 +29,13 @@ let make =
       ~onKeyDown=?,
       ~ariaExpanded=?,
       ~onChange: string => unit,
-      ~extend: option(Fela.style)=?,
+      ~extend: option(string)=?,
       ~style: option(ReactDOMRe.style)=?,
       ref,
     ) => {
-    let css = ReactFela.useFela();
+    let css = ReactFela.useFela1();
 
-    <Box space={Int(1)} grow={Int(1)} shrink={Int(1)}>
+    <Box space={Int(1)} width={String("100%")} shrink={Int(1)}>
       {switch (label) {
        | Some(label) =>
          <Label
@@ -47,12 +47,12 @@ let make =
          </Label>
        | None => n
        }}
-      <Box grow={Int(1)} shrink={Int(1)}>
-        <Box direction={String("row")} grow={Int(1)} shrink={Int(1)}>
+      <Box shrink={Int(1)}>
+        <Box direction={String("row")} shrink={Int(1)}>
           {switch (maskStart) {
            | Some(mask) =>
              <div
-               className={css([
+               className={cls([
                  TextInputStyle.mask(~position=TextInputStyle.Start, ()),
                  TextInputStyle.maskText(),
                ])}>
@@ -88,7 +88,7 @@ let make =
             ?style
             ?ariaExpanded
             // ?required
-            className={css(
+            className={cls(
               collapseOption([
                 Some(
                   TextInputStyle.input(
@@ -127,7 +127,7 @@ let make =
                     (),
                   ),
                 ),
-                extend,
+                resolveOption(extend, e => Some(css(e)), None),
               ]),
             )}
             value
@@ -138,7 +138,7 @@ let make =
           {switch (maskEnd) {
            | Some(mask) =>
              <div
-               className={css([
+               className={cls([
                  TextInputStyle.mask(~position=TextInputStyle.End_, ()),
                  TextInputStyle.maskText(),
                ])}>

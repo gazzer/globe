@@ -8,6 +8,7 @@ import {
   BaselineGrid,
   Card,
   Checkbox,
+  Spacer,
   Col,
   DateInput,
   DatePicker,
@@ -42,7 +43,7 @@ import Separator from './Separator'
 storiesOf('Debug', module)
   .add('Components', () => {
     const Icon = ({ type }) => (
-      <div
+      <Box
         style={{
           width: 50,
           height: 50,
@@ -57,7 +58,7 @@ storiesOf('Debug', module)
             marginBottom: 5,
           },
         })}
-      </div>
+      </Box>
     )
 
     const ModalWithTrigger = () => {
@@ -67,18 +68,18 @@ storiesOf('Debug', module)
 
       return (
         <>
-          <div style={{ alignSelf: 'flex-start' }}>
+          <Box style={{ alignSelf: 'flex-start' }}>
             <Button onClick={() => setVisible(true)}>Modal</Button>
-          </div>
+          </Box>
           {visible ? (
             <Modal onClose={close} style={{ backgroundColor: 'white' }}>
-              <div style={{ width: 200 }}>
+              <Box style={{ width: 200 }}>
                 <h2 style={{ textAlign: 'center' }}>Modal</h2>
                 <br />
                 <Button variant={Button.variant.Destructive} onClick={close}>
                   Close
                 </Button>
-              </div>
+              </Box>
             </Modal>
           ) : null}
         </>
@@ -142,7 +143,7 @@ storiesOf('Debug', module)
 
     const Column = ({ children, size }) => (
       <Col size={size}>
-        <div
+        <Box
           style={{
             backgroundColor: 'white',
             borderRadius: 7,
@@ -151,7 +152,7 @@ storiesOf('Debug', module)
             border: '1px solid grey',
           }}>
           {children}
-        </div>
+        </Box>
       </Col>
     )
 
@@ -404,7 +405,7 @@ storiesOf('Debug', module)
       const [active, setActive] = React.useState('events')
 
       return (
-        <div>
+        <Box>
           <TabNav onChange={setActive}>
             <TabNavItem id="events" active={active === 'events'}>
               Events
@@ -416,22 +417,22 @@ storiesOf('Debug', module)
               Guests
             </TabNavItem>
           </TabNav>
-          <div
+          <Box
             style={{
               padding: 50,
               backgroundColor: 'white',
             }}>
             {active === 'events' && (
-              <div style={{ alignSelf: 'center' }}>Events View</div>
+              <Box style={{ alignSelf: 'center' }}>Events View</Box>
             )}
             {active === 'communitys' && (
-              <div style={{ alignSelf: 'center' }}>Communities View</div>
+              <Box style={{ alignSelf: 'center' }}>Communities View</Box>
             )}
             {active === 'guests' && (
-              <div style={{ alignSelf: 'center' }}>Guests View</div>
+              <Box style={{ alignSelf: 'center' }}>Guests View</Box>
             )}
-          </div>
-        </div>
+          </Box>
+        </Box>
       )
     }
 
@@ -444,8 +445,8 @@ storiesOf('Debug', module)
             <Accordion
               expanded={expanded}
               onChange={setExpanded}
-              trigger={ex => <div>{ex ? 'Hide' : 'Show'}</div>}>
-              <div style={{ padding: 10, backgroundColor: 'white' }}>
+              trigger={ex => <Box>{ex ? 'Hide' : 'Show'}</Box>}>
+              <Box style={{ padding: 10, backgroundColor: 'white' }}>
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                 diam nonumy eirmod tempor invidunt ut labore et dolore magna
                 aliquyam erat, sed diam voluptua. At vero eos et accusam et
@@ -456,7 +457,7 @@ storiesOf('Debug', module)
                 sed diam voluptua. At vero eos et accusam et justo duo dolores
                 et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus
                 est Lorem ipsum dolor sit amet.
-              </div>
+              </Box>
             </Accordion>
           </Separator>
         </Wrapper>
@@ -465,8 +466,8 @@ storiesOf('Debug', module)
 
     const ButtonList = ({ intent }) => {
       return (
-        <div style={{ flexDirection: 'row' }}>
-          <div style={{ width: 200 }}>
+        <Box style={{ flexDirection: 'row' }}>
+          <Box style={{ width: 200 }}>
             <Separator>
               <Button intent={intent} size={Button.size.Small}>
                 Small Button
@@ -506,8 +507,8 @@ storiesOf('Debug', module)
                 Big Button
               </Button>
             </Separator>
-          </div>
-          <div style={{ width: 200 }}>
+          </Box>
+          <Box style={{ width: 200 }}>
             <Separator>
               <Button intent={intent} loading size={Button.size.Small}>
                 Small Button
@@ -550,8 +551,8 @@ storiesOf('Debug', module)
                 Big Button
               </Button>
             </Separator>
-          </div>
-          <div style={{ width: 200 }}>
+          </Box>
+          <Box style={{ width: 200 }}>
             <Separator>
               <Button intent={intent} disabled size={Button.size.Small}>
                 Small Button
@@ -594,8 +595,8 @@ storiesOf('Debug', module)
                 Big Button
               </Button>
             </Separator>
-          </div>
-          <div style={{ width: 200 }}>
+          </Box>
+          <Box style={{ width: 200 }}>
             <Separator>
               <Button loading disabled intent={intent} size={Button.size.Small}>
                 Small Button
@@ -645,8 +646,8 @@ storiesOf('Debug', module)
                 Big Button
               </Button>
             </Separator>
-          </div>
-        </div>
+          </Box>
+        </Box>
       )
     }
 
@@ -668,7 +669,7 @@ storiesOf('Debug', module)
           </Text>
         </Separator>
         <Separator>
-          <div style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+          <Box direction="row" wrap="wrap">
             <Icon type="address" />
             <Icon type="adjust" />
             <Icon type="air" />
@@ -954,7 +955,7 @@ storiesOf('Debug', module)
             <Icon type="volume" />
             <Icon type="water" />
             <Icon type="window" />
-          </div>
+          </Box>
         </Separator>
         <br />
         <br />
@@ -1050,7 +1051,7 @@ storiesOf('Debug', module)
         </Grid>
         <br />
         <Separator style={{ flexDirection: 'row' }}>
-          <div
+          <Box
             style={{
               width: 80,
               height: 80,
@@ -1058,9 +1059,9 @@ storiesOf('Debug', module)
               backgroundColor: 'rgb(180, 180, 180)',
             }}>
             0
-          </div>
-          <Box width={4} size={4} />
-          <div
+          </Box>
+          <Spacer size={4} />
+          <Box
             style={{
               width: 80,
               height: 80,
@@ -1068,9 +1069,9 @@ storiesOf('Debug', module)
               backgroundColor: 'rgb(180, 180, 180)',
             }}>
             4
-          </div>
-          <Box width={8} size={8} />
-          <div
+          </Box>
+          <Spacer size={8} />
+          <Box
             style={{
               width: 80,
               height: 80,
@@ -1078,9 +1079,9 @@ storiesOf('Debug', module)
               backgroundColor: 'rgb(180, 180, 180)',
             }}>
             8
-          </div>
-          <Box width={16} size={16} />
-          <div
+          </Box>
+          <Spacer size={16} />
+          <Box
             style={{
               width: 80,
               height: 80,
@@ -1088,9 +1089,9 @@ storiesOf('Debug', module)
               backgroundColor: 'rgb(180, 180, 180)',
             }}>
             16
-          </div>
-          <Box width={32} size={32} />
-          <div
+          </Box>
+          <Spacer size={32} />
+          <Box
             style={{
               width: 80,
               height: 80,
@@ -1098,7 +1099,7 @@ storiesOf('Debug', module)
               backgroundColor: 'rgb(180, 180, 180)',
             }}>
             32
-          </div>
+          </Box>
         </Separator>
         <Separator>
           <Box direction="row" space={3}>
@@ -1143,8 +1144,8 @@ storiesOf('Debug', module)
         <ButtonList intent={Button.intent.Outline} />
         <ButtonList intent={Button.intent.Text} />
         <br />
-        <div style={{ flexDirection: 'row' }}>
-          <div style={{ width: 400, flexDirection: 'row' }}>
+        <Box style={{ flexDirection: 'row' }}>
+          <Box style={{ width: 400, flexDirection: 'row' }}>
             <Separator>
               <IconButton>
                 <Icons.plus />
@@ -1155,9 +1156,9 @@ storiesOf('Debug', module)
                 <Icons.minus />
               </IconButton>
             </Separator>
-          </div>
+          </Box>
 
-          <div style={{ width: 400, flexDirection: 'row' }}>
+          <Box style={{ width: 400, flexDirection: 'row' }}>
             <Separator>
               <IconButton disabled>
                 <Icons.plus />
@@ -1168,23 +1169,23 @@ storiesOf('Debug', module)
                 <Icons.minus />
               </IconButton>
             </Separator>
-          </div>
-        </div>
+          </Box>
+        </Box>
         <br />
-        <div style={{ flexDirection: 'row' }}>
-          <div style={{ width: 400 }}>
+        <Box style={{ flexDirection: 'row' }}>
+          <Box style={{ width: 400 }}>
             <Separator>
               <Link href="/test">Clickable Link</Link>
             </Separator>
-          </div>
-          <div style={{ width: 400 }}>
+          </Box>
+          <Box style={{ width: 400 }}>
             <Separator>
               <Link disabled href="/test">
                 Disabled Link
               </Link>
             </Separator>
-          </div>
-        </div>
+          </Box>
+        </Box>
         <br />
         <br />
         <Separator>
@@ -1219,112 +1220,112 @@ storiesOf('Debug', module)
         <Separator>
           <h2>Forms</h2>
         </Separator>
-        <div style={{ flexDirection: 'row' }}>
-          <div style={{ width: 500 }}>
+        <Box style={{ flexDirection: 'row' }}>
+          <Box style={{ width: 500 }}>
             <TextInputWithValue />
-          </div>
-          <div style={{ width: 500 }}>
+          </Box>
+          <Box style={{ width: 500 }}>
             <TextInputWithValue disabled />
-          </div>
-        </div>
-        <div style={{ flexDirection: 'row' }}>
-          <div style={{ width: 500 }}>
+          </Box>
+        </Box>
+        <Box style={{ flexDirection: 'row' }}>
+          <Box style={{ width: 500 }}>
             <NumberInputWithValue />
-          </div>
-          <div style={{ width: 500 }}>
+          </Box>
+          <Box style={{ width: 500 }}>
             <NumberInputWithValue disabled />
-          </div>
-        </div>
-        <div style={{ flexDirection: 'row' }}>
-          <div style={{ width: 500 }}>
+          </Box>
+        </Box>
+        <Box style={{ flexDirection: 'row' }}>
+          <Box style={{ width: 500 }}>
             <SelectWithValue />
-          </div>
-          <div style={{ width: 500 }}>
+          </Box>
+          <Box style={{ width: 500 }}>
             <SelectWithValue disabled />
-          </div>
-        </div>
-        <div style={{ flexDirection: 'row' }}>
-          <div style={{ width: 500 }}>
+          </Box>
+        </Box>
+        <Box style={{ flexDirection: 'row' }}>
+          <Box style={{ width: 500 }}>
             <SuggestionInputWithValue />
-          </div>
-          <div style={{ width: 500 }}>
+          </Box>
+          <Box style={{ width: 500 }}>
             <SuggestionInputWithValue disabled />
-          </div>
-        </div>
-        <div style={{ flexDirection: 'row' }}>
-          <div style={{ width: 500 }}>
+          </Box>
+        </Box>
+        <Box style={{ flexDirection: 'row' }}>
+          <Box style={{ width: 500 }}>
             <DatePickerWithValue />
-          </div>
-          <div style={{ width: 500 }}>
+          </Box>
+          <Box style={{ width: 500 }}>
             <DatePickerWithValue disabled />
-          </div>
-        </div>
-        <div style={{ flexDirection: 'row' }}>
-          <div style={{ width: 500 }}>
+          </Box>
+        </Box>
+        <Box style={{ flexDirection: 'row' }}>
+          <Box style={{ width: 500 }}>
             <TimeInputWithValue />
-          </div>
-          <div style={{ width: 500 }}>
+          </Box>
+          <Box style={{ width: 500 }}>
             <TimeInputWithValue disabled />
-          </div>
-        </div>
-        <div style={{ flexDirection: 'row' }}>
-          <div style={{ width: 500 }}>
+          </Box>
+        </Box>
+        <Box style={{ flexDirection: 'row' }}>
+          <Box style={{ width: 500 }}>
             <DateInputWithValue />
-          </div>
-          <div style={{ width: 500 }}>
+          </Box>
+          <Box style={{ width: 500 }}>
             <DateInputWithValue disabled />
-          </div>
-        </div>
-        <div style={{ flexDirection: 'row' }}>
-          <div style={{ width: 500 }}>
+          </Box>
+        </Box>
+        <Box style={{ flexDirection: 'row' }}>
+          <Box style={{ width: 500 }}>
             <DateTimeInputWithValue />
-          </div>
-          <div style={{ width: 500 }}>
+          </Box>
+          <Box style={{ width: 500 }}>
             <DateTimeInputWithValue disabled />
-          </div>
-        </div>
-        <div style={{ flexDirection: 'row' }}>
-          <div style={{ width: 500 }}>
+          </Box>
+        </Box>
+        <Box style={{ flexDirection: 'row' }}>
+          <Box style={{ width: 500 }}>
             <CheckboxWithValue />
-          </div>
-          <div style={{ width: 500 }}>
+          </Box>
+          <Box style={{ width: 500 }}>
             <CheckboxWithValue disabled />
-          </div>
-        </div>
-        <div style={{ flexDirection: 'row' }}>
-          <div style={{ width: 500 }}>
+          </Box>
+        </Box>
+        <Box style={{ flexDirection: 'row' }}>
+          <Box style={{ width: 500 }}>
             <RadioWithValue />
-          </div>
-          <div style={{ width: 500 }}>
+          </Box>
+          <Box style={{ width: 500 }}>
             <RadioWithValue disabled />
-          </div>
-        </div>
-        <div style={{ flexDirection: 'row' }}>
-          <div style={{ width: 500 }}>
+          </Box>
+        </Box>
+        <Box style={{ flexDirection: 'row' }}>
+          <Box style={{ width: 500 }}>
             <ToggleWithValue />
-          </div>
-          <div style={{ width: 500 }}>
+          </Box>
+          <Box style={{ width: 500 }}>
             <ToggleWithValue disabled />
-          </div>
-        </div>
+          </Box>
+        </Box>
         <br /> <br />
         <Separator>
           <h2>Navigation</h2>
         </Separator>
         <Separator>
-          <div style={{ width: 500, border: '1px solid grey' }}>
+          <Box style={{ width: 500, border: '1px solid grey' }}>
             <Nav>
               <NavItem active icon={<Icons.home />}>
                 Home
               </NavItem>
               <NavItem icon={<Icons.user />}>Account</NavItem>
             </Nav>
-          </div>
+          </Box>
         </Separator>
         <Separator>
-          <div style={{ width: 500, border: '1px solid grey' }}>
+          <Box style={{ width: 500, border: '1px solid grey' }}>
             <TabNavigation />
-          </div>
+          </Box>
         </Separator>
       </>
     )

@@ -63,7 +63,7 @@ text NavItemText {
   lineHeight: .9
   color: white
   [@viewportWidth>=1024] {
-    fontSize: 18
+    fontSize: 16
     lineHeight: 1
   }
   [State=Disabled] {

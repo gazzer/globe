@@ -7,8 +7,6 @@ let layout = {
 
 [@react.component]
 let make = (~children, ~onChange, ~style=?, ~layout=TabNavStyle.Center) => {
-  let css = ReactFela.useFela1();
-
   let childLayout =
     switch (layout) {
     | Spread => TabNavItemStyle.Spread
@@ -20,8 +18,6 @@ let make = (~children, ~onChange, ~style=?, ~layout=TabNavStyle.Center) => {
   let context: TabNavContext.context = {onChange, layout: childLayout};
 
   <TabNavContext.Provider value=context>
-    <nav ?style className={css(TabNavStyle.tabNav(~layout, ()))}>
-      children
-    </nav>
+    <nav ?style className={TabNavStyle.tabNav(~layout, ())}> children </nav>
   </TabNavContext.Provider>;
 };

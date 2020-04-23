@@ -4,6 +4,7 @@ variant Mode {
 
 view Trigger {
   __cursor: pointer
+  __display: flex
   flexDirection: row
   justifyContent: spaceBetween
   alignItems: center

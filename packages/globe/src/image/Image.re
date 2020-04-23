@@ -1,4 +1,5 @@
 open OptionUtils;
+open ReactUtils;
 
 [@react.component]
 let make =
@@ -9,7 +10,7 @@ let make =
     src
     ?alt
     ?style
-    className={css(
+    className={cls(
       collapseOption([
         Some(ImageStyle.image(~height, ~width, ~maxHeight, ())),
         extend,

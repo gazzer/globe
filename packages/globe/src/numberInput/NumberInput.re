@@ -16,7 +16,7 @@ let make =
       ~label=?,
       ~error=?,
     ) => {
-  <Box space={Int(1)} grow={Int(1)} shrink={Int(1)}>
+  <Box space={Int(1)} width={String("100%")} shrink={Int(1)}>
     {switch (label) {
      | Some(label) =>
        <Label ?disabled pointer=true htmlFor=name> label </Label>
@@ -25,7 +25,7 @@ let make =
     <Box
       direction={String("row")}
       space={Int(1)}
-      grow={Int(1)}
+      grow={Int(0)}
       shrink={Int(1)}>
       <Button
         ?disabled
@@ -34,7 +34,7 @@ let make =
         style={ReactDOMRe.Style.make(
           ~padding="8px",
           ~minWidth="unset",
-          ~flexGrow="0",
+          ~width="auto",
           ~alignSelf="center",
           (),
         )}
@@ -63,7 +63,6 @@ let make =
         type_="number"
         ?min
         ?max
-        style={ReactDOMRe.Style.make(~flexGrow="1", ())}
         value={string_of_int(value)}
         onChange={value =>
           onChange(String.length(value) > 0 ? int_of_string(value) : 0)
@@ -76,7 +75,7 @@ let make =
         style={ReactDOMRe.Style.make(
           ~padding="8px",
           ~minWidth="unset",
-          ~flexGrow="0",
+          ~width="auto",
           ~alignSelf="center",
           (),
         )}

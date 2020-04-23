@@ -1,35 +1,33 @@
-import React, { createElement } from "react";
-import { storiesOf } from "@storybook/react";
+import React, { createElement } from 'react'
+import { storiesOf } from '@storybook/react'
 
-import Icons from "./";
+import Icons from './'
+import Box from '../box'
 
-import Wrapper from "../../stories/Wrapper";
-import Separator from "../../stories/Separator";
+import Wrapper from '../../stories/Wrapper'
+import Separator from '../../stories/Separator'
 
 const Icon = ({ type }) => (
-  <div
-    style={{
-      width: 150,
-      padding: 5,
-      marginBottom: 20,
-      alignItems: "center",
-      justifyContent: "center"
-    }}
-  >
+  <Box
+    width={150}
+    padding={1}
+    marginBottom={5}
+    justifyContent="center"
+    alignItems="center">
     {createElement(Icons[type], {
       style: {
         fontSize: 28,
-        alignSelf: "center",
-        marginBottom: 5
-      }
+        alignSelf: 'center',
+        marginBottom: 5,
+      },
     })}
-    <div style={{ textAlign: "center" }}>{type}</div>
-  </div>
-);
+    <Box style={{ textAlign: 'center' }}>{type}</Box>
+  </Box>
+)
 
-storiesOf("Core/Icons", module).add("Default", () => (
+storiesOf('Core/Icons', module).add('Default', () => (
   <Separator>
-    <div style={{ flexDirection: "row", flexWrap: "wrap" }}>
+    <Box direction="row" wrap="wrap">
       <Icon type="address" />
       <Icon type="adjust" />
       <Icon type="air" />
@@ -315,6 +313,6 @@ storiesOf("Core/Icons", module).add("Default", () => (
       <Icon type="volume" />
       <Icon type="water" />
       <Icon type="window" />
-    </div>
+    </Box>
   </Separator>
-));
+))

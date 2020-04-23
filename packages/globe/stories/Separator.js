@@ -1,5 +1,7 @@
 import React from 'react'
 
+import Box from '../src/box'
+
 export default ({ children, style = {} }) => (
-  <div style={{ padding: 5, ...style }}>{children}</div>
+  <Box extend={{ padding: 5, ...style }}>{children}</Box>
 )

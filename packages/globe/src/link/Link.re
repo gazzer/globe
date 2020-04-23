@@ -1,4 +1,5 @@
 open OptionUtils;
+open ReactUtils;
 
 external childrenToString: React.element => string = "%identity";
 
@@ -25,7 +26,7 @@ let make =
       title={resolveOption(title, t => t, childrenToString(children))}
       ref=?{ref->Js.Nullable.toOption->Belt.Option.map(ReactDOMRe.Ref.domRef)}
       href=?{disabled ? None : href}
-      className={css([
+      className={cls([
         LinkStyle.link(~status?, ~line, ()),
         LinkStyle.linkText(~status?, ()),
       ])}>

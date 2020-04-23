@@ -1,10 +1,11 @@
 open OptionUtils;
+open ReactUtils;
 
 [@react.component]
 let make = (~children, ~style=?, ~extend=?) => {
   let css = ReactFela.useFela();
 
-  <div className={css([NavStyle.container()])}>
+  <div className={NavStyle.container()}>
     <Grid
       extend={Fela.style({
         "padding": 0,
@@ -15,7 +16,12 @@ let make = (~children, ~style=?, ~extend=?) => {
       })}>
       <nav
         ?style
-        className={css(collapseOption([Some(NavStyle.nav()), extend]))}>
+        className={cls(
+          collapseOption([
+            Some(NavStyle.nav()),
+            resolveOption(extend, e => Some(css(e)), None),
+          ]),
+        )}>
         children
       </nav>
     </Grid>

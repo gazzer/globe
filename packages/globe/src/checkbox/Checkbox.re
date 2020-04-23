@@ -50,11 +50,9 @@ let make =
           ?onFocus
           ?onBlur
           // ?required
-          className={css(
-            CheckboxStyle.checkbox(
-              ~validation=?isValid ? None : Some(CheckboxStyle.Invalid),
-              (),
-            ),
+          className={CheckboxStyle.checkbox(
+            ~validation=?isValid ? None : Some(CheckboxStyle.Invalid),
+            (),
           )}
         />
         {switch (label) {

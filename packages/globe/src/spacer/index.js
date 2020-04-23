@@ -1,3 +1,3 @@
-import { make as Spacer } from './Spacer.bs.js'
+import { Spacer } from 'kilvin'
 
 export default Spacer

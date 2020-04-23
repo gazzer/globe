@@ -1,9 +1,8 @@
 open OptionUtils;
+open ReactUtils;
 
 [@react.component]
 let make = (~children, ~id, ~active=?, ~disabled=false) => {
-  let css = ReactFela.useFela();
-
   let {onChange, layout}: TabNavContext.context =
     React.useContext(TabNavContext.context);
 
@@ -22,7 +21,7 @@ let make = (~children, ~id, ~active=?, ~disabled=false) => {
         onChange(id);
       }
     }
-    className={css([
+    className={cls([
       TabNavItemStyle.tabNavItem(~status, ~layout, ~state, ()),
       TabNavItemStyle.tabNavItemText(~status, ~state, ()),
     ])}>

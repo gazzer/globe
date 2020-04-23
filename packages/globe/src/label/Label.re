@@ -10,11 +10,9 @@ let make =
       ~optional=false,
       ~required=false,
     ) => {
-  let css = ReactFela.useFela();
-
   <label
     htmlFor
-    className={css([
+    className={cls([
       LabelStyle.label(
         ~cursor=pointer && !disabled ? "pointer" : "inherit",
         (),

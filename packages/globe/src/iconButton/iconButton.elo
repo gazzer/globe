@@ -21,7 +21,6 @@ view IconButton {
   height: 48
   alignItems: center
   justifyContent: center
-  alignSelf: flexStart
   borderRadius: 48
   [Variant=Primary] {
     __boxShadow: raw("0 4px 12px rgba(0, 207, 192, 0.4)")

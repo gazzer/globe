@@ -1,9 +1,10 @@
-var createGenerator = require('./generator/out/createGenerator').default
+var createGenerator = require('@elodin/generator-reason').createGenerator
 var replaceVariable = require('@elodin/plugin-replace-variable').default
 
 var gazzerTheme = require('./src/themes/gazzer')
 
 module.exports = {
+  sources: ['src'],
   plugins: [
     replaceVariable({
       variables: { theme: gazzerTheme },
@@ -15,7 +16,6 @@ module.exports = {
   ],
   generator: createGenerator({
     devMode: process.env.NODE_ENV !== 'production',
-    extractCSS: false,
     viewBaseClassName: '_v',
     textBaseClassName: '_t',
   }),

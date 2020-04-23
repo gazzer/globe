@@ -1,12 +1,18 @@
 open OptionUtils;
+open ReactUtils;
 
 [@react.component]
 let make = (~children, ~style=?, ~extend=?) => {
-  let css = ReactFela.useFela();
+  let css = ReactFela.useFela1();
 
   <div
     ?style
-    className={css(collapseOption([Some(GridStyle.grid()), extend]))}>
+    className={cls(
+      collapseOption([
+        Some(GridStyle.grid()),
+        resolveOption(extend, e => Some(css(e)), None),
+      ]),
+    )}>
     children
   </div>;
 };

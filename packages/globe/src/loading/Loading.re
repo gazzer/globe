@@ -9,7 +9,7 @@ let make = (~size=5, ~className=?, ~color="rgb(0, 176, 164)") => {
   let radius = string_of_int(r);
   let lowRadius = string_of_int(r / 3);
   let height = string_of_int(pxSize);
-  let width = string_of_int(pxSize * 3 + r * 2);
+  let width = string_of_int(pxSize * 3 + r);
 
   let animateValues =
     radius ++ ";" ++ lowRadius ++ ";" ++ radius ++ ";" ++ radius;

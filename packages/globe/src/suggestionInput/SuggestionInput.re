@@ -67,7 +67,6 @@ let make =
 
   let debouncedValue = useDebounce(value, debounce);
 
-  Js.log(inputOffset);
   current := debouncedValue;
 
   React.useEffect1(
@@ -113,7 +112,7 @@ let make =
        <Label ?disabled pointer=true htmlFor=name> label </Label>
      | None => n
      }}
-    <Box grow={Int(1)} shrink={Int(1)} ref=containerRef>
+    <Box width={String("100%")} shrink={Int(1)} ref=containerRef>
       <TextInput
         ?required
         ?disabled
@@ -197,16 +196,17 @@ let make =
       {showSuggestions
          ? <div
              role="menu"
-             className={css(
-               SuggestionInputStyle.suggestionContainer(
-                 ~width=?inputWidth,
-                 ~offset=?inputOffset,
-                 (),
-               ),
-             )}>
+             className={cls([
+               SuggestionInputStyle.suggestionContainer(),
+               css({
+                 "width": inputWidth,
+                 "maxWidth": inputWidth,
+                 "marginLeft": inputOffset,
+               }),
+             ])}>
              {loading
-                ? <div className={css(SuggestionInputStyle.suggestion())}>
-                    <Loading size=18 />
+                ? <div className={SuggestionInputStyle.suggestion()}>
+                    <Loading size=5 />
                   </div>
                 : Js.Array.mapi(
                     (suggestion, index) =>

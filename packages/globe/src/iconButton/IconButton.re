@@ -1,3 +1,5 @@
+open ReactUtils;
+
 let variant = {
   "Primary": IconButtonStyle.variantToJs(IconButtonStyle.Primary),
   "Destructive": IconButtonStyle.variantToJs(IconButtonStyle.Destructive),
@@ -5,20 +7,20 @@ let variant = {
 
 [@react.component]
 let make = (~children, ~variant=IconButtonStyle.Primary, ~disabled=?, ~href=?) => {
-  let css = ReactFela.useFela();
+  let css = ReactFela.useFela1();
 
   if (href !== None) {
     <Next.Link ?href>
       <a
         ?disabled
-        className={css([
+        className={cls([
           IconButtonStyle.iconButton(~variant, ()),
           IconButtonStyle.iconButtonText(),
-          Fela.style({
-            "& path": {
-              "fill": "white",
-            },
-          }),
+          css(Fela.style({
+                "& path": {
+                  "fill": "white",
+                },
+              })),
         ])}>
         children
       </a>
@@ -26,14 +28,14 @@ let make = (~children, ~variant=IconButtonStyle.Primary, ~disabled=?, ~href=?) =
   } else {
     <button
       ?disabled
-      className={css([
+      className={cls([
         IconButtonStyle.iconButton(~variant, ()),
         IconButtonStyle.iconButtonText(),
-        Fela.style({
-          "& path": {
-            "fill": "white",
-          },
-        }),
+        css(Fela.style({
+              "& path": {
+                "fill": "white",
+              },
+            })),
       ])}>
       children
     </button>;

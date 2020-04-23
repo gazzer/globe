@@ -1,4 +1,5 @@
 open OptionUtils;
+open ReactUtils;
 
 let elevation = {
   "Minimal": CardStyle.elevationToJs(CardStyle.Minimal),
@@ -14,10 +15,10 @@ let make =
 
   <div
     ?style
-    className={css(
+    className={cls(
       collapseOption([
         Some(CardStyle.card(~elevation, ())),
-        resolveOption(className, c => Some(Fela.raw(c)), None),
+        className,
         extend,
       ]),
     )}>

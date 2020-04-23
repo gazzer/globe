@@ -90,19 +90,11 @@ let make =
      | None => n
      }}
     <div
-      className={css(
+      className={cls(
         collapseOption([
-          resolveOption(
-            disabled,
-            d => d ? Some(Fela.raw("disabled")) : None,
-            None,
-          ),
-          focused ? Some(Fela.raw("focused")) : None,
-          resolveOption(
-            isValid,
-            v => v ? None : Some(Fela.raw("invalid")),
-            None,
-          ),
+          resolveOption(disabled, d => d ? Some("disabled") : None, None),
+          focused ? Some("focused") : None,
+          resolveOption(isValid, v => v ? None : Some("invalid"), None),
           Some(DatePickerStyle.container()),
         ]),
       )}>

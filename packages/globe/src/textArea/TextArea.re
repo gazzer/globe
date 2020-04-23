@@ -34,8 +34,6 @@ let make =
       ~autoResize: option(bool)=?,
       ref,
     ) => {
-    let css = ReactFela.useFela();
-
     let shouldResize = resolveOption(autoResize, b => b, true);
 
     React.useEffect(() => {
@@ -65,13 +63,17 @@ let make =
           ?onFocus
           ?style
           // ?required
-          className={css([
+          className={cls([
             TextInputStyle.input(
               ~validation=?isValid ? None : Some(TextInputStyle.Invalid),
               (),
             ),
             TextInputStyle.inputText(),
-            Fela.style({"resize": shouldResize ? Some("none") : None}),
+            TextareaStyle.textArea(
+              ~resize=
+                shouldResize ? TextareaStyle.Resize : TextareaStyle.NoResize,
+              (),
+            ),
           ])}
           value
           onChange={event => {

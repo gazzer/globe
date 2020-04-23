@@ -41,16 +41,13 @@ module.exports = {
       fontSize: 16.0,
       lineHeight: 16.0,
       // baseline correction
-      marginBottom: 1,
-      paddingTop: 3,
+      marginBottom: 2,
+      paddingTop: 2,
     },
     body: {
       element: 'p',
-      fontSize: 18.0,
-      lineHeight: 24.0,
-      // baseline correction
-      marginBottom: 2,
-      paddingTop: 2,
+      fontSize: 16.0,
+      lineHeight: 20,
     },
     category: {
       element: 'h3',

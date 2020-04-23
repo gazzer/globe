@@ -14,9 +14,7 @@ let make =
       ~onChange: bool => unit,
       (),
       ref,
-    ) => {
-    let css = ReactFela.useFela1();
-
+    ) =>
     <Box space={Int(1)}>
       <Box
         direction={String("row")}
@@ -44,11 +42,9 @@ let make =
           name
           ?disabled
           // ?required
-          className={css(
-            ToggleStyle.toggle(
-              ~status=checked ? ToggleStyle.On : ToggleStyle.Off,
-              (),
-            ),
+          className={ToggleStyle.toggle(
+            ~status=checked ? ToggleStyle.On : ToggleStyle.Off,
+            (),
           )}
         />
         {switch (label) {
@@ -61,5 +57,5 @@ let make =
        | Some(error) => <Warning> error </Warning>
        | None => n
        }}
-    </Box>;
-  });
+    </Box>
+  );

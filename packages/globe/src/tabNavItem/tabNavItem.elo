@@ -59,7 +59,7 @@ view TabNavItem {
 
 text TabNavItemText {
   textAlign: center
-  fontSize: 18
+  fontSize: 16
   [Status=Active] {
     color: rgb(0 176 164)
   }
