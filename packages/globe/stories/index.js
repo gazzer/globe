@@ -3,7 +3,7 @@ import { setAddon, configure, addDecorator } from '@storybook/react'
 import { withKnobs } from '@storybook/addon-knobs'
 import StoryWrapper from '../src/StoryWrapper.bs.js'
 
-const req = require.context('../src', true, /stories\.js$/)
+const req = require.context('../src/components', true, /stories\.js$/)
 
 function loadStories() {
   const stories = [

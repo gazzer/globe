@@ -31,7 +31,7 @@
     "build:lib": "cross-env BABEL_ENV=commonjs babel src --out-dir lib --ignore \"src/__tests__\" --copy-files",
     "build:gen": "cross-env BABEL_ENV=commonjs babel generator/src --out-dir generator/out --ignore \"src/__tests__\" --copy-files",
     "build:reason": "bsb -clean-world -make-world",
-    "build:elodin": "elodin --clean",
+    "build:elodin": "cross-env NODE_ENV=production elodin --clean",
     "build:icons": "node scripts/icons.js && svgr -d src/icons/js src/icons/svg --icon",
     "build:storybook": "build-storybook -c .storybook -o ../website/public/storybook",
     "build:styleguide": "styleguidist build",
@@ -90,11 +90,13 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-bucklescript": "^0.5.3",
     "cross-env": "^6.0.3",
+    "css-loader": "^3.5.2",
     "jest": "^23.6.0",
     "playroom": "^0.16.1",
     "react-styleguidist": "^11.0.4",
     "read-transform-write": "^2.1.0",
     "rimraf": "^3.0.0",
+    "style-loader": "^1.1.4",
     "xmldom": "^0.1.27"
   }
 }
